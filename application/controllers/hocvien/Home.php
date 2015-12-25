@@ -19,8 +19,8 @@ class Home extends CM_HocvienController
     {
         $this->load->model('survey');
         $this->load->model('hocvien');
-        $this->data['complete_survey_one']=$this->survey->complete_survey_one($this->auth['id']);
-        $this->data['linkbaigiuaki']=$this->hocvien->get_link_baigiuaki($this->auth['id']);
+        $this->data['complete_survey_one'] = $this->survey->complete_survey_one($this->auth['id']);
+        $this->data['linkbaigiuaki'] = $this->hocvien->get_link_baigiuaki($this->auth['id']);
         $this->data['template'] = "hocvien/dashboard";
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
     }
@@ -63,10 +63,51 @@ class Home extends CM_HocvienController
         $this->survey->insert($this->input->post());
         echo "<div><h2 class='text-center'><i class='fa fa-check fa-4x'></i>Bạn đã hoàn thành survey, bấm <strong>next</strong> để nộp bài giữa kì</h2> </div>";
     }
-    public function nop_baigiuaki(){
-        $this->load->model('survey');
-        $this->survey->nop_baigiuaki($this->input->post('baigiuaki'),$this->auth['id']);
-        echo "<div class='alert alert-success text-center'><i class='fa fa-check'></i> Bạn đã nộp bài thành công</div>";
+
+    public function nop_baigiuaki()
+    {
+        $message = "Wrong method request";
+        if ($this->input->post('submit')) {
+
+
+            $this->load->model('survey');
+            $config['file_name'] = time() . $this->cm_string->random();
+            $config['upload_path'] = './public/resources/baitaphocvien';
+            $config['allowed_types'] = 'gif|jpg|png';
+//            $config['max_size'] = '5120';
+
+            $config['remove_spaces'] = TRUE;
+            $this->load->library('upload', $config);
+
+            if (!empty($_FILES['userfile']['name'])) {
+                if (!$this->upload->do_upload()) {
+                    $message = "<div class='alert alert-danger text-center'>" . $this->upload->display_errors() . "</div>";
+                } else {
+
+                    $data = array('upload_data' => $this->upload->data());
+                    $baigiuaki="public/resources/baitaphocvien/" . $data['upload_data']['file_name'];
+
+                    $path = $this->db->select('baigiuaki')->from('regis')->where('studentid', $this->auth['id'])->get()->row_array()['baigiuaki'];
+                    deleteFiles($path);
+                    //Image Resizing
+                    $config['source_image'] = $this->upload->upload_path.$this->upload->file_name;
+                    $config['maintain_ratio'] = TRUE;
+                    $config['width'] = 1000;
+                    $config['height'] = 1000;
+
+                    $this->load->library('image_lib', $config);
+
+                    $this->image_lib->resize();
+
+                    $this->survey->nop_baigiuaki($baigiuaki, $this->auth['id']);
+                    $message = "<div class='alert alert-success text-center'><p>Nộp bài thành công</p></div>";
+                    $message.="<div><img src='$baigiuaki' style='width: 75%;'/></div>";
+                }
+            } else {
+                $message = "<div class='alert alert-danger text-center'>Bạn chưa chọn ảnh để up lên</div>";
+            }
+        }
+        echo $message;
     }
-    
+
 }

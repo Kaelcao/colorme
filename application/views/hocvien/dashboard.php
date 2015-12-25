@@ -1,23 +1,24 @@
 <style>
-    .actionBar .btn-default{
+    .actionBar .btn-default {
         display: none;
     }
+
     .cauhoi {
         color: #c50000;
     }
 </style>
 <div class="row">
-    <div class="col-md-6" >
+    <div class="col-md-6">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Survey 1 và nộp bài tập giữa kì </h2>
 
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content" >
+            <div class="x_content">
                 <!-- Smart Wizard -->
 
-                <div id="wizard" class="form_wizard wizard_horizontal" >
+                <div id="wizard" class="form_wizard wizard_horizontal">
                     <ul class="wizard_steps">
                         <li>
                             <a href="#step-1">
@@ -147,13 +148,26 @@
                         ?>
 
 
-                    </div >
+                    </div>
                     <div id="step-2">
-                        <div class="form-group">
-                            <label for="baigiuaki">Điền link bài giữa kì của bạn vào đây nhé: </label>
-                            <input name="" id="baigiuaki" required class="form-control" rows="3" value="<?php echo!empty($linkbaigiuaki) ? $linkbaigiuaki : ""; ?>"/>
+                        <form id="uploadbaigiuaki" method="post" action="<?php echo base_url('hocvien/home/nop_baigiuaki') ?>" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="baigiuaki">Upload bài giữa kì - Kích thước tối đa 5 Mb </label>
+                                <input name="userfile" id="userfile" required class="form-control" rows="3"
+                                       type="file"/>
+                            </div>
+
+                            <input type="submit" id="submitBaiGiuaki" name="submit" value="submit"
+                                   class="btn btn-default"/>
+
+                        </form>
+                        <div id="message-nopbai" class="text-center">
+                        <?php
+                        if (!empty($linkbaigiuaki)){
+                            echo "<div><img src='$linkbaigiuaki' style='width: 75%;'/></div>";
+                        }
+                        ?>
                         </div>
-                        <button type="button" id="submitBaiGiuaki" class="btn btn-default">Submit</button>
                     </div>
 
 
@@ -535,11 +549,11 @@
         // Smart Wizard
         $('#wizard').smartWizard();
 
-<?php
-if (!$complete_survey_one) {
-    echo "$(\".actionBar .btn-success\").addClass('buttonDisabled')";
-}
-?>
+        <?php
+        if (!$complete_survey_one) {
+            echo "$(\".actionBar .btn-success\").addClass('buttonDisabled')";
+        }
+        ?>
 
 
         function onFinishCallback() {
@@ -578,8 +592,8 @@ if (!$complete_survey_one) {
 
 // Returns successful data submission message when the entered information is stored in database.
             var dataString = 'clb=' + clb + '&hailong=' + hailong + '&noikhac=' + noikhac
-                    + '&dogood=' + dogood + '&improve=' + improve + '&lydo=' + lydo + '&yeutochon=' + yeutochon
-                    + '&workshop=' + workshop + '&chiase=' + chiase + '&studentid=' + '<?php echo $user['id']; ?>';
+                + '&dogood=' + dogood + '&improve=' + improve + '&lydo=' + lydo + '&yeutochon=' + yeutochon
+                + '&workshop=' + workshop + '&chiase=' + chiase + '&studentid=' + '<?php echo $user['id']; ?>';
 //            alert(dataString);
             if (clb == '' || hailong == '' || noikhac == '' || dogood == '' || improve == '' || workshop == '' || chiase == '' || lydo == '' || yeutochon == '') {
                 alert("Please Fill All Fields");
@@ -599,29 +613,49 @@ if (!$complete_survey_one) {
             return false;
 
         });
-        $("#submitBaiGiuaki").click(function () {
-
-            var baigiuaki = $("#baigiuaki").val();
-// Returns successful data submission message when the entered information is stored in database.
-            var dataString = 'baigiuaki=' + baigiuaki;
-//            alert(dataString);
-            if (baigiuaki == '') {
-                alert("Bạn chưa điền link bài giữa kì");
-            } else {
-                // AJAX Code To Submit Form.
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url('hocvien/home/nop_baigiuaki') ?>",
-                    data: dataString,
-                    cache: false,
-                    success: function (result) {
-                        $("#step-2").append(result);
-                    }
-                });
-            }
-            return false;
-
+        $("#uploadbaigiuaki").on('submit', function (e) {
+            e.preventDefault();
+            $("#message-nopbai").html('<img src="public/resources/images/page-loader.gif"/>');
+            $.ajax({
+                url: "<?php echo base_url('hocvien/home/nop_baigiuaki') ?>", // Url to which the request is send
+                type: "POST",             // Type of request to be send, called as method
+                data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                contentType: false,       // The content type used when sending data to the server.
+                cache: false,             // To unable request pages to be cached
+                processData: false,        // To send DOMDocument or non processed data file it is set to false
+                success: function (data)   // A function to be called if request succeeds
+                {
+                    $("#message-nopbai").html(data);
+                    setTimeout(function () {
+                        $(".alert").fadeOut().empty();
+                    }, 3000);
+                }
+            });
         });
+
+//        $("#submitBaiGiuaki").click(function () {
+//
+//            var baigiuaki = $("#baigiuaki").val();
+//// Returns successful data submission message when the entered information is stored in database.
+//            var dataString = 'baigiuaki=' + baigiuaki;
+////            alert(dataString);
+//            if (baigiuaki == '') {
+//                alert("Bạn chưa điền link bài giữa kì");
+//            } else {
+//                // AJAX Code To Submit Form.
+//                $.ajax({
+//                    type: "POST",
+//                    url: "<?php //echo base_url('hocvien/home/nop_baigiuaki') ?>//",
+//                    data: dataString,
+//                    cache: false,
+//                    success: function (result) {
+//                        $("#step-2").append(result);
+//                    }
+//                });
+//            }
+//            return false;
+//
+//        });
     });
 
 
