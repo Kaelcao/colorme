@@ -1,0 +1,343 @@
+/*infographic section*/
+.info-image {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+    padding: 10%;
+}
+
+.info-description {
+    text-align: center;
+    color: #666666;
+}
+
+/*Courses Section*/
+.course-image {
+    width: 100%;
+}
+
+.course-fee-section {
+    margin-top: 15px;
+    width: 100%;
+    overflow: hidden;
+}
+.course-fee-section .course-fee {
+    float: left;
+}
+.course-read-more {
+    float: right;
+}
+.navbar {
+    border-radius: 0px;
+}
+.row-title {
+    text-align: center;
+    color:#121212;
+    padding-bottom: 20px;
+    margin-bottom: 30px
+}
+
+/* Courses row */
+.mask {
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+}
+.view-first h2 {
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 22px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    margin: 20px 0 0 0
+}
+.view-first p {
+
+    font-style: italic;
+    font-size: 14px;
+    position: relative;
+    color: #fff;
+    padding: 10px 10px 10px;
+    text-align: center
+}
+.view-first a.info {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    box-shadow: 0 0 1px #000
+}
+.view-first a.info:hover {
+    box-shadow: 0 0 5px #000
+}
+
+.view-first img.effect {
+    transition: all 0.2s linear;
+}
+.view-first .mask {
+    text-align: center;
+    opacity: 0;
+    background-color: rgba(231,76,60, 0.7);
+    transition: all 0.4s ease-in-out;
+}
+.view-first h2 {
+    transform: translateY(-25px);
+    opacity: 0;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+    background-color: black;
+    color: white;
+}
+.view-first p {
+    transform: translateY(100px);
+    opacity: 0;
+    color: white;
+    text-align: center;
+    transition: all 0.2s linear;
+}
+.view-first a.info{
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+
+    color: white;
+    padding: 7px 14px;
+    text-decoration: none;
+    box-shadow: 0 0 1px #000;
+    background: #000;
+
+}
+
+.view-first:hover img.effect {
+    transform: scale(1.1);
+}
+.view-first:hover .mask {
+    opacity: 1;
+}
+.view-first:hover h2,
+.view-first:hover p,
+.view-first:hover a.info {
+    opacity: 1;
+    transform: translateY(0px);
+}
+.view-first:hover p {
+    transition-delay: 0.1s;
+}
+.view-first:hover a.info {
+    transition-delay: 0.2s;
+}
+.title-separator {
+    display: block;
+    margin: 20px auto 20px;
+}
+
+.row-description {
+    font-size: 14px;
+    color: #95a5a6;
+}
+.course-background {
+    margin-bottom: 30px;
+    min-height: 300px;
+    background: url('../images/basic-course.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 0px 3px 2px rgba(0,0,0,0.6)
+}
+.course-background:hover {
+    cursor: pointer;
+
+}
+
+.course-logo {
+    margin-left: 30px;
+    width: 90px;
+}
+.course-info {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 25%;
+    background-color:rgba(0,0,0,0.4);
+
+}
+.course-name {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top:10px
+}
+.course-description {
+    color: white;
+    font-size: 1em;
+
+}
+
+
+.course-price-section {
+
+    height: 75px;
+    padding: 0px;
+}
+.price {
+    height: 50%;
+    width: 100%;
+    font-size: 1.3em;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+}
+.real-price {
+    text-decoration: line-through;
+    color: #c0392b;
+    background-color: white;
+}
+.sale-price {
+    background-color: #c0392b;
+    color: white;
+}
+.index-section {
+    padding-bottom: 35px;
+    border-bottom: 1px solid #c0392b;
+    padding-top: 30px;
+    margin-top: -10px;
+}
+
+/*Services*/
+.square-service-background {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    padding-bottom: 100%;
+    background: url('../images/photo-1420310414923-bf3651a89816.jpg');
+    background-size: cover;
+    border-top: 1px solid #c1c1c1;
+    border-left: 1px solid #c1c1c1;
+    border-right: 1px solid #c1c1c1;
+
+}
+
+.service-content {
+    display: flex;
+    position: absolute;
+    bottom: 0px;
+    height: 25%;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 1.25em;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px #c0392b;
+}
+
+/*Blog*/
+.post-wrap {
+    margin-bottom: 40px;
+    padding: 10px 15px 5px 10px;
+    border: 1px solid #95a5a6;
+    box-shadow: 7px 7px 0px rgba(0,0,0,0.4);
+}
+.blog-post {
+
+}
+.post-image {
+
+}
+.post-title {
+    font-size: 22px;
+    color: #121212;
+}
+.post-description {
+    text-align: justify;
+    font-size: 14px;
+    color: #656565;
+}
+.post-info {
+    font-size: 12px;
+}
+.post-info > span {
+    font-weight: bold;
+    color: #95a5a6;
+}
+.post-info a {
+    color:#c0392b;
+}
+
+/* Event */
+.event-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 180%;
+    margin-bottom: 40px;
+    box-shadow: 0px 3px 5px rgba(0,0,0,0.3);
+}
+.event-image {
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 30%;
+    background: url("../images/1000x540.png");
+    background-size: cover;
+}
+.event-name {
+    margin:none;
+    width: 100%;
+    font-size: 20px
+}
+.event-info {
+    padding:0px 12px 10px 15px;
+    width: 100%;
+    top:28%;
+    position: absolute;
+    height: 100px;
+}
+.event-time,.event-place {
+    color:#95a5a6;
+    padding-bottom: 5px;
+
+}
+.event-time img,.event-place img {
+    margin-right: 2px;
+    margin-bottom: 5px;
+}
+.event-description {
+    font-size: 14px;
+    text-align: justify;
+}
+.read-more-btn {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    min-height: 10%;
+    align-items: center;
+    justify-content: center;
+    background-color:#e74c3c ;
+    color: white;
+    font-size: 18px;
+}
+.read-more-btn:hover {
+    background: -webkit-linear-gradient(#e74c3c,#c0392b); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#e74c3c,#c0392b); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#e74c3c,#c0392b); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#e74c3c,#c0392b); /* Standard syntax */
+    color: white;
+}
+.read-more-btn:visited{
+    color: white;
+
+}
+a.info {
+
+}
+
+.post-info a:hover {
+    color: #000;
+}

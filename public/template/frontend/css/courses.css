@@ -1,0 +1,133 @@
+
+#main-content {
+    padding: 25px;
+}
+
+.course-info {
+    height: 100%;
+    padding-bottom: 30px;
+}
+
+.courses-categories {
+
+}
+.categories-list li a {
+    color: #757575;
+}
+.categories-list li a:hover {
+    color: #c0392b;
+}
+
+.courses-categories>div {
+    box-shadow: 0px 0px 7px rgba(0,0,0,0.3);
+    border: none;
+
+}
+.categories-title {
+   font-weight: bold;
+}
+
+.course-wrapper {
+    background-color: white;
+    margin-bottom:30px;
+    box-shadow: 0px 0px 7px rgba(0,0,0,0.3);
+    padding: 5px 30px 30px 30px;
+
+
+
+}
+h1.course-name {
+    font-weight: bold;
+    margin-bottom:30px;
+    font-size: 36px;
+    margin-top: 30px;
+}
+
+
+tr td{
+    padding-right: 20px;
+}
+.price-wrapper {
+    overflow: hidden;
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 3px;
+    border: 2px solid #c0392b;
+    font-size: 16px;
+}
+.course-description {
+    margin-bottom: 15px;
+
+}
+.price-wrapper .old-price {
+    color: #c0392b;
+    height: 100%;
+    width: 50%;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    font-weight: bold;
+    text-decoration: line-through;
+}
+.price-wrapper .sale-price {
+    width: 50%;
+    height: 100%;
+    float: left;
+    background-color: #c0392b;
+    text-align: center;
+    line-height:47px;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+
+
+.btn-close-modal {
+    transition: all 0.15s ease;
+    margin-top:15px;
+    position: relative;
+    background-color:#d83e2f;
+    padding: 10px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0px 3px #934f4f;
+    border: none;
+    color: white;
+}
+.btn-close-modal:active {
+
+    box-shadow: 0px 0px #934f4f;
+    top: 3px;
+}
+.btn-close-modal:hover {
+    background-color:#96281B;
+    color: #d9d9d9;
+
+}
+.btn-close-modal:visited {
+    background-color:#e74c3c;
+    color: white;
+}
+
+
+table.course-detail {
+    width: 100%;
+}
+table.course-detail tr td {
+    font-size: 14px;
+    padding: 5px;
+}
+table.course-detail tr td:first-child{
+    font-weight: bold;
+}
+table.course-detail tr td:first-child i {
+    color: #e74c3c;
+}
+table.course-detail tr {
+    border-bottom: 1px solid #95a5a6;
+}
+table.course-detail tr:first-child{
+    border-top: 1px solid #95a5a6;
+}
