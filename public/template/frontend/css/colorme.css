@@ -1,0 +1,373 @@
+/*!
+ * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+html,
+body {
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+a:hover {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration:none;
+}
+body {
+    /*padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+f8f9f9
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
+.img-hover:hover {
+    opacity: 0.8;
+}
+
+/* Home Page Carousel */
+
+header.carousel {
+    height: 50%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+/* 404 Page Styles */
+
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
+footer {
+    margin: 50px 0;
+}
+
+/* Responsive Styles */
+
+@media (max-width: 991px) {
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 767px) {
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
+
+    header.carousel .carousel {
+        height: 70%;
+    }
+}
+
+/* Top slide  */
+.slide-logo {
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+
+}
+.slide-logo-img{
+    width: 100%;
+}
+.carousel-indicators {
+    position: absolute;
+    top: 4%;
+}
+
+.social-group-btn {
+    margin-top: 20px;
+}
+
+.social-group-btn a div {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-left: 5px;
+    background-size: cover;
+    margin-bottom: 5px;
+}
+
+.btn-facebook {
+
+    background: url("../images/social%20icon.png");
+
+}
+
+.btn-instagram {
+    background: url("../images/social%20icon.png");
+    background-position-x: -45px;
+}
+
+.btn-youtube {
+    background: url("../images/social%20icon.png");
+    background-position-x: -90px;
+}
+
+.btn-pinterest {
+    background: url("../images/social%20icon.png");
+    background-position-x: -133px;
+}
+
+.btn-bottom-slide {
+    position: absolute;
+    z-index: 9998;
+    width: 100%;
+    bottom: 0px;
+}
+
+.btn-explore {
+    width: 100%;
+    height: 50px;
+    line-height: 45px;
+    border: solid 3px white;
+    margin-bottom: 50px;
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    min-width: 200px;
+
+}
+.carousel-indicators{
+    margin-top:20px;
+}
+.nav-logo-container, .social-group-btn {
+    text-align: center;
+}
+
+/* End top slide */
+.navbar {
+    box-shadow: 0px 2px 3px 0px #bdc3c7;
+    border: none;
+    background-color: white;
+}
+
+.index-nav-bar ul li {
+    width: 14.2%;
+}
+
+.index-nav-bar ul {
+    width: 100%;
+
+}
+
+.index-nav-bar ul li {
+    width: 14.2%;
+    text-align: center;
+
+}
+
+.index-nav-bar ul li a {
+    font-weight: bold;
+
+
+}
+.selected a {
+    color: #c0392b !important; ;
+}
+/*footer*/
+footer {
+    padding-top:40px;
+    background-color:#c0392b ;
+    margin-top: 5px;
+    color: white;
+    margin-bottom: 0px;
+    padding-bottom: 50px;
+}
+footer h4 {
+    margin-bottom: 20px;
+}
+
+footer ul {
+    padding-left: 0;
+}
+
+footer ul li {
+    list-style: none;
+
+}
+footer ul.information li:nth-child(1) {
+    list-style: none;
+    background: url("../images/footer-icons.png");
+    background-repeat: no-repeat;
+    padding: 5px 5px 5px 30px;
+    background-position: 0px 4px;
+
+
+}
+
+footer ul.information li:nth-child(2) {
+    list-style: none;
+    background: url("../images/footer-icons.png");
+     background-repeat: no-repeat;
+    padding: 5px 5px 5px 30px;
+    background-position: 0px -34px;
+}
+footer ul.information li:nth-child(3) {
+    list-style: none;
+    background: url("../images/footer-icons.png");
+     background-repeat: no-repeat;
+    padding: 5px 5px 5px 30px;
+    background-position: 0px -71px;
+}
+footer ul.information li:nth-child(4) {
+    list-style: none;
+    background: url("../images/footer-icons.png");
+     background-repeat: no-repeat;
+    padding: 5px 5px 5px 30px;
+    background-position: 0px -108px;
+}
+
+footer ul.information li:nth-child(5) {
+    list-style: none;
+    background: url("../images/footer-icons.png");
+     background-repeat: no-repeat;
+    padding: 5px 5px 5px 30px;
+    background-position: 0px -145px;
+}
+
+.map {
+    width: 100%;
+    height: auto;
+}
+.footer-social-icons li a div{
+    height: 40px;
+    width: 40px;
+    float: left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+.footer-social-icons li:nth-child(1) a div{
+    background: url("../images/social%20icon.png");
+     background-repeat: no-repeat;
+    background-size: cover;
+}
+.footer-social-icons li:nth-child(2) a div{
+    background: url("../images/social%20icon.png");
+     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: -45px 0px;
+}
+.footer-social-icons li:nth-child(3) a div{
+    background: url("../images/social%20icon.png");
+     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: -90px 0px;
+}
+
+.footer-social-icons li:nth-child(4) a div{
+    background: url("../images/social%20icon.png");
+     background-repeat: no-repeat;
+    background-size: cover;
+    background-position: -135px 0px;
+}
+.copyright {
+    text-align: center;
+}
+.move-down {
+    position: relative;
+    top:70px;
+}
+.fixed {
+    position: fixed;
+    top: 0px;
+    z-index: 1;
+    width: 100%;
+}
+
+h1 {
+    text-transform: uppercase;
+}
+.btn-learn-more{
+    transition: all 0.15s ease;
+    margin-top:15px;
+    position: relative;
+    background-color:#d83e2f;
+    padding: 10px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0px 3px #934f4f;
+    border: none;
+    color: white;
+}
+
+.btn-learn-more:active {
+
+    box-shadow: 0px 0px #934f4f;
+    top: 3px;
+}
+.btn-learn-more:hover {
+    background-color:#96281B;
+    color: #d9d9d9;
+
+}
+.btn-learn-more:visited {
+    background-color:#e74c3c;
+    color: white;
+}
+
+.btn-register-now:active {
+    top: 3px;
+    box-shadow: 0px 0px #1E824C;
+    color: #d9d9d9;
+}
+.btn-register-now:hover {
+    background-color:#009a5c;
+    color: #d9d9d9;
+}
+
+
+.btn-register-now{
+    transition: all 0.15s ease;
+    margin-top:15px;
+    position: relative;
+    color: white;
+    background-color: #00B16A;
+    padding: 10px 25px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0px 3px #1E824C;
+    border: none;
+}
+
