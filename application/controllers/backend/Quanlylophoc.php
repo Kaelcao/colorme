@@ -210,7 +210,7 @@ class Quanlylophoc extends CM_Controller
                         'linkanh' => "public/resources/images/" . $data['upload_data']['file_name'],
                         'order' => $this->input->post('order'),
                     );
-                    $path = $this->db->select('linkanh')->from('lecture')->where('id',$lectureid)->get()->row_array()['linkanh'];
+                    $path = $this->db->select('linkanh')->from('lecture')->where('id', $lectureid)->get()->row_array()['linkanh'];
                     deleteFiles($path);
                     $this->lecture->update_lecture($lectureid, $data);
                     $this->data['message'] = "<div class='alert alert-success text-center'><p>Sửa thành công</p></div>";
@@ -241,20 +241,39 @@ class Quanlylophoc extends CM_Controller
 
         $this->load->view("backend/layout/home", $this->data);
     }
-    
-    public function ajax_update_giaotrinh(){
+
+    public function ajax_update_giaotrinh()
+    {
         $this->load->model('quanlylophoc/lecture');
-        $lectureid= $this->input->post('lectureid');
+        $lectureid = $this->input->post('lectureid');
         $giaotrinh = $this->input->post('giaotrinh');
-        $this->lecture->update_giaotrinh($giaotrinh,$lectureid);
+        $this->lecture->update_giaotrinh($giaotrinh, $lectureid);
         echo "<div class='alert alert-success text-center'>Giáo trình đã được save thành công!</div>";
     }
-    public function ajax_update_giaotrinh_hocvien(){
+
+    public function ajax_update_giaotrinh_hocvien()
+    {
         $this->load->model('quanlylophoc/lecture');
-        $lectureid= $this->input->post('lectureid');
+        $lectureid = $this->input->post('lectureid');
         $giaotrinh = $this->input->post('giaotrinhhocvien');
-        $this->lecture->update_giaotrinh_hocvien($giaotrinh,$lectureid);
+        $this->lecture->update_giaotrinh_hocvien($giaotrinh, $lectureid);
         echo "<div class='alert alert-success text-center'>Giáo trình đã được save thành công!</div>";
+    }
+
+    //Create course
+    public function create_course()
+    {
+        if ($this->input->post('submit')) {
+            $post_data = $this->input->post();
+            unset($post_data['submit']);
+            if ($this->monhoc->insert_course($post_data)) {
+                $this->lecture->create_empty_lecture($post_data['id'], $post_data['duration']);
+                $this->cm_string->php_redirect('backend/quanlylophoc/hienthilophoc');
+            }
+        }
+        $this->data['current_page'] = "Tạo Course";
+        $this->data['template'] = 'backend/quanlylophoc/create_course';
+        $this->load->view("backend/layout/home", $this->data);
     }
 }
 

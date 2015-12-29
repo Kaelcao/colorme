@@ -29,6 +29,10 @@ class Monhoc extends CI_Model
         parent::__construct();
     }
 
+    //insert course
+    function insert_course($data){
+        return $this->db->insert('course', $data);
+    }
     /**
      * lay tat ca du lieu monhoc
      * @return array mon hoc

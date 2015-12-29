@@ -12,6 +12,11 @@
                             <div class="title">Danh sách môn học</div>
                         </div>
                     </div>
+                    <div class="card-header">
+                        <div class="card-title">
+                            <a href="<?php echo base_url('backend/quanlylophoc/create_course'); ?>" class="btn btn-primary">Tạo Course</a>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
