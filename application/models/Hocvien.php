@@ -24,8 +24,11 @@ class Hocvien extends CI_Model
     function get_all_by_class($classid){
         return $this->db->where(array('cm_regis.classid'=>$classid,"paid>"=>-1))->from("student")->join('regis',"cm_regis.studentid=cm_student.id")->get()->result();
     }
-    function update_student_password($password,$realid,$salt){
+    function update_student_password_id($password,$id,$salt){
 
+        $this->db->where('id',$id)->update('student',array('password'=>$password,'salt'=>$salt));
+    }
+    function update_student_password($password,$realid,$salt){
         $this->db->where('realid',$realid)->update('student',array('password'=>$password,'salt'=>$salt));
     }
 

@@ -208,6 +208,29 @@
                         </a>
                     </li>
                     <li>
+                        <a href="http://www.logodesignlove.com/brand-identity-style-guides">
+                            <span class="image">
+                                <img src="images/logo.jpg" alt="img"/>
+                            </span>
+                            <span>
+                                <span> Brand Guideline:</span>
+
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://nobacks.com/">
+                            <span class="image">
+                                <img src="images/logo.jpg" alt="img"/>
+                            </span>
+                            <span>
+                                <span> Hình png</span>
+
+                            </span>
+
+                        </a>
+                    </li>
+                    <li>
                         <a href="http://imgur.com/">
                             <span class="image">
                                 <img src="images/logo.jpg" alt="img"/>

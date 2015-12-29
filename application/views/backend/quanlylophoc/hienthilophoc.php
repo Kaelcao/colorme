@@ -32,7 +32,9 @@
                             <tbody>
                             <?php
                             $i = 0;
+
                             foreach ($courses as $course) {
+                                $isCheck = ($course->inRegister == 1) ? "checked" : "unchecked";
                                 $trangthai = ($course->inRegister == 1) ? "<i class='fa fa-folder-open'></i> Cho phép đăng kí" : "<i class='fa fa-lock'></i> Không cho đăng kí";
                                 $i++;
                                 $url = base_url("backend/quanlylophoc/update_monhoc/$course->id");
@@ -42,7 +44,9 @@
                                 <td><a href='$url' class='btn btn-default' style='background-color: $course->mamau;color: white;width: 100%'>$course->name</a></td>
                                 <td>$course->duration</td>
                                 <td>$course->description</td>
-                                <td>$trangthai</td>
+                                <td>
+                                <input onchange='dongmoform_course(\"$course->id\")' $isCheck  type=\"checkbox\" data-toggle=\"toggle-course\" data-on=\"Đang mở form\" data-off=\"Đã đóng form\">
+                                </td>
                             </tr>
                             ";
                             }
@@ -150,6 +154,25 @@
 </div>
 <script type="text/javascript">
 
+    function dongmoform_course(courseid, checked) {
+        var e = window.event;
+        var btn = e.target || e.srcElement;
+
+        if (checked == 0) {
+            checked = 1;
+        } else {
+            checked = 0;
+        }
+        var link = "<?php echo base_url("backend/quanlylophoc/ajaxdongbatform_course/"); ?>" + "/" + courseid;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                $(btn).prop('checked', xhttp.responseText);
+            }
+        };
+        xhttp.open("GET", link, true);
+        xhttp.send();
+    }
     function dongmoform(classid, checked) {
         var e = window.event;
         var btn = e.target || e.srcElement;

@@ -47,6 +47,18 @@ class Monhoc extends CI_Model
     {
         return $this->db->get_where('course', array('id' => $id))->row_array();
     }
+    function dong_mo_couse($couseid)
+    {
+        $checked = $this->get_open_status($couseid);
+        $checked = ($checked == 0) ? 1 : 0;
+        $this->db->where('course.id', $couseid)->update('course', array('inRegister' => $checked));
+        return $checked;
+    }
+    function get_open_status($id)
+    {
+        return $this->db->query('select inRegister from cm_course where id= "' . $id.'"')->row_array()['inRegister'];
+    }
+
 
     function get_courseid_by_studentid($studentid)
     {

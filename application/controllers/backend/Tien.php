@@ -96,6 +96,13 @@ where cm_classstatus.classid=".$class['classid']);
                 $data['student']['realid'] = $masinhvien;
                 $data['student']['tiennop'] = $tien;
                 $data['student']['paidtime'] = gmdate('Y-m-d H:i:s', time() + 7 * 3600);
+
+                //Tao tai khoan cho hoc vien
+                $salt = $this->cm_string->random(69, TRUE);
+
+                $password = $this->cm_string->encrypt_password($data['student']['realid'], $data['student']['email'], $salt);
+                $this->hocvien->update_student_password_id($password,$id,$salt);
+
                 $this->db->where('studentid', $id)->update('regis', array('note' => $note, 'userid' => $this->auth['id'], 'paid' => $tien, 'paidtime' => gmdate('Y-m-d H:i:s', time() + 7 * 3600)));
                 $this->db->where('id', $id)->update('student', array('realid' => $masinhvien));
                 $data['confirm'] = "<div class='alert alert-success text-center text-capitalize text-success'>Nộp tiền thành công</div>";

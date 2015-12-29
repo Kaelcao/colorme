@@ -155,7 +155,7 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="price">Trạng thái</label>
                                     <div class="col-md-4">
-                                        <select style="width: 200px">
+                                        <select name="inRegister" style="width: 200px">
                                                 <option value="1"> Cho phép đăng kí</option>
                                                 <option value="0">Khoá đăng kí</option>
                                         </select>

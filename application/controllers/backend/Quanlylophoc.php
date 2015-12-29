@@ -171,6 +171,12 @@ class Quanlylophoc extends CM_Controller
         $isCheck = ($isCheck == 0) ? "true" : "false";
         echo $isCheck;
     }
+    public function ajaxdongbatform_course($courseid)
+    {
+        $isCheck = $this->monhoc->dong_mo_couse($courseid);
+        $isCheck = ($isCheck == 0) ? "true" : "false";
+        echo $isCheck;
+    }
 
     public function sendkichhoat($classid)
     {
