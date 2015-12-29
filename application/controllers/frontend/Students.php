@@ -6,15 +6,6 @@ class Students extends CI_Controller
 
     public function choose_course(){
         $this->load->model('quanlylophoc/monhoc');
-        $this->data['courses'] = $this->monhoc->get_all();
-        $this->load->view("frontend/regis/choose_course", isset($this->data) ? $this->data : NULL);
-    }
-
-    public function regis($courseid = "C1")
-    {
-        $this->load->model('quanlylophoc/lophoc');
-        $lastest_gen = $this->lophoc->get_newest_gen();
-
         if ($this->input->post('submit')) {
             $post_data = $this->input->post();
             $student_data['fullname'] = $post_data['fullname'];
@@ -64,9 +55,20 @@ class Students extends CI_Controller
                 );
                 $this->db->insert('regis', $regis_data);
 
-                $post_data['confirm'] = "Xin Chúc Mừng! Bạn Đã Đăng Kí Công, Chào Mừng Bạn <b>" . $student_data['fullname'] . "</b> đến với Color ME";
+                $this->data['confirm'] = "Xin Chúc Mừng! Bạn Đã Đăng Kí Công, Chào Mừng Bạn <b>" . $student_data['fullname'] . "</b> đến với Color ME";
             }
+
         }
+        $this->data['courses'] = $this->monhoc->get_all();
+        $this->load->view("frontend/regis/choose_course", isset($this->data) ? $this->data : NULL);
+    }
+
+    public function regis($courseid = "C1")
+    {
+        $this->load->model('quanlylophoc/lophoc');
+        $lastest_gen = $this->lophoc->get_newest_gen();
+
+
         $temps = $this->db->select('classid, COUNT(classid) as total')->group_by('classid')->get('regis')->result();
 
         foreach ($temps as $temp) {

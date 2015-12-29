@@ -58,7 +58,8 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="price">Học phí</label>
                                     <div class="col-md-4">
-                                        <input id="price" name="price" pattern="^\d+(\.|\,)\d{2}$" type="number" placeholder="Học phí"
+                                        <input id="price" name="price" pattern="^\d+(\.|\,)\d{2}$" type="number"
+                                               placeholder="Học phí"
                                                class="form-control input-md">
                                     </div>
                                 </div>
@@ -146,10 +147,18 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="price">link nội quy</label>
                                     <div class="col-md-4">
-                                        <input id="linknoiquy"
+                                        <input id="linknoiquy" name="linknoiquy" type="text"
+                                               class="form-control input-md">
+                                    </div>
+                                </div>
 
-                                               name="linknoiquy" type="text" class="form-control input-md">
-
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="price">Trạng thái</label>
+                                    <div class="col-md-4">
+                                        <select style="width: 200px">
+                                                <option value="1"> Cho phép đăng kí</option>
+                                                <option value="0">Khoá đăng kí</option>
+                                        </select>
                                     </div>
                                 </div>
 

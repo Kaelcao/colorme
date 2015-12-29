@@ -185,8 +185,17 @@
             </div>
             <div class="x_content">
                 <ul class="list-unstyled msg_list">
+                    <li>
+                        <a href="http://www.freepik.com/index.php?goto=2&searchform=1&k=brand">
+                            <span class="image">
+                                <img src="images/logo.jpg" alt="img"/>
+                            </span>
+                            <span>
+                                <span>Mockup Brand Cuối kì</span>
 
-
+                            </span>
+                        </a>
+                    </li>
                     <li>
                         <a href="http://issuu.com/colorme5/docs/ebookcolorme">
                             <span class="image">
@@ -222,6 +231,7 @@
                             </span>
                         </a>
                     </li>
+
 
                     <li>
                         <a href="http://nobacks.com/">

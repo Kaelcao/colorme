@@ -107,8 +107,21 @@
 
 
 <!-- Page Content -->
+
+<?php
+if (isset($confirm)) {
+    ?>
+    <div class="container" style="margin-top: 20px">
+        <div class="row">
+            <div class="alert alert-success text-center"><?php echo $confirm; ?></div>
+        </div>
+    </div>
+    <?php
+}
+?>
 <div class="container" id="main-content">
     <div class="row">
+
         <div class="col-xs-offset-2 col-xs-8">
             <h1 class="page-header row-title">
                 CHỌN KHÓA HỌC
@@ -121,21 +134,26 @@
             <div class="list-group">
                 <?php
                 foreach ($courses as $course) {
-                    ?>
-                    <a href="<?php echo base_url('frontend/students/regis/'.$course->id) ?>" class="list-group-item" style="overflow: hidden">
-                        <h3 class="list-group-item-heading"><?php echo $course->name; ?></h3>
-                        <p class="list-group-item-text">
-                            <?php echo $course->description; ?>
-                        </p>
-                        <div style="float:right">
-                            <i class="fa fa-money"></i> <strong><?php echo format_currency($course->price); ?></strong>
-                        </div>
-                        <div>
-                            <i class="fa fa-clock-o"></i> <strong><?php echo $course->duration; ?> buổi</strong>
-                        </div>
+                    if ($course->inRegister == 1) {
+                        ?>
+                        <a href="<?php echo base_url('frontend/students/regis/' . $course->id) ?>"
+                           class="list-group-item" style="overflow: hidden">
+                            <h3 class="list-group-item-heading"><?php echo $course->name; ?></h3>
+                            <p class="list-group-item-text">
+                                <?php echo $course->description; ?>
+                            </p>
+                            <div style="float:right">
+                                <i class="fa fa-money"></i>
+                                <strong><?php echo format_currency($course->price); ?></strong>
+                            </div>
+                            <div>
+                                <i class="fa fa-clock-o"></i>
+                                <strong><?php echo $course->duration; ?> buổi</strong>
+                            </div>
 
-                    </a>
-                    <?php
+                        </a>
+                        <?php
+                    }
                 }
                 ?>
             </div>
@@ -209,6 +227,25 @@
 
 
 </script>
+<script>
+    $('.list-group-item').click(function (e) {
+        e.preventDefault();//in this way you have no redirect
+        var url = $(this).attr('href');
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                document.getElementById("main-content").innerHTML = xhttp.responseText;
+            }
+        };
+        xhttp.open("GET", url, true);
+        xhttp.send();
+
+    });
+
+</script>
+
+}
 <?php
 if (isset($confirm) && !empty($confirm)) {
     echo '

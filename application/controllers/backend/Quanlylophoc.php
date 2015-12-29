@@ -33,6 +33,7 @@ class Quanlylophoc extends CM_Controller
 
         //lay du lieu
         $newestgen = $this->lophoc->get_newest_gen();
+        $this->data['newestgen'] = $newestgen;
         $this->data['courses'] = $this->monhoc->get_all();
         $this->data['classes'] = $this->lophoc->get_thongtinchitietlophoc($newestgen);
         $this->data['gens'] = $this->lophoc->get_all_gens();
@@ -43,7 +44,6 @@ class Quanlylophoc extends CM_Controller
 
         //load template
         $this->load->view("backend/layout/home", $this->data);
-
     }
 
     public function update_monhoc($courseid = "")
@@ -79,7 +79,8 @@ class Quanlylophoc extends CM_Controller
                 'linkphanmemmac' => trim($_POST['linkphanmemmac']),
                 'linkphanmemwindow' => trim($_POST['linkphanmemwindow']),
                 'linktimeline' => trim($_POST['linktimeline']),
-                'linknoiquy' => trim($_POST['linknoiquy'])
+                'linknoiquy' => trim($_POST['linknoiquy']),
+                'inRegister' => trim($_POST['inRegister'])
 
             );
             $this->data['confirm'] = "Chúc mừng bạn đã cập nhật thành công";
@@ -273,6 +274,23 @@ class Quanlylophoc extends CM_Controller
         }
         $this->data['current_page'] = "Tạo Course";
         $this->data['template'] = 'backend/quanlylophoc/create_course';
+        $this->load->view("backend/layout/home", $this->data);
+    }
+
+    public function create_class()
+    {
+        if ($this->input->post('submit')) {
+            $post_data = $this->input->post();
+            unset($post_data['submit']);
+            if ($this->lophoc->insert_entry($post_data)) {
+                $this->lecture->create_empty_lecture($post_data['id'], $post_data['duration']);
+                $this->cm_string->php_redirect('backend/quanlylophoc/hienthilophoc');
+            }
+        }
+        $this->data['courses'] = $this->monhoc->get_all();
+        $this->data['nhanviens'] = $this->nhanvien->get_all();
+        $this->data['current_page'] = "Tạo Lớp";
+        $this->data['template'] = 'backend/quanlylophoc/create_class';
         $this->load->view("backend/layout/home", $this->data);
     }
 }

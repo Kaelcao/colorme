@@ -197,6 +197,22 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="price">Trạng thái</label>
+                                    <div class="col-md-4">
+                                        <select name="inRegister" style="width: 200px">
+                                            <option
+                                                value="1" <?php echo ($course['inRegister'] == 1) ? 'selected' : ""; ?>>
+                                                Cho phép đăng kí
+                                            </option>
+                                            <option
+                                                value="0" <?php echo ($course['inRegister'] == 0) ? 'selected' : ""; ?>>
+                                                Khoá đăng kí
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <!-- Button (Double) -->
                                 <div class="form-group">
                                     <label class="col-md-4 control-label" for="button1id"></label>
@@ -208,6 +224,7 @@
                                         </button>
                                     </div>
                                 </div>
+
 
                             </fieldset>
 
@@ -238,7 +255,7 @@
                             </thead>
                             <?php
                             foreach ($lectures as $lecture) {
-                                $link=base_url("backend/quanlylophoc/update_lecture/".$course['id']."/".$lecture->id);
+                                $link = base_url("backend/quanlylophoc/update_lecture/" . $course['id'] . "/" . $lecture->id);
                                 echo
                                 "
                                 <tr>

@@ -14,7 +14,8 @@
                     </div>
                     <div class="card-header">
                         <div class="card-title">
-                            <a href="<?php echo base_url('backend/quanlylophoc/create_course'); ?>" class="btn btn-primary">Tạo Course</a>
+                            <a href="<?php echo base_url('backend/quanlylophoc/create_course'); ?>"
+                               class="btn btn-primary">Tạo Course</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -24,14 +25,15 @@
                                 <th>#</th>
                                 <th>Tên môn</th>
                                 <th>Thời lượng</th>
-                                <th>Phân loại</th>
                                 <th>Mô tả</th>
+                                <th>Trạng thái</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
                             $i = 0;
                             foreach ($courses as $course) {
+                                $trangthai = ($course->inRegister == 1) ? "<i class='fa fa-folder-open'></i> Cho phép đăng kí" : "<i class='fa fa-lock'></i> Không cho đăng kí";
                                 $i++;
                                 $url = base_url("backend/quanlylophoc/update_monhoc/$course->id");
                                 echo "
@@ -39,8 +41,8 @@
                                 <th scope=\"row\">$i</th>
                                 <td><a href='$url' class='btn btn-default' style='background-color: $course->mamau;color: white;width: 100%'>$course->name</a></td>
                                 <td>$course->duration</td>
-                                <td>$course->category</td>
                                 <td>$course->description</td>
+                                <td>$trangthai</td>
                             </tr>
                             ";
                             }
@@ -58,12 +60,22 @@
                         </div>
 
                     </div>
+                    <div class="card-header">
+                        <div class="card-title">
+                            <a href="<?php echo base_url('backend/quanlylophoc/create_class'); ?>"
+                               class="btn btn-primary">Tạo lớp học</a>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <select style="width: 150px">
                             <?php
 
                             foreach ($gens as $gen) {
-                                echo "<option value=\"$gen->gen\">Khoá $gen->gen</option>";
+                                $selected = '';
+                                if ($gen->gen==$newestgen){
+                                    $selected = 'selected';
+                                }
+                                echo "<option value=\"$gen->gen\" $selected>Khoá $gen->gen</option>";
                             }
                             echo "</optgroup>";
 
@@ -89,7 +101,7 @@
                             foreach ($classes as $class) {
                                 $url = base_url("backend/quanlylophoc/update_lophoc/$class->classid");
                                 $kichhoat = "backend/quanlylophoc/sendkichhoat/" . $class->classid;
-                                if ($class->activated==0) {
+                                if ($class->activated == 0) {
                                     $kichhoat = "<a href='$kichhoat' class='btn btn-default' style='background-color: #c50000;color: white;width: 100%'>Kích hoạt</a>";
                                 } else {
                                     $kichhoat = "<a href='$kichhoat' disabled class='btn btn-default' style='background-color: #c50000;color: white;width: 100%'>Kích hoạt</a>";
