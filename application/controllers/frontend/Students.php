@@ -4,6 +4,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Students extends CI_Controller
 {
 
+    public function choose_course(){
+        $this->load->model('quanlylophoc/monhoc');
+        $this->data['courses'] = $this->monhoc->get_all();
+        $this->load->view("frontend/regis/choose_course", isset($this->data) ? $this->data : NULL);
+    }
+
     public function regis($courseid = "C1")
     {
         $this->load->model('quanlylophoc/lophoc');

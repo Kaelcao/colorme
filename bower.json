@@ -1,0 +1,22 @@
+{
+  "name": "colorme",
+  "homepage": "https://github.com/Kaelcao/colorme",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "colorme"
+  ],
+  "authors": [
+    "Cao Anh Quan"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
