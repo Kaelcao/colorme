@@ -109,5 +109,4 @@ class Home extends CM_HocvienController
         }
         echo $message;
     }
-
 }

@@ -12,9 +12,34 @@
             } else {
                 $btnHocBu = "<div  style='width: 100%'  disabled class=\"btn btn-success\" \"><i class='fa fa-check'></i> Đã học </div>";
             }
+
             $linkgiaotrinh = $lecture->linkgiaotrinh;
             $linkvideo = $lecture->linkyoutube;
             $linkanh = base_url($lecture->linkanh);
+            $htmltomtat = "
+<!-- Trigger the modal with a button -->
+<button style=\"width:100%\" type=\"button\" class=\"btn btn-warning\" data-toggle=\"modal\" data-target=\"#myModal" . $lecture->lectureid . "\"><i class='fa fa-book'></i> Chi tiết giáo trình</button>
+
+<!-- Modal -->
+<div id=\"myModal" . $lecture->lectureid . "\" class=\"modal fade\" role=\"dialog\">
+  <div class=\"modal-dialog modal-lg\">
+
+    <!-- Modal content-->
+    <div class=\"modal-content\">
+      <div class=\"modal-header\">
+        <button type=\"button\" class=\"close\" data-dismiss=\"modal\">&times;</button>
+        <h4 class=\"modal-title\">Chi tiết giáo trình</h4>
+      </div>
+      <div class=\"modal-body\">
+        " . $lecture->giaotrinhhocvien . "
+      </div>
+      <div class=\"modal-footer\">
+        <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>";
 
             echo
             "
@@ -44,9 +69,11 @@
 
                     <div class=\"divider\"></div>
                     <div>
-                         <a style='width: 100%' class='btn btn-info' target=newtab href='$linkgiaotrinh'><i class='fa fa-book'></i> Giáo trình</a>
+                         <a style='width: 100%' class='btn btn-info' target=newtab href='$linkgiaotrinh'><i class='fa fa-book'></i> Slide buổi học</a>
                     </div>
-
+                    <div>
+                        $htmltomtat
+                    </div>
                     <div>
                          <a style='width: 100%' class='btn btn-danger ' target=newtab href='$linkvideo'><i class='fa fa-video-camera'></i> Video</a>
                     </div>
@@ -55,6 +82,7 @@
                                 <!-- Large modal -->
                         $btnHocBu
                     </div>
+
                 </div>
             </div>
         </div>

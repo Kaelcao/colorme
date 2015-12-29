@@ -36,7 +36,7 @@ class Lecture extends CI_Model {
     }
 
     function get_lecture($studentid) {
-        $query_str = "select cm_attend.joined joined, c.studyday,cm_lecture.id lectureid, cm_class.gen, c.name classname, cm_lecture.linkanh, cm_lecture.description, cm_lecture.order ,cm_lecture.name name, cm_lecture.linkyoutube linkyoutube,cm_lecture.linkgiaotrinh linkgiaotrinh from cm_lecture
+        $query_str = "select cm_lecture.giaotrinhhocvien,cm_attend.joined joined, c.studyday,cm_lecture.id lectureid, cm_class.gen, c.name classname, cm_lecture.linkanh, cm_lecture.description, cm_lecture.order ,cm_lecture.name name, cm_lecture.linkyoutube linkyoutube,cm_lecture.linkgiaotrinh linkgiaotrinh from cm_lecture
     join cm_course on cm_course.id = cm_lecture.courseid
     join cm_class on cm_class.courseid = cm_course.id
     join cm_regis on cm_regis.classid = cm_class.id
