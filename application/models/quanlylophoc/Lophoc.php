@@ -94,6 +94,13 @@ where cm_classstatus.classid!=$currentClassId and cm_classstatus.lectureid = $le
     }
     //insert class
     function insert_entry($data){
-        return $this->db->insert('class', $data);
+        $this->db->insert('class', $data);
+        return $this->db->insert_id();
+    }
+    public function insert_classstatus($classid,$courseid){
+        $this->db->query("insert into cm_classstatus (classid,lectureid )
+SELECT $classid,cm_lecture.id
+FROM  cm_lecture
+where cm_lecture.courseid = \"$courseid\" ");
     }
 }

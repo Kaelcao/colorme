@@ -113,6 +113,27 @@ class Quanlylophoc extends CM_Controller
         $this->cm_string->php_redirect($link);
     }
 
+    public function create_class()
+    {
+        if ($this->input->post('submit')) {
+            $post_data = $this->input->post();
+            unset($post_data['submit']);
+            $id = $this->lophoc->insert_entry($post_data);
+            if ($id >= 0) {
+//                var_dump($id);
+//                die();
+                $this->lophoc->insert_classstatus($id, $post_data['courseid']);
+                $this->lecture->create_empty_lecture($post_data['id'], $post_data['duration']);
+                $this->cm_string->php_redirect('backend/quanlylophoc/hienthilophoc');
+            }
+        }
+        $this->data['courses'] = $this->monhoc->get_all();
+        $this->data['nhanviens'] = $this->nhanvien->get_all();
+        $this->data['current_page'] = "Tạo Lớp";
+        $this->data['template'] = 'backend/quanlylophoc/create_class';
+        $this->load->view("backend/layout/home", $this->data);
+    }
+
     public function update_lophoc($id = "", $status = 0)
     {
         error_reporting(E_ERROR);
@@ -149,6 +170,7 @@ class Quanlylophoc extends CM_Controller
                 'taid' => trim($_POST['taid'])
             );
             $this->data['confirm'] = "Chúc mừng bạn đã cập nhật thành công";
+//            $this->lophoc->insert_classstatus($post_data['id'], $post_data['courseid']);
             $this->lophoc->update_entry($post_data);
         }
         $this->data['class'] = $this->lophoc->get_entry($id);
@@ -171,6 +193,7 @@ class Quanlylophoc extends CM_Controller
         $isCheck = ($isCheck == 0) ? "true" : "false";
         echo $isCheck;
     }
+
     public function ajaxdongbatform_course($courseid)
     {
         $isCheck = $this->monhoc->dong_mo_couse($courseid);
@@ -280,23 +303,6 @@ class Quanlylophoc extends CM_Controller
         }
         $this->data['current_page'] = "Tạo Course";
         $this->data['template'] = 'backend/quanlylophoc/create_course';
-        $this->load->view("backend/layout/home", $this->data);
-    }
-
-    public function create_class()
-    {
-        if ($this->input->post('submit')) {
-            $post_data = $this->input->post();
-            unset($post_data['submit']);
-            if ($this->lophoc->insert_entry($post_data)) {
-                $this->lecture->create_empty_lecture($post_data['id'], $post_data['duration']);
-                $this->cm_string->php_redirect('backend/quanlylophoc/hienthilophoc');
-            }
-        }
-        $this->data['courses'] = $this->monhoc->get_all();
-        $this->data['nhanviens'] = $this->nhanvien->get_all();
-        $this->data['current_page'] = "Tạo Lớp";
-        $this->data['template'] = 'backend/quanlylophoc/create_class';
         $this->load->view("backend/layout/home", $this->data);
     }
 }
