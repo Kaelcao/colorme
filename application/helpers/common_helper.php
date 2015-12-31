@@ -27,4 +27,8 @@ if (!function_exists('common_value_post')) {
         unlink($path); // delete file
 
     }
+    function dd($var){
+        var_dump($var);
+        die();
+    }
 }

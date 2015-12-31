@@ -16,6 +16,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="public/template/frontend/css/bootstrap.min.css" rel="stylesheet">
 
+
     <!-- Hover Effects CSS -->
     <link href="public/template/frontend/css/hover.css" rel="stylesheet" media="all">
 

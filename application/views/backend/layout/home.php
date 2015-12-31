@@ -27,16 +27,20 @@
     <link rel="stylesheet" type="text/css"
           href="public/template/backend/bower_components/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="public/template/backend/vendor/css/dataTables.bootstrap.css">
+
+    <!-- Bootstrap Material Design -->
+<!--    <link href="public/template/backend/css/bootstrap-material-design.css" rel="stylesheet">-->
+<!--    <link href="public/template/backend/css/ripples.min.css" rel="stylesheet">-->
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="public/template/backend/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/template/backend/css/themes.css">
     <script type="text/javascript"
             src="public/template/backend/bower_components/jquery/dist/jquery.min.js"></script>
-<!--    <script src="public/template/backend/js/snowstorm-min.js"></script>-->
-<!--    <script>-->
-<!--        snowStorm.snowColor = '#0A572B';-->
-<!--        snowStorm.useTwinkleEffect = true; // let the snow flicker in and out of view-->
-<!--    </script>-->
+    <!--    <script src="public/template/backend/js/snowstorm-min.js"></script>-->
+    <!--    <script>-->
+    <!--        snowStorm.snowColor = '#0A572B';-->
+    <!--        snowStorm.useTwinkleEffect = true; // let the snow flicker in and out of view-->
+    <!--    </script>-->
 </head>
 
 <body class="flat-blue">
@@ -201,7 +205,7 @@
                            aria-expanded="false"><?php echo $user['fullname'] ?> <span class="caret"></span></a>
                         <ul class="dropdown-menu animated fadeInDown">
                             <li class="profile-img">
-                                <img src="<?php echo base_url($user['avatar']);?>" class="profile-img">
+                                <img src="<?php echo base_url($user['avatar']); ?>" class="profile-img">
                             </li>
                             <li>
                                 <div class="profile-info">
@@ -215,7 +219,8 @@
                                         vnđ
                                     </div>
                                     <p>
-                                        <button style="width: 100%;margin-top: -18px" type="button" data-toggle="modal" data-target="#modalDefault"
+                                        <button style="width: 100%;margin-top: -18px" type="button" data-toggle="modal"
+                                                data-target="#modalDefault"
                                                 class="btn btn-success"><i class="fa fa-money"></i> Chuyển/nhận tiền
                                         </button>
 
@@ -258,6 +263,27 @@
                                 <span class="icon fa fa-dashboard"></span><span class="title">Dashboard</span>
                             </a>
                         </li>
+                        <?php
+                        if ($user['permission'] == 1) {
+                            ?>
+                            <li class="panel panel-default dropdown">
+                                <a data-toggle="collapse" href="#dropdown-tuyensinh">
+                                    <span class="icon fa fa-calendar-o"></span><span class="title">Quản lý tuyển sinh</span>
+                                </a>
+                                <!-- Dropdown level 1 -->
+                                <div id="dropdown-tuyensinh" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul class="nav navbar-nav">
+                                            <li <?php echo ($current_page == 'Quản lý tuyển sinh') ? 'class="active"' : ''; ?>>
+                                                <a href="<?php echo base_url('backend/tuyensinh') ?>">Đợt tuyển sinh</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <?php
+                        }
+                        ?>
                         <?php
                         if ($user['permission'] == 1) {
                             ?>
@@ -311,10 +337,12 @@
                                     <ul class="nav navbar-nav">
 
                                         <li <?php echo ($current_page == "Danh sách học sinh nộp tiền khóa hiện tại") ? 'class="active"' : ''; ?>>
-                                            <a href="<?php echo base_url('backend/quanlytaichinh/danhsachdanoptien') ?>">Danh sách học viên đã nộp tiền</a>
+                                            <a href="<?php echo base_url('backend/quanlytaichinh/danhsachdanoptien') ?>">Danh
+                                                sách học viên đã nộp tiền</a>
                                         </li>
                                         <li <?php echo ($current_page == "Danh sách chuyển tiền") ? 'class="active"' : ''; ?>>
-                                            <a href="<?php echo base_url('backend/quanlytaichinh/danhsachchuyentien') ?>">Danh sách chuyển tiền</a>
+                                            <a href="<?php echo base_url('backend/quanlytaichinh/danhsachchuyentien') ?>">Danh
+                                                sách chuyển tiền</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -377,6 +405,11 @@
         <script type="text/javascript" src="public/template/backend/js/index.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
         <script src="public/template/backend/js/bootstrap-toggle.js"></script>
+
+        <!--bootstrap material design-->
+<!--        <script src="public/template/backend/js/ripples.min.js"></script>-->
+<!--        <script src="public/template/backend/js/material.min.js"></script>-->
+
         <script type="text/javascript">
             var globalmoney = 0;
             function chuyentien(id, money) {
