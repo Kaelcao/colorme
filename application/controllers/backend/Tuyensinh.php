@@ -93,14 +93,26 @@ class Tuyensinh extends CM_Controller
 
     public function phan_cong_truc()
     {
-
+        if ($luot_truc_id = $this->input->get('luot_truc_id')) {
+            if ($this->dot_tuyen_sinh->can_regis($luot_truc_id)) {
+                $this->dot_tuyen_sinh->update_luot_truc($luot_truc_id, $this->auth['id']);
+                $this->session->set_flashdata('message', '<div class="alert alert-success text-center">Đăng kí thành công</div>');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger text-center">Đã có người đăng kí</div>');
+            }
+        }
         $this->data['current_page'] = 'Phân công trực';
         $this->data['template'] = 'backend/tuyensinh/phan_cong_truc';
 
         //lay du lieu tu database
-        $this->data['luot_trucs'] = $this->dot_tuyen_sinh->get_all_luot_truc();
-        $this->data['ngay_trucs'] = $this->dot_tuyen_sinh->get_all_ngay_truc(6);
+        $this->data['dot_tuyen_sinhs'] = $this->dot_tuyen_sinh->get_all_dottuyensinh();
+        if ($dot_tuyen_sinh_id = $this->input->get('dot_tuyen_sinh')) {
+            $this->data['current_url'] = 'backend/tuyensinh/phan_cong_truc?dot_tuyen_sinh=' . $dot_tuyen_sinh_id;
 
+            $this->data['luot_trucs'] = $this->dot_tuyen_sinh->get_all_luot_truc($dot_tuyen_sinh_id);
+            $this->data['dot_tuyen_sinh_id'] = $dot_tuyen_sinh_id;
+            $this->data['ngay_trucs'] = $this->dot_tuyen_sinh->get_all_ngay_truc($dot_tuyen_sinh_id);
+        }
         $this->load->view("backend/layout/home", $this->data);
     }
 }
