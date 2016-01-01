@@ -37,7 +37,7 @@ class Dot_tuyen_sinh extends CI_Model
 
     function get_all_luot_truc($dot_tuyen_sinh_id)
     {
-        return $this->db->select('cm_luot_truc.id id,status,ngaytruc,stt,fullname,starttime,endtime')->from('luot_truc')->join('ca_truc', 'cm_ca_truc.catrucid=cm_luot_truc.catrucid')->join('user', 'cm_user.id=cm_luot_truc.nguoitrucid', 'left')->where('dot_tuyen_sinh_id',$dot_tuyen_sinh_id)->get()->result_array();
+        return $this->db->select('mamau, cm_luot_truc.id id,status,ngaytruc,stt,fullname,starttime,endtime')->from('luot_truc')->join('ca_truc', 'cm_ca_truc.catrucid=cm_luot_truc.catrucid')->join('user', 'cm_user.id=cm_luot_truc.nguoitrucid', 'left')->where('dot_tuyen_sinh_id',$dot_tuyen_sinh_id)->get()->result_array();
     }
 
     function get_all_ngay_truc($dot_tuyen_sinh_id)

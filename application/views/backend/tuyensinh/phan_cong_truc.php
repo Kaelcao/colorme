@@ -54,22 +54,38 @@
                     <div class="row no-margin">
                         <?php
                         foreach ($ngay_trucs as $ngay_truc) {
+                            $date = $ngay_truc['ngaytruc'];
                             ?>
-                            <div class="col-sm-6 col-md-4">
+                            <div class="col-md-6 col-lg-4">
                                 <div class="card primary">
-                                    <div class="card-body">
-                                        <h4><?php echo format_date_from_db($ngay_truc['ngaytruc']) ?></h4>
+                                    <div class="card-body" style="border: #D9D9D9 1px solid;background:#FAFAFA;">
+                                        <h2><?php echo rebuild_date('l', strtotime($date)) ?></h2>
+                                        <h4>
+                                            <?php echo rebuild_date('jS F Y', strtotime($date)); ?>
+                                        </h4>
                                         <?php
                                         foreach ($luot_trucs as $luot_truc) {
                                             if ($luot_truc['ngaytruc'] === $ngay_truc['ngaytruc']) {
                                                 if ($luot_truc['status'] == 0) {
-                                                    $status = "<span class='float-right'><a style='position: relative;bottom: 10px;' href='".$current_url."&luot_truc_id=" . $luot_truc['id'] . "' class='btn btn-success'>Đăng kí</a></span>";
+                                                    ?>
+                                                    <div class='sub-title'>
+                                                        <a style='width:100%;position: relative;bottom: 10px;'
+                                                           href='<?php echo $current_url . "&luot_truc_id=" . $luot_truc['id'] ?>'
+                                                           class='btn btn-default'>
+                                                            <?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . $luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" ?>
+                                                            Bấm để Đăng kí
+                                                        </a>
+                                                    </div>
+                                                    <?php
                                                 } else {
-                                                    $status = "<span class='float-right'>" . $luot_truc['fullname'] . "</span>";
+                                                    ?>
+                                                    <div class='sub-title'>
+                                                        <div class="btn btn-default" disabled
+                                                             style="width: 100%;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . $luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" ?><?php echo $luot_truc['fullname']; ?></div>
+                                                    </div>
+                                                    <?php
                                                 }
                                                 ?>
-                                                <div
-                                                    class="sub-title"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . $luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" . $status ?></div>
                                                 <?php
                                             }
                                         }
@@ -88,3 +104,8 @@
         ?>
     </div>
 </div>
+<script>
+    setTimeout(function () {
+        $(".alert").fadeOut().empty();
+    }, 3000);
+</script>
