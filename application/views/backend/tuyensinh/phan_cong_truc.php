@@ -56,7 +56,7 @@
                         foreach ($ngay_trucs as $ngay_truc) {
                             $date = $ngay_truc['ngaytruc'];
                             ?>
-                            <div class="col-md-6 col-lg-4">
+                            <div class="col-md-6 col-lg-3">
                                 <div class="card primary">
                                     <div class="card-body" style="border: #D9D9D9 1px solid;background:#FAFAFA;">
                                         <h2><?php echo rebuild_date('l', strtotime($date)) ?></h2>
@@ -71,8 +71,8 @@
                                                     <div class='sub-title'>
                                                         <a style='width:100%;position: relative;bottom: 10px;'
                                                            href='<?php echo $current_url . "&luot_truc_id=" . $luot_truc['id'] ?>'
-                                                           class='btn btn-default'>
-                                                            <?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . $luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" ?>
+                                                           class='btn btn-success'>
+                                                            <?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . date('h\hm', strtotime($luot_truc['starttime'])) . "-" . date('h\hm', strtotime($luot_truc['endtime'])) . "</strong>" ?>
                                                             Bấm để Đăng kí
                                                         </a>
                                                     </div>
@@ -81,7 +81,7 @@
                                                     ?>
                                                     <div class='sub-title'>
                                                         <div class="btn btn-default" disabled
-                                                             style="width: 100%;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . $luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" ?><?php echo $luot_truc['fullname']; ?></div>
+                                                             style="width: 100%;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . date('h\hm', strtotime($luot_truc['starttime'])) . ': <strong>' . $luot_truc['starttime'] . "-" . date('h\hm', strtotime($luot_truc['endtime'])) . "</strong>" ?>  <?php echo $luot_truc['fullname']; ?></div>
                                                     </div>
                                                     <?php
                                                 }
