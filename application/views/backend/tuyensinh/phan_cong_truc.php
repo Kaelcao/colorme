@@ -25,13 +25,13 @@
                                     foreach ($luot_trucs as $luot_truc) {
                                         if ($luot_truc['ngaytruc'] === $ngay_truc['ngaytruc']) {
                                             if ($luot_truc['status'] == 0) {
-                                                $status = "<span class='float-right'>Chưa có ng trực</span>";
+                                                $status = "<span class='float-right'><a style='position: relative;bottom: 10px;' href='#' class='btn btn-success'>Đăng kí</a></span>";
                                             } else {
-                                                $status = "<span class='float-right'>".$luot_truc['fullname']."</span>";
+                                                $status = "<span class='float-right'>" . $luot_truc['fullname'] . "</span>";
                                             }
                                             ?>
                                             <div
-                                                class="sub-title"><?php echo 'Ca '.$luot_truc['stt'].': <strong>'.$luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" . $status ?></div>
+                                                class="sub-title"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . $luot_truc['starttime'] . "-" . $luot_truc['endtime'] . "</strong>" . $status ?></div>
                                             <?php
                                         }
                                     }
