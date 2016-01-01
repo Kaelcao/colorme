@@ -1,3 +1,60 @@
+<style>
+
+    @-webkit-keyframes glowing {
+        0% {
+            background-color: #04400C
+        }
+        50% {
+            background-color: #047E1A
+        }
+        100% {
+            background-color: #04400C
+        }
+    }
+
+    @-moz-keyframes glowing {
+        0% {
+            background-color: #04400C
+        }
+        50% {
+            background-color: #047E1A
+        }
+        100% {
+            background-color: #04400C
+        }
+    }
+
+    @-o-keyframes glowing {
+        0% {
+            background-color: #04400C
+        }
+        50% {
+            background-color: #047E1A
+        }
+        100% {
+            background-color: #04400C
+        }
+    }
+
+    @keyframes glowing {
+        0% {
+            background-color: #04400C
+        }
+        50% {
+            background-color: #047E1A
+        }
+        100% {
+            background-color: #04400C
+        }
+    }
+
+    .button {
+        -webkit-animation: glowing 2000ms infinite;
+        -moz-animation: glowing 2000ms infinite;
+        -o-animation: glowing 2000ms infinite;
+        animation: glowing 2000ms infinite;
+    }
+</style>
 <div class="container-fluid">
 
     <div class="side-body">
@@ -50,7 +107,7 @@
                         <div class="title">Lịch trực</div>
                     </div>
                 </div>
-                <div class="card-body ">
+                <div class="card-body " style="padding-left: 5px; padding-right: 5px;">
                     <div class="row no-margin">
                         <?php
                         foreach ($ngay_trucs as $ngay_truc) {
@@ -68,20 +125,22 @@
                                             if ($luot_truc['ngaytruc'] === $ngay_truc['ngaytruc']) {
                                                 if ($luot_truc['status'] == 0) {
                                                     ?>
-                                                    <div class='sub-title'>
-                                                        <a style='width:100%;position: relative;bottom: 10px;'
+                                                    <div class='sub-title' style="margin: 5px">
+                                                        <a style='width:100%'
                                                            href='<?php echo $current_url . "&luot_truc_id=" . $luot_truc['id'] ?>'
-                                                           class='btn btn-success'>
-                                                            <?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . date('h\hm', strtotime($luot_truc['starttime'])) . "-" . date('h\hm', strtotime($luot_truc['endtime'])) . "</strong>" ?>
-                                                            Bấm để Đăng kí
+                                                           class='btn btn-success button'
+                                                           onclick="return confirm('Bạn có chắc chắn trực vào h này?')">
+                                                            <?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . date('h\h', strtotime($luot_truc['starttime'])) . "-" . date('h\h', strtotime($luot_truc['endtime'])) . "</strong>" ?>
+                                                            <br>Bấm để Đăng kí
                                                         </a>
                                                     </div>
                                                     <?php
                                                 } else {
                                                     ?>
-                                                    <div class='sub-title'>
-                                                        <div class="btn btn-default" disabled
-                                                             style="width: 100%;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . date('h\hm', strtotime($luot_truc['starttime'])) . ': <strong>' . $luot_truc['starttime'] . "-" . date('h\hm', strtotime($luot_truc['endtime'])) . "</strong>" ?>  <?php echo $luot_truc['fullname']; ?></div>
+                                                    <div class='sub-title' style="margin: 5px">
+                                                        <a class="btn btn-default" disabled
+                                                           style="width: 100%;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . date('h\h', strtotime($luot_truc['starttime'])) . "-" . date('h\h', strtotime($luot_truc['endtime'])) . "</strong>" ?>
+                                                            <br><?php echo $luot_truc['fullname']; ?></a>
                                                     </div>
                                                     <?php
                                                 }
