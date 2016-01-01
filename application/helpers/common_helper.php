@@ -13,6 +13,10 @@ if (!function_exists('common_value_post')) {
         return preg_replace('/[^0-9\-]/', '', $string); // Removes special chars.
 
     }
+    function format_date_from_db($day){
+        $phpdate = strtotime($day);
+        return date('D, jS M Y', $phpdate);
+    }
 
     function format_currency($value)
     {

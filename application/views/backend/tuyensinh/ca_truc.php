@@ -14,33 +14,30 @@
                 </div>
                 <div class="card-body">
                     <?php
-                    if (!empty($insert_status)){
+                    if (!empty($insert_status)) {
                         echo $insert_status;
                     }
                     ?>
                     <form class="form-horizontal" role="form" method="post">
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Tên đợt tuyển sinh:</label>
+                            <label class="control-label col-sm-2" for="stt">Số thứ tự:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Tên đợt tuyển sinh">
+                                <input type="number" class="form-control" id="stt" name="stt"
+                                       placeholder="Số thứ tự">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="startdate">Ngày bắt đầu:</label>
+                            <label class="control-label col-sm-2" for="starttime">Thời gian bắt đầu:</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="startdate" name="startdate" placeholder="Ngày bắt đầu">
+                                <input type="time" class="form-control" id="starttime" name="starttime"
+                                       placeholder="Thời gian bắt đầu">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-2" for="enddate">Ngày kết thúc:</label>
+                            <label class="control-label col-sm-2" for="enddate">Thời gian kết thúc:</label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" id="enddate" name="enddate" placeholder="Ngày kết thúc">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="gen">Khóa:</label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" id="gen" name="gen" placeholder="Khóa">
+                                <input type="time" class="form-control" id="endtime" name="endtime"
+                                       placeholder="Thời gian kết thúc">
                             </div>
                         </div>
                         <div class="form-group">
@@ -54,7 +51,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <div class="title">Danh sách các đợt tuyển sinh</div>
+                        <div class="title">Danh sách các ca trực</div>
                     </div>
                 </div>
 
@@ -62,21 +59,21 @@
                     <table class="datatable table table-striped" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Tên đợt tuyển sinh</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
-                            <th>Khóa</th>
+                            <th>Số thứ tự</th>
+                            <th>Thời gian bắt đầu</th>
+                            <th>Thời gian kết thúc</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($dot_tuyen_sinhs as $dot_tuyen_sinh) {
+                        foreach ($ca_trucs as $ca_truc) {
                             ?>
                             <tr>
-                                <td><?php echo $dot_tuyen_sinh['name']; ?></td>
-                                <td><?php echo $dot_tuyen_sinh['startdate']; ?></td>
-                                <td><?php echo $dot_tuyen_sinh['enddate']; ?></td>
-                                <td><?php echo $dot_tuyen_sinh['gen']; ?></td>
+                                <td><?php echo $ca_truc['stt']; ?></td>
+                                <td><?php echo $ca_truc['starttime']; ?></td>
+                                <td><?php echo $ca_truc['endtime']; ?></td>
+                                <td><a onclick="return confirm('Bạn có chắc chắn xóa?');" class="btn btn-danger" href="<?php echo 'backend/tuyensinh/ca_truc?id='.$ca_truc['catrucid']; ?>">Xóa</a> </td>
                             </tr>
                             <?php
                         }
@@ -85,9 +82,9 @@
                         </tbody>
                         <tfoot>
                         <tr>
-                            <th>Tên đợt tuyển sinh</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
+                            <th>Số thứ tự</th>
+                            <th>Thời gian bắt đầu</th>
+                            <th></th>
                         </tr>
                         </tfoot>
                     </table>

@@ -29,8 +29,8 @@
     <link rel="stylesheet" type="text/css" href="public/template/backend/vendor/css/dataTables.bootstrap.css">
 
     <!-- Bootstrap Material Design -->
-<!--    <link href="public/template/backend/css/bootstrap-material-design.css" rel="stylesheet">-->
-<!--    <link href="public/template/backend/css/ripples.min.css" rel="stylesheet">-->
+    <!--    <link href="public/template/backend/css/bootstrap-material-design.css" rel="stylesheet">-->
+    <!--    <link href="public/template/backend/css/ripples.min.css" rel="stylesheet">-->
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" href="public/template/backend/css/style.css">
     <link rel="stylesheet" type="text/css" href="public/template/backend/css/themes.css">
@@ -263,27 +263,36 @@
                                 <span class="icon fa fa-dashboard"></span><span class="title">Dashboard</span>
                             </a>
                         </li>
-                        <?php
-                        if ($user['permission'] == 1) {
-                            ?>
-                            <li class="panel panel-default dropdown">
-                                <a data-toggle="collapse" href="#dropdown-tuyensinh">
-                                    <span class="icon fa fa-calendar-o"></span><span class="title">Quản lý tuyển sinh</span>
-                                </a>
-                                <!-- Dropdown level 1 -->
-                                <div id="dropdown-tuyensinh" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul class="nav navbar-nav">
+
+                        <li class="panel panel-default dropdown">
+                            <a data-toggle="collapse" href="#dropdown-tuyensinh">
+                                <span class="icon fa fa-calendar-o"></span><span class="title">Quản lý tuyển sinh</span>
+                            </a>
+                            <!-- Dropdown level 1 -->
+                            <div id="dropdown-tuyensinh" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <ul class="nav navbar-nav">
+                                        <?php
+                                        if ($user['permission'] == 1) {
+                                            ?>
                                             <li <?php echo ($current_page == 'Quản lý tuyển sinh') ? 'class="active"' : ''; ?>>
                                                 <a href="<?php echo base_url('backend/tuyensinh') ?>">Đợt tuyển sinh</a>
                                             </li>
-                                        </ul>
-                                    </div>
+                                            <li <?php echo ($current_page == 'Quản lý ca trực') ? 'class="active"' : ''; ?>>
+                                                <a href="<?php echo base_url('backend/tuyensinh/ca_truc') ?>">Ca
+                                                    trực</a>
+                                            </li>
+                                            <?php
+                                        }
+                                        ?>
+                                        <li <?php echo ($current_page == 'Phân công trực') ? 'class="active"' : ''; ?>>
+                                            <a href="<?php echo base_url('backend/tuyensinh/phan_cong_truc') ?>">Phân công trực</a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </li>
-                            <?php
-                        }
-                        ?>
+                            </div>
+                        </li>
+
                         <?php
                         if ($user['permission'] == 1) {
                             ?>
@@ -407,8 +416,8 @@
         <script src="public/template/backend/js/bootstrap-toggle.js"></script>
 
         <!--bootstrap material design-->
-<!--        <script src="public/template/backend/js/ripples.min.js"></script>-->
-<!--        <script src="public/template/backend/js/material.min.js"></script>-->
+        <!--        <script src="public/template/backend/js/ripples.min.js"></script>-->
+        <!--        <script src="public/template/backend/js/material.min.js"></script>-->
 
         <script type="text/javascript">
             var globalmoney = 0;
