@@ -7,48 +7,99 @@
         color: #c50000;
     }
 </style>
+
 <div class="row">
-    <div class="col-md-6">
-        <div class="x_panel">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <div class="x_panel tile">
             <div class="x_title">
-                <h2>Survey 1 và nộp bài tập giữa kì </h2>
+                <h2>Nop bai tap giua ki, Toi da 1 file jpg hoac png</h2>
 
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <!-- Smart Wizard -->
-
-                <div id="wizard" class="form_wizard wizard_horizontal">
-                    <ul class="wizard_steps">
-                        <li>
-                            <a href="#step-1">
-                                <span class="step_no">1</span>
-                                <span class="step_descr">
-                                    Bước 1<br/>
-                                    <small>Hoàn thành survey #1</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#step-2">
-                                <span class="step_no">2</span>
-                                <span class="step_descr">
-                                    Bước 2<br/>
-                                    <small>Nộp bài tập giữa kì</small>
-                                </span>
-                            </a>
-                        </li>
+                <button style="width: 100%" type="button" class="btn btn-info btn-lg" id="btn-nop-bai-gk">Nộp bài giữa
+                    kì
+                </button>
+                <div id="anh-giua-ki">
+                    <?php echo !empty($linkbaigiuaki) ? '<img src="' . base_url($linkbaigiuaki) . '" style="width:100%"/>' : ""; ?>
+                </div>
+            </div>
+        </div>
+        <!-- Trigger the modal with a button -->
 
 
-                    </ul>
-                    <div id="step-1">
-                        <?php
-                        if ($complete_survey_one) {
-                            echo "<div><h2 class='text-center'><i class='fa fa-check fa-4x'></i>Bạn đã hoàn thành survey, bấm <strong>next</strong> để nộp hoặc chỉnh sửa link bài giữa kì</h2> </div>";
-                        } else {
-                            echo
-                            "
-                                <form role=\"form\">
+        <!-- Modal -->
+        <div id="modal-nopbai" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <h2>Nop bai giua ki</h2>
+
+
+                        <form action="<?php echo base_url('hocvien/home/nop_baigiuaki') ?>" class="dropzone"
+                              id="my-awesome-dropzone"
+                              style="border: 1px solid #e5e5e5; height: 300px; "></form>
+
+
+                        <!--                        <form id="uploadbaigiuaki" method="post"-->
+                        <!--                              action="-->
+                        <?php //echo base_url('hocvien/home/nop_baigiuaki') ?><!--"-->
+                        <!--                              enctype="multipart/form-data">-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <label for="baigiuaki">Upload bài giữa kì - Kích thước tối đa 5 Mb </label>-->
+                        <!--                                <input name="userfile" id="userfile" required class="form-control" rows="3"-->
+                        <!--                                       type="file"/>-->
+                        <!--                            </div>-->
+                        <!---->
+                        <!--                            <input type="submit" id="submitBaiGiuaki" name="submit" value="submit"-->
+                        <!--                                   class="btn btn-default"/>-->
+                        <!---->
+                        <!--                        </form>-->
+                        <!--                        <div id="message-nopbai" class="text-center">-->
+                        <!--                            --><?php
+                        //                            if (!empty($linkbaigiuaki)) {
+                        //                                echo "<div><img src='$linkbaigiuaki' style='width: 75%;'/></div>";
+                        //                            }
+                        //                            ?>
+                        <!--                        </div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-hoan-tat">Hoan tat
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <form role="form">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ban vui long hoan thanh survey 1 gium chung minh nhe</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="step-1">
+                                <?php
+
+
+                                echo
+                                "
+
                             <div class=\"form-group\">
                                 <label for=\"clb\" class='cauhoi'>Bạn có đang tham gia nhóm/ CLB nào mà có hoạt động thiết kế nào
                                     không?*</label>
@@ -63,7 +114,7 @@
                             <div class=\"form-group\">
                                 <label for=\"yeutochon\" class='cauhoi'>Yếu tố nào khiến bạn chọn colorME mà không chọn nơi khác?
                                     *</label>
-                                
+
                                         <div class=\"checkbox\">
                                             <label><input name=\"yeutochon\" type=\"checkbox\" id=\"yeutochon\" value=\"colorME có thầy giỏi\">colorME có thầy giỏi</label>
                                         </div>
@@ -83,9 +134,9 @@
                                                 Bạn mình cứ lôi kéo học cùng. Thôi thì học cho biết.</label>
                                         </div>
                                         <label>Yếu tố khác
-                                        <input name=\"yeutochon\" id=\"yeutochonkhac\" type=\"text\" class=\"form-control\" value=\"\"/> 
+                                        <input name=\"yeutochon\" id=\"yeutochonkhac\" type=\"text\" class=\"form-control\" value=\"\"/>
                                         </label>
-                                        
+
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"noikhac\" class='cauhoi'>Bạn có biết những nơi nào cũng dạy thiết kế như colorME không?
@@ -94,7 +145,7 @@
                             </div>
                             <div class=\"form-group\">
                                 <label for=\"lydo\" class='cauhoi'>Tại sao bạn muốn học thiết kế Photoshop cơ bản? *</label>
-                                
+
                                 <div class=\"checkbox\">
                                        <label><input name=\"lydo\" id=\"lydo\" type=\"checkbox\" value=\"Để thiết kế slides, phục vụ thuyết trình\">Để thiết kế slides, phục vụ
                                            thuyết trình</label>
@@ -117,7 +168,7 @@
                                    <label>
                                    Lý do khác <input name=\"lydo\" id=\"lydokhac\" type=\"text\" class=\"form-control\" value=\"\"/>
                                    </label>
-                                   
+
                            </div>
 
                             <div class=\"form-group\">
@@ -141,42 +192,29 @@
                                           required></textarea>
                             </div>
 
-                            <button type=\"button\" id=\"submit\" class=\"btn btn-default\">Submit</button>
-                        </form>
+
+
                                 ";
-                        }
-                        ?>
+
+                                ?>
 
 
-                    </div>
-                    <div id="step-2">
-                        <form id="uploadbaigiuaki" method="post" action="<?php echo base_url('hocvien/home/nop_baigiuaki') ?>" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="baigiuaki">Upload bài giữa kì - Kích thước tối đa 5 Mb </label>
-                                <input name="userfile" id="userfile" required class="form-control" rows="3"
-                                       type="file"/>
                             </div>
-
-                            <input type="submit" id="submitBaiGiuaki" name="submit" value="submit"
-                                   class="btn btn-default"/>
-
-                        </form>
-                        <div id="message-nopbai" class="text-center">
-                        <?php
-                        if (!empty($linkbaigiuaki)){
-                            echo "<div><img src='$linkbaigiuaki' style='width: 75%;'/></div>";
-                        }
-                        ?>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" id="submit" class="btn btn-default" data-target="#modal-nopbai"
+                                    data-dismiss="modal">Nộp bài giữa kì
+                            </button>
+                        </div>
+
                     </div>
-
-
-                </div>
-                <!-- End SmartWizard Content -->
+                </form>
             </div>
+
         </div>
+
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Liên kết thường dùng </h2>
@@ -574,8 +612,11 @@
         </div>
     </div>
 </div>
+
+</div>
 <!-- form wizard -->
 <script type="text/javascript" src="public/template/hocvien/js/wizard/jquery.smartWizard.js"></script>
+<script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -587,7 +628,23 @@
             echo "$(\".actionBar .btn-success\").addClass('buttonDisabled')";
         }
         ?>
-
+        Dropzone.options.myAwesomeDropzone = {
+            maxFiles: 1,
+            acceptedFiles: "image/jpeg,image/png",
+            success: function (file, response) {
+                $('#anh-giua-ki').html(response);
+            },
+            accept: function (file, done) {
+                console.log(file);
+                done();
+            },
+            init: function () {
+                this.on("maxfilesexceeded", function (file) {
+                    alert("No more files please!");
+                    this.removeAllFiles(true);
+                });
+            }
+        };
 
         function onFinishCallback() {
             $('#wizard').smartWizard('showMessage', 'Finish Clicked');
@@ -595,6 +652,17 @@
         }
         ;
 
+        $('#btn-nop-bai-gk').click(function () {
+            if (<?php echo !empty($complete_survey_one) ? $complete_survey_one : 0; ?> == 1
+            )
+            {
+                $('#modal-nopbai').modal('show');
+            }
+            else
+            {
+                $('#myModal').modal('show');
+            }
+        });
 
         $("#submit").click(function () {
             var lydo = $("#lydokhac").val();
@@ -638,33 +706,37 @@
                     data: dataString,
                     cache: false,
                     success: function (result) {
-                        $("#step-1").html(result);
+//                        $("#step-1").html(result);
+
+                        $('#myModal').modal('hide');
+                        $('#modal-nopbai').modal('show');
                         $(".actionBar .btn-success").removeClass('buttonDisabled');
                     }
+
                 });
             }
             return false;
 
         });
-        $("#uploadbaigiuaki").on('submit', function (e) {
-            e.preventDefault();
-            $("#message-nopbai").html('<img src="public/resources/images/page-loader.gif"/>');
-            $.ajax({
-                url: "<?php echo base_url('hocvien/home/nop_baigiuaki') ?>", // Url to which the request is send
-                type: "POST",             // Type of request to be send, called as method
-                data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-                contentType: false,       // The content type used when sending data to the server.
-                cache: false,             // To unable request pages to be cached
-                processData: false,        // To send DOMDocument or non processed data file it is set to false
-                success: function (data)   // A function to be called if request succeeds
-                {
-                    $("#message-nopbai").html(data);
-                    setTimeout(function () {
-                        $(".alert").fadeOut().empty();
-                    }, 3000);
-                }
-            });
-        });
+//        $("#uploadbaigiuaki").on('submit', function (e) {
+//            e.preventDefault();
+//            $("#message-nopbai").html('<img src="public/resources/images/page-loader.gif"/>');
+//            $.ajax({
+//                url: "<?php //echo base_url('hocvien/home/nop_baigiuaki') ?>//", // Url to which the request is send
+//                type: "POST",             // Type of request to be send, called as method
+//                data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+//                contentType: false,       // The content type used when sending data to the server.
+//                cache: false,             // To unable request pages to be cached
+//                processData: false,        // To send DOMDocument or non processed data file it is set to false
+//                success: function (data)   // A function to be called if request succeeds
+//                {
+//                    $("#message-nopbai").html(data);
+//                    setTimeout(function () {
+//                        $(".alert").fadeOut().empty();
+//                    }, 3000);
+//                }
+//            });
+//        });
 
 //        $("#submitBaiGiuaki").click(function () {
 //

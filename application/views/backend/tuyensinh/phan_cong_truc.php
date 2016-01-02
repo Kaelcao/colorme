@@ -2,49 +2,49 @@
 
     @-webkit-keyframes glowing {
         0% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
         50% {
-            background-color: #047E1A
+            background-color: #1E74F0
         }
         100% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
     }
 
     @-moz-keyframes glowing {
         0% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
         50% {
-            background-color: #047E1A
+            background-color: #1E74F0
         }
         100% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
     }
 
     @-o-keyframes glowing {
         0% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
         50% {
-            background-color: #047E1A
+            background-color: #1E74F0
         }
         100% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
     }
 
     @keyframes glowing {
         0% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
         50% {
-            background-color: #047E1A
+            background-color: #1E74F0
         }
         100% {
-            background-color: #04400C
+            background-color: #1A97E6
         }
     }
 
@@ -126,7 +126,7 @@
                                                 if ($luot_truc['status'] == 0) {
                                                     ?>
                                                     <div class='sub-title' style="margin: 5px">
-                                                        <a style='width:100%'
+                                                        <a style='width:100%;border: none'
                                                            href='<?php echo $current_url . "&luot_truc_id=" . $luot_truc['id'] ?>'
                                                            class='btn btn-success button'
                                                            onclick="return confirm('Bạn có chắc chắn trực vào h này?')">
@@ -139,7 +139,7 @@
                                                     ?>
                                                     <div class='sub-title' style="margin: 5px">
                                                         <a class="btn btn-default" disabled
-                                                           style="width: 100%;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . date('h\h', strtotime($luot_truc['starttime'])) . "-" . date('h\h', strtotime($luot_truc['endtime'])) . "</strong>" ?>
+                                                           style="width: 100%;border: none;color: white;background-color:<?php echo $luot_truc['mamau']; ?>"><?php echo 'Ca ' . $luot_truc['stt'] . ': <strong>' . date('h\h', strtotime($luot_truc['starttime'])) . "-" . date('h\h', strtotime($luot_truc['endtime'])) . "</strong>" ?>
                                                             <br><?php echo $luot_truc['fullname']; ?></a>
                                                     </div>
                                                     <?php
