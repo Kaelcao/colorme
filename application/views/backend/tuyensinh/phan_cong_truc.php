@@ -2,57 +2,57 @@
 
     @-webkit-keyframes glowing {
         0% {
-            background-color: #1A97E6
+            background-color: #009393
         }
         50% {
-            background-color: #1E74F0
+            background-color: #00585F
         }
         100% {
-            background-color: #1A97E6
+            background-color: #009393
         }
     }
 
     @-moz-keyframes glowing {
         0% {
-            background-color: #1A97E6
+            background-color: #009393
         }
         50% {
-            background-color: #1E74F0
+            background-color: #00585F
         }
         100% {
-            background-color: #1A97E6
+            background-color: #009393
         }
     }
 
     @-o-keyframes glowing {
         0% {
-            background-color: #1A97E6
+            background-color: #009393
         }
         50% {
-            background-color: #1E74F0
+            background-color: #00585F
         }
         100% {
-            background-color: #1A97E6
+            background-color: #009393
         }
     }
 
     @keyframes glowing {
         0% {
-            background-color: #1A97E6
+            background-color: #009393
         }
         50% {
-            background-color: #1E74F0
+            background-color: #00585F
         }
         100% {
-            background-color: #1A97E6
+            background-color: #009393
         }
     }
 
     .button {
-        -webkit-animation: glowing 2000ms infinite;
-        -moz-animation: glowing 2000ms infinite;
-        -o-animation: glowing 2000ms infinite;
-        animation: glowing 2000ms infinite;
+        -webkit-animation: glowing 1500ms infinite;
+        -moz-animation: glowing 1500ms infinite;
+        -o-animation: glowing 1500ms infinite;
+        animation: glowing 1500ms infinite;
     }
 </style>
 <div class="container-fluid">

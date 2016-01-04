@@ -6,16 +6,39 @@
     .cauhoi {
         color: #c50000;
     }
+
+
 </style>
 
 <div class="row">
     <div class="col-md-4">
+        <div class="x_panel tile" id="bai-tap-container">
+            <div class="x_title">
+                <h2>Bai tap hoc vien</h2>
+                <div class="clearfix"></div>
+            </div>
+            <?php
+            foreach ($bai_tap_hoc_viens as $bai_tap_hoc_vien) {
+                ?>
+                <div class="x_content">
+                    <img src="<?php echo base_url($bai_tap_hoc_vien['baigiuaki']); ?>" style="width:100%"/>
+                    <h2><?php echo $bai_tap_hoc_vien['fullname'] ?></h2>
+                    <p>Lop <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
+                </div>
+                <?php
+            }
+            ?>
 
+        </div>
+        <div>
+            <button class="btn btn-info" style="width: 100%;font-size:20px " id="btn-load-more">Tai them</button>
+        </div>
     </div>
+
     <div class="col-md-4">
         <div class="x_panel tile">
             <div class="x_title">
-                <h2>Nop bai tap giua ki, Toi da 1 file jpg hoac png</h2>
+                <h2>Nộp bài tập giữa kì (1 file jpg/png)</h2>
 
                 <div class="clearfix"></div>
             </div>
@@ -204,6 +227,303 @@
                         <div class="modal-footer">
                             <button type="button" id="submit" class="btn btn-default" data-target="#modal-nopbai"
                                     data-dismiss="modal">Nộp bài giữa kì
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="x_panel tile">
+            <div class="x_title">
+                <h2>Nộp bài cuối kì (6 files jpg/png)</h2>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <button style="width: 100%" type="button" class="btn btn-info btn-lg" id="btn-nop-bai-ck">Nộp bài cuối
+                    kì
+                </button>
+                <div id="anh-cuoi-ki">
+                    <?php echo !empty($linkbaigiuaki) ? '<img src="' . base_url($linkbaigiuaki) . '" style="width:100%"/>' : ""; ?>
+                </div>
+            </div>
+        </div>
+        <!-- Trigger the modal with a button -->
+
+
+        <!-- Modal -->
+        <div id="modal-nopbai-ck" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Nộp bài cuối kì</h4>
+                    </div>
+                    <div class="modal-body">
+
+
+                        <h2>Nop bai cuối kì</h2>
+
+
+                        <form action="<?php echo base_url('hocvien/home/nop_baigiuaki') ?>" class="dropzone"
+                              id="my-awesome-dropzone"
+                              style="border: 1px solid #e5e5e5; height: 300px; "></form>
+
+
+                        <!--                        <form id="uploadbaigiuaki" method="post"-->
+                        <!--                              action="-->
+                        <?php //echo base_url('hocvien/home/nop_baigiuaki') ?><!--"-->
+                        <!--                              enctype="multipart/form-data">-->
+                        <!--                            <div class="form-group">-->
+                        <!--                                <label for="baigiuaki">Upload bài giữa kì - Kích thước tối đa 5 Mb </label>-->
+                        <!--                                <input name="userfile" id="userfile" required class="form-control" rows="3"-->
+                        <!--                                       type="file"/>-->
+                        <!--                            </div>-->
+                        <!---->
+                        <!--                            <input type="submit" id="submitBaiGiuaki" name="submit" value="submit"-->
+                        <!--                                   class="btn btn-default"/>-->
+                        <!---->
+                        <!--                        </form>-->
+                        <!--                        <div id="message-nopbai" class="text-center">-->
+                        <!--                            --><?php
+                        //                            if (!empty($linkbaigiuaki)) {
+                        //                                echo "<div><img src='$linkbaigiuaki' style='width: 75%;'/></div>";
+                        //                            }
+                        //                            ?>
+                        <!--                        </div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-hoan-tat">Hoan tat
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <div id="survey-ck" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <form role="form">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Bạn vui lòng hoàn thành survey cuối kì giúp chúng mình nhé</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="khong-day" class='cauhoi'>Bạn nghĩ sao nếu colorME không tiếp tục dạy design
+                                    (for marketers) nữa? *
+                                    không?*</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="khong-day" id="khong-day" value="0">Rất rất đáng
+                                        tiếc; buồn. colorME thực sự mang lại cho tôi nhiều trải nghiệm tôi không thấy ở
+                                        nơi khác.</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="khong-day" id="khong-day" value="1">Hơi đáng tiếc,
+                                        colorME cũng để lại một chút ấn tượng.</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="khong-day" id="khong-day" value="2">Bình thường,
+                                        không có gì đáng tiếc cả, vì colorME cũng hao hao như các nơi khác.</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="khong-day" id="khong-day" value="3">Miễn hỏi. Tôi
+                                        thấy thất vọng với trải nghiệm tại colorME.</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="hai-long" class='cauhoi'>Bạn hài lòng với những kiến thức Photoshop và Tư
+                                    duy
+                                    thiết kế học được ở colorME chứ? *
+                                    *</label>
+                                <select name="rate-hai-long" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="why-hai-long">Vì sao bạn chọn thang điểm trên?</label>
+                                <input required type="text" class="form-control" id="why-hai-long" name="why-hai-long"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gioi-thieu" class='cauhoi'>Khả năng bạn sẽ giới thiệu colorME với bạn
+                                    bè/người thân là bao nhiêu? *
+                                </label>
+                                <select name="rate-gioi-thieu" id="rate-gioi-thieu" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="why-gioi-thieu">Vì sao bạn chọn thang điểm trên?</label>
+                                <input required type="text" class="form-control" id="why-gioi-thieu"
+                                       name="why-gioi-thieu"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rate-giang-vien" class='cauhoi'>Bạn sẽ tặng giảng viên mấy SAO cho chất
+                                    lượng giảng dạy/ truyền đạt? *</label>
+                                <select name="rate-giang-vien" id="rate-giang-vien" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="giang-vien-cai-thien">Giảng viên cần cải thiện những gì? *</label>
+                                <input required type="text" class="form-control" id="giang-vien-cai-thien"
+                                       name="giang-vien-cai-thien"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rate-tro-giang" class='cauhoi'>Bạn sẽ tặng Trợ giảng mấy SAO cho chất lượng
+                                    hỗ trợ trước, trong và sau lớp học? *</label>
+                                <select name="rate-tro-giang" id="rate-tro-giang" class="form-control">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="giang-vien-cai-thien">Trợ giảng cần cải thiện những gì? *</label>
+                                <input required type="text" class="form-control" id="giang-vien-cai-thien"
+                                       name="giang-vien-cai-thien"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="so-sanh" class='cauhoi'>Tổng thể, bạn thấy colorME đã mang lại cho bạn lượng
+                                    kiến thức và trải nghiệm học tập như thế nào so với các nơi dạy thiết kế bạn đã biết
+                                    (đã học)? *</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="0">Hơn hẳn</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="1">Hơn một chút ít thôi</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="2">Cũng xêm xêm</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="3">Còn kém một chút</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="4">Kém xa</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="5">Mình không biết trung tâm nào
+                                        khác nên không so sánh được</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="so-sanh" class='cauhoi'>Bạn đã kết nối (làm quen) được với bao nhiêu bạn
+                                    đồng môn ở colorME rồi? *</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="0">Coi như hết rồi nha (ít cũng
+                                        phải 80% các bạn) ^_^</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="1">Cũng kha khá (chắc (50-80% gì
+                                        đó)</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="2">Hix, mình chẳng quen được là bao
+                                        (khoảng 20-50% thôi)</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="so-sanh" value="3">Hầu như không nha (dưới 20%).
+                                        Đội ngũ giảng viên colorME kết nối chúng mình tệ quá</label>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="se-tham-gia" class='cauhoi'>Bạn sẽ tham gia các lớp học khác của colorME
+                                    trong
+                                    tương lai chứ (Ví dụ khóa học làm video clip)? *</label>
+                                <div class="radio">
+                                    <label><input type="radio" name="se-tham-gia" value="0">Chắc chắn có</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="se-tham-gia" value="1">Xem xét đã nhỉ</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="se-tham-gia" value="2">Chắc chắn không</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ly-do-se-tham-gia">Lý do bạn chọn như trên? *</label>
+                                <input required type="text" class="form-control" id="ly-do-se-tham-gia"
+                                       name="ly-do-se-tham-gia"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="chia-se-nua">Còn gì nữa bạn muốn chia sẻ cùng colorME không? *</label>
+                                <input required type="text" class="form-control" id="chia-se-nua"
+                                       name="chia-se-nua"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="tham-gia-alumni">Chúng mình đã xây dựng colorME Alumni Network. Bạn tham gia
+                                    ở link dưới nhé? *
+                                    <br/>
+                                    <a style="text-decoration: underline"
+                                       href="https://www.facebook.com/groups/880400375369228/" target="_blank">colorME Alumni
+                                        Network</a>
+                                </label>
+                                <div class="radio">
+                                    <label><input type="radio" name="tham-gia-alumni" value="0">Yes</label>
+                                </div>
+                                <div class="radio">
+                                    <label><input type="radio" name="tham-gia-alumni" value="1">No</label>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="submit" class="btn btn-default" data-target="#modal-nopbai-ck"
+                                    data-dismiss="modal">Nộp bài cuối kì
                             </button>
                         </div>
 
@@ -620,14 +940,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        // Smart Wizard
-        $('#wizard').smartWizard();
 
-        <?php
-        if (!$complete_survey_one) {
-            echo "$(\".actionBar .btn-success\").addClass('buttonDisabled')";
-        }
-        ?>
         Dropzone.options.myAwesomeDropzone = {
             maxFiles: 1,
             acceptedFiles: "image/jpeg,image/png",
@@ -646,12 +959,21 @@
             }
         };
 
-        function onFinishCallback() {
-            $('#wizard').smartWizard('showMessage', 'Finish Clicked');
-            //alert('Finish Clicked');
-        }
-        ;
 
+        //nop bai cuoi ki
+        $('#btn-nop-bai-ck').click(function () {
+            if (<?php echo !empty($complete_survey_one) ? $complete_survey_one : 0; ?> == 1
+            )
+            {
+                $('#modal-nopbai-ck').modal('show');
+            }
+            else
+            {
+                $('#survey-ck').modal('show');
+            }
+        });
+
+        //nop bai giua ki
         $('#btn-nop-bai-gk').click(function () {
             if (<?php echo !empty($complete_survey_one) ? $complete_survey_one : 0; ?> == 1
             )
@@ -662,6 +984,22 @@
             {
                 $('#myModal').modal('show');
             }
+        });
+        var offset = 0;
+        $('#btn-load-more').click(function () {
+            offset += 10;
+            dataString = "";
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url('hocvien/home/ajax_load_more_bt/') ?>/" + offset,
+                data: dataString,
+                cache: false,
+                success: function (result) {
+                    $('#bai-tap-container').append(result);
+                }
+
+            });
+
         });
 
         $("#submit").click(function () {
@@ -718,6 +1056,7 @@
             return false;
 
         });
+
 //        $("#uploadbaigiuaki").on('submit', function (e) {
 //            e.preventDefault();
 //            $("#message-nopbai").html('<img src="public/resources/images/page-loader.gif"/>');

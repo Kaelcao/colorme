@@ -15,12 +15,16 @@ class Home extends CM_HocvienController
 //        $data['user'] = $this->auth;
 //    }
 
+
     public function index()
     {
         $this->load->model('survey');
         $this->load->model('hocvien');
+
         $this->data['complete_survey_one'] = $this->survey->complete_survey_one($this->auth['id']);
         $this->data['linkbaigiuaki'] = $this->hocvien->get_link_baigiuaki($this->auth['id']);
+        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap_giua_ki();
+
         $this->data['template'] = "hocvien/dashboard";
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
     }
@@ -64,6 +68,13 @@ class Home extends CM_HocvienController
         echo "<div><h2 class='text-center'><i class='fa fa-check fa-4x'></i>Bạn đã hoàn thành survey, bấm <strong>next</strong> để nộp bài giữa kì</h2> </div>";
     }
 
+    public function ajax_load_more_bt($offset)
+    {
+        $this->load->model('hocvien');
+        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap_giua_ki($offset, 10);
+        $this->load->view('hocvien/ajax/ajax_load_more_bt', isset($this->data) ? $this->data : NULL);
+    }
+
     public function nop_baigiuaki()
     {
         error_reporting(E_ERROR | E_PARSE);
@@ -85,7 +96,7 @@ class Home extends CM_HocvienController
             $config['height'] = 1000;
             $this->load->library('image_lib', $config);
             $this->image_lib->resize();
-            echo  '<img src="'.base_url('/public/resources/baitaphocvien/' . $fileName).'" style="width:100%"/>';
+            echo '<img src="' . base_url('/public/resources/baitaphocvien/' . $fileName) . '" style="width:100%"/>';
 
 // if you want to save in db,where here
 // with out model just for example
