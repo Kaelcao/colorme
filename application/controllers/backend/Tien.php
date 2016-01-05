@@ -22,7 +22,7 @@ class Tien extends CM_Controller
             ->set('money', 'money+' . $money, FALSE)
             ->update('user');
         $this->db->where('id', $id)
-            ->set('money', 0, FALSE)
+            ->set('money', 'money-' . $money, FALSE)
             ->update('user');
         echo "Đã nhận tiền";
     }
@@ -87,9 +87,9 @@ class Tien extends CM_Controller
                     ->update('user');
 
                 $this->db->query("INSERT INTO `cm_attend`(`studentid`, `lectureid`, `hwdone`, `taid`,`classid`)
-select $id, cm_classstatus.lectureid,0, -1, ".$class['classid']."
+select $id, cm_classstatus.lectureid,0, -1, " . $class['classid'] . "
 from cm_classstatus
-where cm_classstatus.classid=".$class['classid']);
+where cm_classstatus.classid=" . $class['classid']);
                 $class['lecturername'] = $this->db->select("fullname")->from('user')->where('id', $class['lecturerid'])->get()->row_array()['fullname'];
                 $class['taname'] = $this->db->select("fullname")->from('user')->where('id', $class['taid'])->get()->row_array()['fullname'];
 
@@ -101,7 +101,7 @@ where cm_classstatus.classid=".$class['classid']);
                 $salt = $this->cm_string->random(69, TRUE);
 
                 $password = $this->cm_string->encrypt_password($data['student']['realid'], $data['student']['email'], $salt);
-                $this->hocvien->update_student_password_id($password,$id,$salt);
+                $this->hocvien->update_student_password_id($password, $id, $salt);
 
                 $this->db->where('studentid', $id)->update('regis', array('note' => $note, 'userid' => $this->auth['id'], 'paid' => $tien, 'paidtime' => gmdate('Y-m-d H:i:s', time() + 7 * 3600)));
                 $this->db->where('id', $id)->update('student', array('realid' => $masinhvien));

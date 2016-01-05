@@ -298,10 +298,32 @@ class Student extends CM_Controller
     {
         $students = $this->hocvien->get_all();
 
-        foreach($students as $s){
+        foreach ($students as $s) {
             $salt = $this->cm_string->random(69, TRUE);
             $password = $this->cm_string->encrypt_password($s->realid, $s->email, $salt);
-            $this->hocvien->update_student_password($password,$s->realid,$salt);
+            $this->hocvien->update_student_password($password, $s->realid, $salt);
         }
+    }
+
+    public function test_mail()
+    {
+        $this->load->library('email');
+        $test_config['protocol'] = 'smtp';
+        $test_config['smtp_host'] = 'tls://email-smtp.us-west-2.amazonaws.com';
+        $test_config['smtp_port'] = '465';
+        $test_config['smtp_user'] = 'AKIAJEQT2NUMEUWI7NHA';
+        $test_config['smtp_pass'] = 'AvKj5skO2nEUsLuKX21MB7QNvDRLp/3dORdayFlYN8iP';
+        $test_config['newline']      = "\r\n";
+
+        $this->email->initialize($test_config);
+
+        $this->email->from('colorme.idea@gmail.com', 'From at colorme.idea@gmail.com');
+        $this->email->to('aquancva@gmail.com');
+
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');
+
+        var_dump($this->email->send());
+        $this->email->print_debugger();
     }
 }
