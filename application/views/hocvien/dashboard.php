@@ -17,18 +17,20 @@
                 <h2>Bài tập mới nhất</h2>
                 <div class="clearfix"></div>
             </div>
-            <?php
-            foreach ($bai_tap_hoc_viens as $bai_tap_hoc_vien) {
-                ?>
-                <div class="x_content">
-                    <img src="<?php echo base_url($bai_tap_hoc_vien['source']); ?>" style="width:100%"/>
-                    <h2><?php echo $bai_tap_hoc_vien['fullname'] ?></h2>
-                    <p>Thời gian nộp: <?php echo $bai_tap_hoc_vien['date'] ?></p>
-                    <p>Lớp <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
-                </div>
+            <div id="bai-tap-container">
                 <?php
-            }
-            ?>
+                foreach ($bai_tap_hoc_viens as $bai_tap_hoc_vien) {
+                    ?>
+                    <div id="feed<?php echo $bai_tap_hoc_vien['id'] ?>" class="x_content">
+                        <img src="<?php echo base_url($bai_tap_hoc_vien['source']); ?>" style="width:100%"/>
+                        <h2><?php echo $bai_tap_hoc_vien['fullname'] ?></h2>
+                        <p>Thời gian nộp: <?php echo $bai_tap_hoc_vien['date'] ?></p>
+                        <p>Lớp <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
+                    </div>
+                    <?php
+                }
+                ?>
+            </div>
 
         </div>
         <div>
@@ -253,14 +255,20 @@
                     if (!empty($bai_cks)) {
                         foreach ($bai_cks as $bai_ck) {
                             ?>
-                            <div id="<?php echo $bai_ck['id']; ?>">
-                                <button class="btn btn-danger" onclick="xoaBaiCk(<?php echo $bai_ck['id']; ?>)"
-                                        style="position: absolute;margin-left:10px;margin-top:10px;">Xóa
-                                </button>
-                                <img src="<?php echo base_url($bai_ck['source']) ?>"
-                                     style="width:100%;margin-bottom:5px;"/>
+
+                            <div id="<?php echo $bai_ck['id']; ?>" style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
+                                <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse' data-target='#btn-xac-nhan-<?php echo $bai_ck['id']; ?>'>Xóa</button>
+
+
+                                <div id='btn-xac-nhan-<?php echo $bai_ck['id']; ?>' class='collapse'>
+
+                                    <button class='btn btn-danger' onclick="xoaBaiCk(<?php echo $bai_ck['id']; ?>)">Xác nhận</button>
+                                </div>
+
 
                             </div>
+                            <img src="<?php echo base_url($bai_ck['source']) ?>" id="img<?php echo $bai_ck['id']; ?>"
+                                 style="width:100%;margin-bottom:5px;"/>
                             <?php
                         }
                     }
@@ -285,10 +293,7 @@
                         <h4 class="modal-title">Nộp bài cuối kì</h4>
                     </div>
                     <div class="modal-body">
-
-
-                        <h2>Nop bai cuối kì</h2>
-
+                        <h2>Bạn nhớ nộp đầy đủ các file nhé</h2>
 
                         <form action="<?php echo base_url('hocvien/home/nop_bai_ck') ?>" class="dropzone"
                               id="nop-bai-ck-dropzone"
@@ -949,6 +954,8 @@
         });
 
         $("div#" + id).remove();
+        $("div#feed" + id).remove();
+        $("#img" + id).remove();
         return false;
     }
     $(document).ready(function () {
@@ -959,6 +966,9 @@
             acceptedFiles: "image/jpeg,image/png",
             success: function (file, response) {
                 $('#anh-ck').append(response);
+                $('#bai-tap-container').prepend(response);
+                $('div.btn-group-xoa').remove();
+
             },
             accept: function (file, done) {
                 console.log(file);

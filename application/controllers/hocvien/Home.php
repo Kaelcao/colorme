@@ -132,14 +132,21 @@ class Home extends CM_HocvienController
             $this->image_lib->resize();
             echo
                 "
-            <div id='$id'>
-                                <button class='btn btn-danger' onclick='xoaBaiCk($id)'
-                                        style='position: absolute;margin-left:10px;margin-top:10px;'>Xóa
-                                </button>
-                                <img src='" . base_url('/public/resources/baitaphocvien/' . $fileName) . "'
-                                     style='width:100%;margin-bottom:5px;'/>
+            <div class='btn-group-xoa' id='$id'style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
+            <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse' data-target='#btn-xac-nhan-$id'>Xóa</button>
 
-                            </div>
+
+                    <div id='btn-xac-nhan-$id' class='collapse'>
+
+                        <button class='btn btn-danger' onclick='xoaBaiCk($id)'>Xác nhận</button>
+                    </div>
+
+
+            </div>
+            <img
+             id='img$id'
+            src='" . base_url('/public/resources/baitaphocvien/' . $fileName) . "'
+                     style='width:100%;margin-bottom:5px;'/>
             ";
 
         }

@@ -101,7 +101,7 @@ class Hocvien extends CI_Model
 
     function get_all_bai_tap($offset = 0, $total = 10)
     {
-        return $this->db->select('cm_post.source source,fullname,name,gen,cm_post.date date')->from('post')
+        return $this->db->select('cm_post.source source,fullname,name,gen,cm_post.date date,cm_post.id id')->from('post')
             ->join('regis', 'cm_regis.studentid=cm_post.studentid')
             ->join('student','cm_student.id = cm_post.studentid')
             ->join('class', 'cm_class.id=cm_regis.classid')->order_by('cm_post.date','desc')->limit($total,$offset)->get()->result_array();
