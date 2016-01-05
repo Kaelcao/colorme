@@ -14,16 +14,17 @@
     <div class="col-md-4">
         <div class="x_panel tile" id="bai-tap-container">
             <div class="x_title">
-                <h2>Bai tap hoc vien</h2>
+                <h2>Bài tập mới nhất</h2>
                 <div class="clearfix"></div>
             </div>
             <?php
             foreach ($bai_tap_hoc_viens as $bai_tap_hoc_vien) {
                 ?>
                 <div class="x_content">
-                    <img src="<?php echo base_url($bai_tap_hoc_vien['baigiuaki']); ?>" style="width:100%"/>
+                    <img src="<?php echo base_url($bai_tap_hoc_vien['source']); ?>" style="width:100%"/>
                     <h2><?php echo $bai_tap_hoc_vien['fullname'] ?></h2>
-                    <p>Lop <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
+                    <p>Thời gian nộp: <?php echo $bai_tap_hoc_vien['date'] ?></p>
+                    <p>Lớp <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
                 </div>
                 <?php
             }
@@ -31,7 +32,7 @@
 
         </div>
         <div>
-            <button class="btn btn-info" style="width: 100%;font-size:20px " id="btn-load-more">Tai them</button>
+            <button class="btn btn-info" style="width: 100%;font-size:20px " id="btn-load-more">Tải thêm</button>
         </div>
     </div>
 
@@ -249,9 +250,18 @@
                 </button>
                 <div id="anh-ck">
                     <?php
-                    if (!empty($bai_cks)){
-                        foreach ($bai_cks as $bai_ck){
-                            echo '<img src="' . base_url($bai_ck['source']) . '" style="width:25%"/>';
+                    if (!empty($bai_cks)) {
+                        foreach ($bai_cks as $bai_ck) {
+                            ?>
+                            <div id="<?php echo $bai_ck['id']; ?>">
+                                <button class="btn btn-danger" onclick="xoaBaiCk(<?php echo $bai_ck['id']; ?>)"
+                                        style="position: absolute;margin-left:10px;margin-top:10px;">Xóa
+                                </button>
+                                <img src="<?php echo base_url($bai_ck['source']) ?>"
+                                     style="width:100%;margin-bottom:5px;"/>
+
+                            </div>
+                            <?php
                         }
                     }
 
@@ -352,19 +362,11 @@
                                 <label for="hai-long" class='cauhoi'>Bạn hài lòng với những kiến thức Photoshop và Tư
                                     duy
                                     thiết kế học được ở colorME chứ? *
-                                    *</label>
-                                <select name="rate-hai-long" id="rate-hai-long" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
+                                </label>
+
+                                <div id="stars-rate-hai-long" class="starrr lead" data-rating='4'></div>
+                                Cảm ơn bạn đã dành tặng <span id="count-rate-hai-long">4</span> sao cho chất lượng đào
+                                tạo của colorME
                             </div>
 
                             <div class="form-group">
@@ -376,18 +378,8 @@
                                 <label for="gioi-thieu" class='cauhoi'>Khả năng bạn sẽ giới thiệu colorME với bạn
                                     bè/người thân là bao nhiêu? *
                                 </label>
-                                <select name="rate-gioi-thieu" id="rate-gioi-thieu" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
+                                <div id="stars-gioi-thieu" class="starrr lead" data-rating='4'></div>
+                                Cảm ơn bạn đã chọn <span id="count-gioi-thieu">4</span> sao
                             </div>
 
                             <div class="form-group">
@@ -399,18 +391,8 @@
                             <div class="form-group">
                                 <label for="rate-giang-vien" class='cauhoi'>Bạn sẽ tặng giảng viên mấy điểm cho chất
                                     lượng giảng dạy/ truyền đạt? *</label>
-                                <select name="rate-giang-vien" id="rate-giang-vien" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
+                                <div id="stars-rate-giang-vien" class="starrr lead" data-rating='4'></div>
+                                Cảm ơn bạn đã tặng <span id="count-rate-giang-vien">4</span> sao cho giảng viên
                             </div>
 
                             <div class="form-group">
@@ -422,18 +404,8 @@
                             <div class="form-group">
                                 <label for="rate-tro-giang" class='cauhoi'>Bạn sẽ tặng Trợ giảng mấy điểm cho chất lượng
                                     hỗ trợ trước, trong và sau lớp học? *</label>
-                                <select name="rate-tro-giang" id="rate-tro-giang" class="form-control">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
+                                <div id="stars-rate-tro-giang" class="starrr lead" data-rating='4'></div>
+                                Cảm ơn bạn đã tặng <span id="count-rate-tro-giang">4</span> sao cho trợ giảng
                             </div>
 
                             <div class="form-group">
@@ -961,6 +933,24 @@
 <script type="text/javascript" src="public/template/hocvien/js/wizard/jquery.smartWizard.js"></script>
 <script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
+    function xoaBaiCk(id) {
+
+        var dataString = 'id=' + id;
+
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('hocvien/home/ajax_xoa_post') ?>",
+            data: dataString,
+            cache: false,
+            success: function (result) {
+                alert("Đã xóa");
+            }
+
+        });
+
+        $("div#" + id).remove();
+        return false;
+    }
     $(document).ready(function () {
 
 
@@ -1002,13 +992,13 @@
         $('#submit-survey-ck').click(function () {
 
             var khongDay = $('#khong-day:checked').val();
-            var rateHaiLong = $('#rate-hai-long').val();
+            var rateHaiLong = $('#count-rate-hai-long').html();
             var whyHaiLong = $('#why-hai-long').val();
-            var rateGioiThieu = $('#rate-gioi-thieu').val();
+            var rateGioiThieu = $('#count-gioi-thieu').html();
             var whyGioiThieu = $('#why-gioi-thieu').val();
-            var rateGiangVien = $('#rate-giang-vien').val();
+            var rateGiangVien = $('#count-rate-giang-vien').html();
             var giangVienCaiThien = $('#giang-vien-cai-thien').val();
-            var rateTroGiang = $('#rate-tro-giang').val();
+            var rateTroGiang = $('#count-rate-tro-giang').html();
             var troGiangCaiThien = $('#tro-giang-cai-thien').val();
             var soSanh = $('#so-sanh:checked').val();
             var ketNoi = $('#ket-noi:checked').val();
@@ -1087,6 +1077,7 @@
                 $('#myModal').modal('show');
             }
         });
+
         var offset = 0;
         $('#btn-load-more').click(function () {
             offset += 10;

@@ -19,13 +19,10 @@ class Survey extends CI_Model
         $this->db->insert('cm_surveyone', $survey);
     }
 
-    function nop_baigiuaki($baigiuaki, $studentid)
+    function nop_baigiuaki($data)
     {
-        $data = array(
-            'baigiuaki' => $baigiuaki,
-        );
-        $this->db->where('studentid', $studentid);
-        $this->db->update('regis', $data);
+        $this->db->insert('cm_post', $data);
+        return $this->db->insert_id();
     }
 
     function complete_survey_one($studentid)
@@ -54,12 +51,27 @@ class Survey extends CI_Model
 
     function insert_post($post)
     {
-        return $this->db->insert('cm_post', $post);
+        $this->db->insert('cm_post', $post);
+        return $this->db->insert_id();
     }
 
-    function get_all_post($studentid)
+    function get_all_post($studentid,$lectureOrder)
     {
-        return $this->db->where('studentid', $studentid)->get('post')->result_array();
+        $data = array(
+            'studentid'=> $studentid,
+            'lectureOrder'=>$lectureOrder
+        );
+        return $this->db->where($data)->get('post')->result_array();
     }
 
+    function get_post($id)
+    {
+        return $this->db->where('id', $id)->get('post')->row_array();
+    }
+
+    function delete_post($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->delete('post');
+    }
 }

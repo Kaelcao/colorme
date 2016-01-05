@@ -23,11 +23,16 @@ class Home extends CM_HocvienController
 
         $this->data['complete_survey_one'] = $this->survey->complete_survey_one($this->auth['id']);
         $this->data['complete_survey_ck'] = $this->survey->complete_survey_ck($this->auth['id']);
+//        $this->data['complete_survey_ck'] = false;
 
-        $this->data['linkbaigiuaki'] = $this->hocvien->get_link_baigiuaki($this->auth['id']);
-        $this->data['bai_cks']= $this->survey->get_all_post($this->auth['id']);
+        $baigiuaki = $this->survey->get_all_post($this->auth['id'], 4);
+        if (count($baigiuaki) > 0) {
+            $this->data['linkbaigiuaki'] = $baigiuaki[0]['source'];
+        }
+        $this->data['bai_cks'] = $this->survey->get_all_post($this->auth['id'], 8);
 
-        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap_giua_ki();
+        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap();
+
 
         $this->data['template'] = "hocvien/dashboard";
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
@@ -93,7 +98,7 @@ class Home extends CM_HocvienController
     public function ajax_load_more_bt($offset)
     {
         $this->load->model('hocvien');
-        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap_giua_ki($offset, 10);
+        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap($offset, 10);
         $this->load->view('hocvien/ajax/ajax_load_more_bt', isset($this->data) ? $this->data : NULL);
     }
 
@@ -104,7 +109,7 @@ class Home extends CM_HocvienController
 //        dd($targetPath = getcwd() . '/public/resources/baitaphocvien/');
         if (!empty($_FILES)) {
             $tempFile = $_FILES['file']['tmp_name'];
-            $fileName = time() . $this->cm_string->random(10,true) . $_FILES['file']['name'];
+            $fileName = time() . $this->cm_string->random(10, true) . $_FILES['file']['name'];
             $targetPath = getcwd() . '/public/resources/baitaphocvien/';
             $targetFile = $targetPath . $fileName;
 //            $path = $this->db->select('baigiuaki')->from('regis')->where('studentid', $this->auth['id'])->get()->row_array()['baigiuaki'];
@@ -113,11 +118,11 @@ class Home extends CM_HocvienController
             $post = array(
                 'source' => '/public/resources/baitaphocvien/' . $fileName,
                 'studentid' => $this->auth['id'],
-                'date'=> $this->cm_string->get_current_time(),
-                'lectureOrder'=>8,
-                'description'=>""
+                'date' => $this->cm_string->get_current_time(),
+                'lectureOrder' => 8,
+                'description' => ""
             );
-            $this->survey->insert_post($post);
+            $id = $this->survey->insert_post($post);
             //Image Resizing
             $config['source_image'] = $targetFile;
             $config['maintain_ratio'] = TRUE;
@@ -125,8 +130,28 @@ class Home extends CM_HocvienController
             $config['height'] = 1000;
             $this->load->library('image_lib', $config);
             $this->image_lib->resize();
-            echo '<img src="' . base_url('/public/resources/baitaphocvien/' . $fileName) . '" style="width:25%"/>';
+            echo
+                "
+            <div id='$id'>
+                                <button class='btn btn-danger' onclick='xoaBaiCk($id)'
+                                        style='position: absolute;margin-left:10px;margin-top:10px;'>Xóa
+                                </button>
+                                <img src='" . base_url('/public/resources/baitaphocvien/' . $fileName) . "'
+                                     style='width:100%;margin-bottom:5px;'/>
+
+                            </div>
+            ";
+
         }
+    }
+
+    public function ajax_xoa_post()
+    {
+        $this->load->model('survey');
+        $id = $this->input->post('id');
+        $source = $this->survey->get_post($id)['source'];
+        deleteFiles($source);
+        $this->survey->delete_post($id);
     }
 
     public function nop_baigiuaki()
@@ -136,13 +161,22 @@ class Home extends CM_HocvienController
 //        dd($targetPath = getcwd() . '/public/resources/baitaphocvien/');
         if (!empty($_FILES)) {
             $tempFile = $_FILES['file']['tmp_name'];
-            $fileName = time() . $this->cm_string->random(10,true) . $_FILES['file']['name'];
+            $fileName = time() . $this->cm_string->random(10, true) . $_FILES['file']['name'];
             $targetPath = getcwd() . '/public/resources/baitaphocvien/';
             $targetFile = $targetPath . $fileName;
-            $path = $this->db->select('baigiuaki')->from('regis')->where('studentid', $this->auth['id'])->get()->row_array()['baigiuaki'];
+            $data = $this->db->select('id,source')->from('post')->where(array('studentid' => $this->auth['id'], 'lectureOrder' => 4))->get()->row_array();
+            $path = $data['source'];
             deleteFiles($path);
+            $this->survey->delete_post($data['id']);
             move_uploaded_file($tempFile, $targetFile);
-            $this->survey->nop_baigiuaki('/public/resources/baitaphocvien/' . $fileName, $this->auth['id']);
+            $post = array(
+                'source' => '/public/resources/baitaphocvien/' . $fileName,
+                'studentid' => $this->auth['id'],
+                'date' => $this->cm_string->get_current_time(),
+                'lectureOrder' => 4,
+                'description' => ""
+            );
+            $id = $this->survey->insert_post($post);
             //Image Resizing
             $config['source_image'] = $targetFile;
             $config['maintain_ratio'] = TRUE;

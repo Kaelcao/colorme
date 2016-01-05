@@ -98,15 +98,12 @@ class Hocvien extends CI_Model
         return $this->db->select('cm_class.courseid courseid, cm_class.id classid, cm_regis.paidtime paidtime,cm_student.id id,cm_student.fullname fullname,cm_student.address address,cm_student.email email,cm_student.phone phone, cm_student.realid realid, cm_regis.paid paid,cm_regis.note note, cm_user.fullname tennguoithu')->from('cm_student')->join('regis', 'cm_regis.studentid=cm_student.id')->join('user', 'cm_user.id=cm_regis.userid', 'left')->join('cm_class', 'cm_class.id=cm_regis.classid')->where(array('cm_class.gen' => $gen, 'cm_regis', 'cm_regis.paid!=' => -1))->order_by("cm_student.created", "desc")->get()->result();
     }
 
-    function get_link_baigiuaki($studentid)
-    {
-        return $this->db->select('baigiuaki')->get_where('regis', array('studentid' => $studentid))->row_array()['baigiuaki'];
-    }
 
-    function get_all_bai_tap_giua_ki($offset = 0, $total = 10)
+    function get_all_bai_tap($offset = 0, $total = 10)
     {
-        return $this->db->select('baigiuaki,fullname,name,gen')->from('student')
-            ->join('regis', 'cm_regis.studentid=cm_student.id')
-            ->join('class', 'cm_class.id=cm_regis.classid')->where("baigiuaki !='' ")->order_by('baigiuaki')->limit($total,$offset)->get()->result_array();
+        return $this->db->select('cm_post.source source,fullname,name,gen,cm_post.date date')->from('post')
+            ->join('regis', 'cm_regis.studentid=cm_post.studentid')
+            ->join('student','cm_student.id = cm_post.studentid')
+            ->join('class', 'cm_class.id=cm_regis.classid')->order_by('cm_post.date','desc')->limit($total,$offset)->get()->result_array();
     }
 }
