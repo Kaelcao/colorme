@@ -7,22 +7,61 @@
         color: #c50000;
     }
 
+    .baiTap:hover {
+        cursor: pointer;
+    }
 
+    .modal {
+        text-align: center;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        width: auto;
+    }
+
+    .img-responsive {
+        max-height: calc(100vh - 225px);
+    }
 </style>
 
 <div class="row">
     <div class="col-md-4">
-        <div class="x_panel tile" id="bai-tap-container">
+        <div class="x_panel tile">
             <div class="x_title">
                 <h2>Bài tập mới nhất</h2>
                 <div class="clearfix"></div>
+            </div>
+            <!-- Modal -->
+            <div id="imageViewModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+
+                    <!-- Modal content-->
+                    <div class="modal-content" style="height: 100%;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Ảnh</h4>
+                        </div>
+                        <div class="modal-body">
+                            <img id="bigImg" class="img-responsive"/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btn-modal-next-image" class="btn btn-primary">Next</button>
+                            <button type="button" class="btn btn-warning" id="btn-modal-previous-image">Previous
+                            </button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <div id="bai-tap-container">
                 <?php
                 foreach ($bai_tap_hoc_viens as $bai_tap_hoc_vien) {
                     ?>
-                    <div id="feed<?php echo $bai_tap_hoc_vien['id'] ?>" class="x_content">
-                        <img src="<?php echo base_url($bai_tap_hoc_vien['source']); ?>" style="width:100%"/>
+                    <div id="feed<?php echo $bai_tap_hoc_vien['id'] ?>" class="x_content baiTap">
+                        <img src="<?php echo base_url($bai_tap_hoc_vien['source']); ?>"
+                             style="width:100%"/>
                         <h2><?php echo $bai_tap_hoc_vien['fullname'] ?></h2>
                         <p>Thời gian nộp: <?php echo $bai_tap_hoc_vien['date'] ?></p>
                         <p>Lớp <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
@@ -256,13 +295,18 @@
                         foreach ($bai_cks as $bai_ck) {
                             ?>
 
-                            <div id="<?php echo $bai_ck['id']; ?>" style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
-                                <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse' data-target='#btn-xac-nhan-<?php echo $bai_ck['id']; ?>'>Xóa</button>
+                            <div id="<?php echo $bai_ck['id']; ?>"
+                                 style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
+                                <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse'
+                                        data-target='#btn-xac-nhan-<?php echo $bai_ck['id']; ?>'>Xóa
+                                </button>
 
 
                                 <div id='btn-xac-nhan-<?php echo $bai_ck['id']; ?>' class='collapse'>
 
-                                    <button class='btn btn-danger' onclick="xoaBaiCk(<?php echo $bai_ck['id']; ?>)">Xác nhận</button>
+                                    <button class='btn btn-danger' onclick="xoaBaiCk(<?php echo $bai_ck['id']; ?>)">Xác
+                                        nhận
+                                    </button>
                                 </div>
 
 
@@ -938,6 +982,61 @@
 <script type="text/javascript" src="public/template/hocvien/js/wizard/jquery.smartWizard.js"></script>
 <script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
+    var offset = 0;
+    $(".baiTap").click(function () {
+        var source = $(this).find('img').attr('src');
+
+        var sourceDivId = $(this).attr('id');
+        $('#bigImg').attr('src', source);
+        $('#bigImg').attr('divid', sourceDivId);
+        $('#imageViewModal').modal('show');
+    });
+    $('#btn-modal-previous-image').click(function () {
+        var sourceDivId = $('#bigImg').attr('divid');
+        var preDiv = $("#" + sourceDivId).prev();
+        var source = preDiv.find('img').attr('src');
+        $('#bigImg').attr('divid', preDiv.attr('id'));
+        $('#bigImg').attr('src', source);
+    });
+
+    $('#btn-modal-next-image').click(function () {
+        var sourceDivId = $('#bigImg').attr('divid');
+        var nextDiv = $("#" + sourceDivId).next();
+        if (!nextDiv.is('div')) {
+            offset += 10;
+            dataString = "";
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url('hocvien/home/ajax_load_more_bt/') ?>/" + offset,
+                data: dataString,
+                cache: false,
+                success: function (result) {
+                    $('#bai-tap-container').append(result);
+                    $("#bai-tap-container").on("click",'.baiTap', function () {
+                        var source = $(this).find('img').attr('src');
+
+                        var sourceDivId = $(this).attr('id');
+                        $('#bigImg').attr('src', source);
+                        $('#bigImg').attr('divid', sourceDivId);
+                        $('#imageViewModal').modal('show');
+                    });
+                    var nextDiv = $("#" + sourceDivId).next();
+                    var source = nextDiv.find('img').attr('src');
+                    $('#bigImg').attr('divid', nextDiv.attr('id'));
+                    $('#bigImg').attr('src', source);
+
+
+                }
+
+            });
+
+        } else {
+            var source = nextDiv.find('img').attr('src');
+            $('#bigImg').attr('divid', nextDiv.attr('id'));
+            $('#bigImg').attr('src', source);
+        }
+
+    });
     function xoaBaiCk(id) {
 
         var dataString = 'id=' + id;
@@ -1088,7 +1187,7 @@
             }
         });
 
-        var offset = 0;
+
         $('#btn-load-more').click(function () {
             offset += 10;
             dataString = "";
@@ -1099,6 +1198,14 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
+                    $("#bai-tap-container").on("click",'.baiTap', function () {
+                        var source = $(this).find('img').attr('src');
+
+                        var sourceDivId = $(this).attr('id');
+                        $('#bigImg').attr('src', source);
+                        $('#bigImg').attr('divid', sourceDivId);
+                        $('#imageViewModal').modal('show');
+                    });
                 }
 
             });
@@ -1207,5 +1314,6 @@
 
 
 </script>
+
 
 
