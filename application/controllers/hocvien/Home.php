@@ -31,9 +31,15 @@ class Home extends CM_HocvienController
         }
         $this->data['bai_cks'] = $this->survey->get_all_post($this->auth['id'], 8);
 
-        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap();
+//        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap();
+        $bai_hoc_viens = array();
+        $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai();
+        foreach ($hoc_vien_nop_bais as &$hoc_vien_nop_bai) {
+            $hoc_vien_nop_bai['baitap'] = $this->hocvien->get_all_bai_tap($hoc_vien_nop_bai['studentid'], $hoc_vien_nop_bai['lectureOrder']);
+        }
 
-
+//        echo json_encode($hoc_vien_nop_bais);
+        $this->data['hoc_vien_nop_bais']=$hoc_vien_nop_bais;
         $this->data['template'] = "hocvien/dashboard";
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
     }
@@ -98,7 +104,13 @@ class Home extends CM_HocvienController
     public function ajax_load_more_bt($offset)
     {
         $this->load->model('hocvien');
-        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap($offset, 10);
+        $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai($offset,8);
+        foreach ($hoc_vien_nop_bais as &$hoc_vien_nop_bai) {
+            $hoc_vien_nop_bai['baitap'] = $this->hocvien->get_all_bai_tap($hoc_vien_nop_bai['studentid'], $hoc_vien_nop_bai['lectureOrder']);
+        }
+
+//        echo json_encode($hoc_vien_nop_bais);
+        $this->data['hoc_vien_nop_bais']=$hoc_vien_nop_bais;
         $this->load->view('hocvien/ajax/ajax_load_more_bt', isset($this->data) ? $this->data : NULL);
     }
 
@@ -140,8 +152,6 @@ class Home extends CM_HocvienController
 
                         <button class='btn btn-danger' onclick='xoaBaiCk($id)'>Xác nhận</button>
                     </div>
-
-
             </div>
             <img
              id='img$id'

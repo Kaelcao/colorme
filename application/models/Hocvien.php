@@ -99,11 +99,29 @@ class Hocvien extends CI_Model
     }
 
 
-    function get_all_bai_tap($offset = 0, $total = 10)
+    function get_all_bai_tap($studentid, $lectureOrder)
     {
-        return $this->db->select('cm_post.source source,fullname,name,gen,cm_post.date date,cm_post.id id')->from('post')
+        return $this->db->select('cm_post.source source,cm_post.description description')->from('post')
+            ->where(array(
+                'cm_post.studentid' => $studentid,
+                'lectureOrder' => $lectureOrder
+            ))
+            ->order_by('cm_post.date', 'desc')->get()->result_array();
+    }
+
+    function get_hoc_vien_nop_bai($offset = 0, $total = 4)
+    {
+        return $this->db->select(
+            'cm_course.duration duration, cm_post.studentid studentid,
+        cm_post.lectureOrder lectureOrder,
+        cm_post.source source,cm_post.description description,
+        fullname,cm_class.name name,gen,cm_post.date date,cm_post.id id')->from('post')
             ->join('regis', 'cm_regis.studentid=cm_post.studentid')
-            ->join('student','cm_student.id = cm_post.studentid')
-            ->join('class', 'cm_class.id=cm_regis.classid')->order_by('cm_post.date','desc')->limit($total,$offset)->get()->result_array();
+            ->join('student', 'cm_student.id = cm_post.studentid')
+            ->join('class', 'cm_class.id=cm_regis.classid')
+            ->join('course', 'cm_course.id = cm_class.courseid')
+            ->group_by('studentid, lectureOrder')
+            ->order_by('cm_post.date', 'desc')
+            ->limit($total, $offset)->get()->result_array();
     }
 }

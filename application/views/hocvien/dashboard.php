@@ -23,6 +23,8 @@
     .img-responsive {
         max-height: calc(100vh - 225px);
     }
+
+
 </style>
 
 <div class="row">
@@ -42,34 +44,80 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Ảnh</h4>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body" style="padding:0px">
                             <img id="bigImg" class="img-responsive"/>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="btn-modal-next-image" class="btn btn-primary">Next</button>
-                            <button type="button" class="btn btn-warning" id="btn-modal-previous-image">Previous
-                            </button>
+<!--                            <button type="button" id="btn-modal-next-image" class="btn btn-primary">Next</button>-->
+<!--                            <button type="button" class="btn btn-warning" id="btn-modal-previous-image">Previous-->
+<!--                            </button>-->
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div id="bai-tap-container">
+            <ul class="media-list" id="bai-tap-container">
                 <?php
-                foreach ($bai_tap_hoc_viens as $bai_tap_hoc_vien) {
+
+                foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
+//                    if ($bai_tap_hoc_vien['duration'] == $bai_tap_hoc_vien['lectureOrder']) {
+//                        $buoi = "BTCK";
+//                    } else {
+//                        $buoi = "Buổi " . $bai_tap_hoc_vien['lectureOrder'];
+//                    }
+                    $buoi = "Buổi " . $hoc_vien_nop_bai['lectureOrder'];
+                    $date = rebuild_date('l, jS F, Y', strtotime($hoc_vien_nop_bai['date']));
                     ?>
-                    <div id="feed<?php echo $bai_tap_hoc_vien['id'] ?>" class="x_content baiTap">
-                        <img src="<?php echo base_url($bai_tap_hoc_vien['source']); ?>"
-                             style="width:100%"/>
-                        <h2><?php echo $bai_tap_hoc_vien['fullname'] ?></h2>
-                        <p>Thời gian nộp: <?php echo $bai_tap_hoc_vien['date'] ?></p>
-                        <p>Lớp <?php echo $bai_tap_hoc_vien['gen'] . "." . $bai_tap_hoc_vien['name'] ?></p>
-                    </div>
+                    <li class="media" id="bt-hocvien-info">
+                        <div class="media-left">
+                            <a href="#">
+                                <img src="public/template/hocvien/images/user.png" class="media-object" width="40px"/>
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <div class="col-xs-8">
+                                <h4 class="media-heading"><?php echo $hoc_vien_nop_bai['fullname'] ?></h4>
+                                <?php echo $date ?></p>
+                            </div>
+                            <div class="col-xs-4">
+                                <span
+                                    class="badge alert-success"
+                                    style="padding: 5px 7px;margin-top:3px">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></span>
+                                <span
+                                    class="badge" style="padding: 5px 7px;margin-top:3px"><?php echo $buoi; ?></span>
+                            </div>
+                            <div  class="x_content">
+
+                                <?php
+
+                                foreach ($hoc_vien_nop_bai['baitap'] as $key => $baitap) {
+
+                                    if ($key == 0) {
+
+                                        ?>
+
+                                        <img class="baiTap"  style="width:100%" src="<?php echo base_url($baitap['source']); ?>"/>
+
+                                        <?php
+                                    } else {
+                                        ?>
+
+                                        <img class="baiTap" style="width: 25%" src="<?php echo base_url($baitap['source']); ?>"/>
+
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+
+                        </div>
+                    </li>
                     <?php
                 }
+
                 ?>
-            </div>
+            </ul>
 
         </div>
         <div>
@@ -984,11 +1032,11 @@
 <script type="text/javascript">
     var offset = 0;
     $(".baiTap").click(function () {
-        var source = $(this).find('img').attr('src');
+        var source = $(this).attr('src');
 
-        var sourceDivId = $(this).attr('id');
+//        var sourceDivId = $(this).attr('id');
         $('#bigImg').attr('src', source);
-        $('#bigImg').attr('divid', sourceDivId);
+//        $('#bigImg').attr('divid', sourceDivId);
         $('#imageViewModal').modal('show');
     });
     $('#btn-modal-previous-image').click(function () {
@@ -1003,7 +1051,7 @@
         var sourceDivId = $('#bigImg').attr('divid');
         var nextDiv = $("#" + sourceDivId).next();
         if (!nextDiv.is('div')) {
-            offset += 10;
+            offset += 4;
             dataString = "";
             $.ajax({
                 type: "POST",
@@ -1012,7 +1060,7 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
-                    $("#bai-tap-container").on("click",'.baiTap', function () {
+                    $("#bai-tap-container").on("click", '.baiTap', function () {
                         var source = $(this).find('img').attr('src');
 
                         var sourceDivId = $(this).attr('id');
@@ -1047,26 +1095,45 @@
             data: dataString,
             cache: false,
             success: function (result) {
-                alert("Đã xóa");
+                console.log("Đã xóa");
             }
 
         });
 
+        $("img#img" + id).remove();
         $("div#" + id).remove();
         $("div#feed" + id).remove();
-        $("#img" + id).remove();
+
         return false;
+    }
+    function resize_bai_tap_image() {
+        $('img.baitap-img').each(function () {
+            var imgWidth = $(this).width();
+            var imgHeight = $(this).height();
+            if (imgHeight > imgWidth) {
+                $(this).attr('style', 'width:100%');
+            } else {
+                $(this).attr('style', 'height:100%');
+            }
+        });
+        $('div.bai-tap-img-container').each(function () {
+            $(this).height($(this).width() / 2.25);
+        });
     }
     $(document).ready(function () {
 
+//        $(window).resize(function(){
+//            resize_bai_tap_image();
+//        });
+//        resize_bai_tap_image();
 
         Dropzone.options.nopBaiCkDropzone = {
             maxFiles: 6,
             acceptedFiles: "image/jpeg,image/png",
             success: function (file, response) {
                 $('#anh-ck').append(response);
-                $('#bai-tap-container').prepend(response);
-                $('div.btn-group-xoa').remove();
+//                $('#bai-tap-container').prepend(response);
+                $('#bai-tap-container div.btn-group-xoa').remove();
 
             },
             accept: function (file, done) {
@@ -1189,7 +1256,7 @@
 
 
         $('#btn-load-more').click(function () {
-            offset += 10;
+            offset += 8;
             dataString = "";
             $.ajax({
                 type: "POST",
@@ -1198,7 +1265,7 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
-                    $("#bai-tap-container").on("click",'.baiTap', function () {
+                    $("#bai-tap-container").on("click", '.baiTap', function () {
                         var source = $(this).find('img').attr('src');
 
                         var sourceDivId = $(this).attr('id');
