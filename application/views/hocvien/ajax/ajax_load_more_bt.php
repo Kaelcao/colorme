@@ -1,11 +1,11 @@
 <?php
 
 foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
-//                    if ($bai_tap_hoc_vien['duration'] == $bai_tap_hoc_vien['lectureOrder']) {
-//                        $buoi = "BTCK";
-//                    } else {
-//                        $buoi = "Buổi " . $bai_tap_hoc_vien['lectureOrder'];
-//                    }
+    //                    if ($bai_tap_hoc_vien['duration'] == $bai_tap_hoc_vien['lectureOrder']) {
+    //                        $buoi = "BTCK";
+    //                    } else {
+    //                        $buoi = "Buổi " . $bai_tap_hoc_vien['lectureOrder'];
+    //                    }
     $buoi = "Buổi " . $hoc_vien_nop_bai['lectureOrder'];
     $date = rebuild_date('l, jS F, Y', strtotime($hoc_vien_nop_bai['date']));
     ?>
@@ -27,7 +27,7 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
                                 <span
                                     class="badge" style="padding: 5px 7px;margin-top:3px"><?php echo $buoi; ?></span>
             </div>
-            <div  class="x_content">
+            <div class="x_content">
 
                 <?php
 
@@ -37,14 +37,19 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
 
                         ?>
 
-                        <img class="baiTap"  style="width:100%" src="<?php echo base_url($baitap['source']); ?>"/>
+                        <div src="<?php echo base_url($baitap['source']); ?>"
+                             class="grid-thumbnail-first baiTap"
+                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                        </div>
 
                         <?php
                     } else {
                         ?>
+                        <div src="<?php echo base_url($baitap['source']); ?>" class="grid-thumbnail baiTap"
+                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
 
-                        <img class="baiTap" style="width: 25%" src="<?php echo base_url($baitap['source']); ?>"/>
 
+                        </div>
                         <?php
                     }
                 }
