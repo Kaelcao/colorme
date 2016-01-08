@@ -45,6 +45,38 @@
 
     }
 
+    #btn-modal-next-image {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 20%;
+    }
+
+    #btn-modal-next-image:hover {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+100 */
+        background: -moz-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#000000', GradientType=1); /* IE6-9 */
+
+    }
+
+    #btn-modal-previous-image:hover {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&1+0,0+100 */
+        background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#00000000', GradientType=1); /* IE6-9 */
+    }
+
+    #btn-modal-previous-image {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 20%;
+    }
 
 </style>
 
@@ -65,14 +97,13 @@
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Ảnh</h4>
                         </div>
-                        <div class="modal-body" style="padding:0px">
+                        <div class="modal-body" style="padding:0px;position:relative">
                             <img id="bigImg" class="img-responsive"/>
-                        </div>
-                        <div class="modal-footer">
-                            <!--                            <button type="button" id="btn-modal-next-image" class="btn btn-primary">Next</button>-->
-                            <!--                            <button type="button" class="btn btn-warning" id="btn-modal-previous-image">Previous-->
-                            <!--                            </button>-->
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div type="button" id="btn-modal-next-image" class=""><i style="color:white;font-size:36px" class="fa fa-chevron-right"></i>
+                            </div>
+                            <div type="button" id="btn-modal-previous-image"><i style="color:white;font-size:36px" class="fa fa-chevron-left"></i>
+                            </div>
+
                         </div>
                     </div>
 
@@ -1060,7 +1091,7 @@
 <script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
     var offset = 0;
-    function click_baitap(){
+    function click_baitap() {
         var source = $(this).attr('src');
 
 //        var sourceDivId = $(this).attr('id');
