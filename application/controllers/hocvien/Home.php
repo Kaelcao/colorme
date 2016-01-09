@@ -15,6 +15,10 @@ class Home extends CM_HocvienController
 //        $data['user'] = $this->auth;
 //    }
 
+    public function links(){
+        $this->data['template'] = "hocvien/links";
+        $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
+    }
 
     public function index()
     {

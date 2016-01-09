@@ -7,17 +7,26 @@
         color: #c50000;
     }
 
+    .baiTap {
+        display: block;
+    }
+
     .baiTap:hover {
         cursor: pointer;
     }
 
-    .modal {
+    #imageViewModal {
         text-align: center;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        top: 0;
+        left: 0;
     }
 
-    .modal-dialog {
+    #imageViewModal .modal-dialog {
         display: inline-block;
-        width: auto;
+        width: 90%;
     }
 
     .img-responsive {
@@ -30,7 +39,7 @@
         height: 0;
         padding-bottom: 24%;
         float: left;
-        margin: 1px;
+        margin: 0.5%;
         border: 1px solid rgba(0, 0, 0, .2);
 
     }
@@ -40,7 +49,7 @@
         width: 99%;
         height: 0;
         padding-bottom: 99%;
-        margin: 1px;
+        margin: 0.5%;
         border: 1px solid rgba(0, 0, 0, .2);
 
     }
@@ -78,68 +87,99 @@
         width: 20%;
     }
 
+    .like-container {
+        border-top: 2px solid #E6E9ED;
+        padding: 5px 5px 6px;
+        margin-top: 5px;
+
+    }
+
+    .like-container span:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .like-info:hover {
+        cursor: pointer;
+    }
 </style>
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides">
 
-<div class="row">
-    <div class="col-md-4">
-        <div class="x_panel tile">
-            <div class="x_title">
-                <h2>Bài tập mới nhất</h2>
-                <div class="clearfix"></div>
-            </div>
-            <!-- Modal -->
-            <div id="imageViewModal" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-lg">
-
-                    <!-- Modal content-->
-                    <div class="modal-content" style="height: 100%;">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Ảnh</h4>
-                        </div>
-                        <div class="modal-body" style="padding:0px;position:relative">
-                            <img id="bigImg" class="img-responsive"/>
-                            <div type="button" id="btn-modal-next-image" class=""><i style="color:white;font-size:36px" class="fa fa-chevron-right"></i>
-                            </div>
-                            <div type="button" id="btn-modal-previous-image"><i style="color:white;font-size:36px" class="fa fa-chevron-left"></i>
-                            </div>
-
-                        </div>
-                    </div>
-
+    </div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
                 </div>
             </div>
-            <ul class="media-list" id="bai-tap-container">
-                <?php
+        </div>
+    </div>
+</div>
 
-                foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
-                    //                    if ($bai_tap_hoc_vien['duration'] == $bai_tap_hoc_vien['lectureOrder']) {
-                    //                        $buoi = "BTCK";
-                    //                    } else {
-                    //                        $buoi = "Buổi " . $bai_tap_hoc_vien['lectureOrder'];
-                    //                    }
-                    $buoi = "Buổi " . $hoc_vien_nop_bai['lectureOrder'];
-                    $date = rebuild_date('l, jS F, Y', strtotime($hoc_vien_nop_bai['date']));
-                    ?>
+<div class="row">
+    <div class="col-md-6 col-lg-5">
+
+
+        <ul class="media-list" id="bai-tap-container">
+            <?php
+
+            foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
+                //                    if ($bai_tap_hoc_vien['duration'] == $bai_tap_hoc_vien['lectureOrder']) {
+                //                        $buoi = "BTCK";
+                //                    } else {
+                //                        $buoi = "Buổi " . $bai_tap_hoc_vien['lectureOrder'];
+                //                    }
+                $buoi = "Buổi " . $hoc_vien_nop_bai['lectureOrder'];
+                $date = rebuild_date('l, jS F, Y', strtotime($hoc_vien_nop_bai['date']));
+                ?>
+                <div class="x_panel tile" style="padding-top: 20px;">
                     <li class="media" id="bt-hocvien-info">
-                        <div class="media-left">
-                            <a href="#">
-                                <img src="public/template/hocvien/images/user.png" class="media-object" width="40px"/>
-                            </a>
-                        </div>
+
                         <div class="media-body">
-                            <div class="col-xs-8">
-                                <h4 class="media-heading"><?php echo $hoc_vien_nop_bai['fullname'] ?></h4>
-                                <?php echo $date ?></p>
-                            </div>
-                            <div class="col-xs-4">
+                            <div class="x_title">
+                                <div class="col-xs-8">
+                                    <a href="#" style="float:left;margin-right:2%">
+                                        <img src="public/template/hocvien/images/user.png" class="media-object"
+                                             width="40px"/>
+                                    </a>
+                                    <h4 class="media-heading"><?php echo $hoc_vien_nop_bai['fullname'] ?></h4>
+                                    <?php echo $date ?></p>
+                                </div>
+                                <div class="col-xs-4">
                                 <span
-                                    class="badge alert-success"
-                                    style="padding: 5px 7px;margin-top:3px">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></span>
+                                    class="badge alert-success pull-right"
+                                    style="color:white;padding: 5px 7px;margin-top:3px">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></span>
                                 <span
-                                    class="badge" style="padding: 5px 7px;margin-top:3px"><?php echo $buoi; ?></span>
+                                    class="badge pull-right"
+                                    style="color:white;padding: 5px 7px;margin-top:3px;margin-right: 5%"><?php echo $buoi; ?></span>
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div class="x_content links">
 
                                 <?php
 
@@ -149,20 +189,22 @@
 
                                         ?>
 
-                                        <div src="<?php echo base_url($baitap['source']); ?>"
-                                             class="grid-thumbnail-first baiTap"
-                                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-                                        </div>
+                                        <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
+                                           data-gallery
+                                           class="grid-thumbnail-first baiTap"
+                                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                                        </a>
 
                                         <?php
                                     } else {
                                         ?>
-                                        <div src="<?php echo base_url($baitap['source']); ?>"
-                                             class="grid-thumbnail baiTap"
-                                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                                        <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
+                                           data-gallery
+                                           class="grid-thumbnail baiTap"
+                                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
 
 
-                                        </div>
+                                        </a>
                                         <?php
                                     }
                                 }
@@ -171,13 +213,23 @@
 
                         </div>
                     </li>
-                    <?php
-                }
+                    <div class="like-info">
+                        <span>14 lượt thích</span>
+                        <span style="margin-left:1%">2 bình luận</span>
+                    </div>
+                    <div class="like-container">
+                        <i class="fa fa-thumbs-up "></i>
+                        <span>Thích</span>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <?php
+            }
 
-                ?>
-            </ul>
+            ?>
+        </ul>
 
-        </div>
+
         <div>
             <button class="btn btn-info" style="width: 100%;font-size:20px " id="btn-load-more">Tải thêm</button>
         </div>
@@ -427,6 +479,7 @@
 
 
                 </div>
+
             </div>
         </div>
         <!-- Trigger the modal with a button -->
@@ -686,403 +739,7 @@
         </div>
 
     </div>
-    <div class="col-md-4">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Liên kết thường dùng </h2>
 
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <ul class="list-unstyled msg_list">
-                    <li>
-                        <a href="http://www.freepik.com/index.php?goto=2&searchform=1&k=brand">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Mockup Brand Cuối kì</span>
-
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://issuu.com/colorme5/docs/ebookcolorme">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Ebook colorME:</span>
-
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://www.logodesignlove.com/brand-identity-style-guides">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Brand Guideline:</span>
-
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://nobacks.com/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Hình png</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://imgur.com/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Đăng ảnh</span>
-
-                            </span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="http://generator.lorem-ipsum.info/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Dumb Text</span>
-
-                            </span>
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="http://nobacks.com/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Hình png</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="http://issuu.com/colorme5/docs/noiquylophoc">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Nội quy lớp học:</span>
-
-                            </span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="http://issuu.com/colorme5/docs/colormeqna">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Câu hỏi thường gặp:</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://www.youtube.com/channel/UCfdIZQjVEgvN6l18Vtda22A">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Kênh Youtube:</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://unsplash.com/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Ảnh đẹp:</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://www.dropbox.com/sh/eimnnuqy22mpr6e/AADc7V8Tljs1cs4Zn0edBhWMa?dl=0">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Font chữ Việt Hóa:</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://snorpey.github.io/triangulation/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span> Triangulation</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="http://all-free-download.com/photoshop-patterns/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Pattern</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://color.adobe.com/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Adobe Kuler</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.pinterest.com">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Pinterest</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.behance.net">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Behance</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://www.dropbox.com/s/y1pbqsdb39omazg/ebookcolorME%20Update%201.pdf?dl=0">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Bản mềm Ebook</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://kahoot.it/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Link kiểm tra</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="http://icons8.com">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Icon</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://drive.google.com/folderview?id=0B7kQtQkaHS-_SHVGdFU0MEdWOVE">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Retouch Photo</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="http://bezier.method.ac/">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Practice Pentool</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="http://issuu.com/colorme5/docs/final_project">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Yêu cầu Final Project</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://www.facebook.com/media/set/?set=a.978714995529859.1073741852.868843516517008&type=3">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Vi dụ về BTCK</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://www.youtube.com/channel/UCbu-Lu9mfKXHpDzLrneJmUg">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Luyện tập Blend</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://drive.google.com/file/d/0BwtqXrCS45beNVJPaWpDdjBiUk0/view?usp=sharing">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Mockup Final Project</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="http://www.freepik.com/index.php?goto=2&searchform=1&k=mockup">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Mockup</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-
-                    <li>
-                        <a href="https://drive.google.com/folderview?id=0B4GsgkPORyKKY0RDV0VDSGJqaFU&usp=sharing">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>CV Template</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://carbonmade.com">
-                            <span class="image">
-                                <img src="images/logo.jpg" alt="img"/>
-                            </span>
-                            <span>
-                                <span>Portfolio</span>
-
-                            </span>
-
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>
 
 </div>
@@ -1099,7 +756,7 @@
 //        $('#bigImg').attr('divid', sourceDivId);
         $('#imageViewModal').modal('show');
     }
-    $(".baiTap").click(click_baitap);
+    //    $(".baiTap").click(click_baitap);
     $('#btn-modal-previous-image').click(function () {
         var sourceDivId = $('#bigImg').attr('divid');
         var preDiv = $("#" + sourceDivId).prev();
@@ -1121,18 +778,6 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
-                    $("#bai-tap-container").on("click", '.baiTap', function () {
-                        var source = $(this).find('img').attr('src');
-
-                        var sourceDivId = $(this).attr('id');
-                        $('#bigImg').attr('src', source);
-                        $('#bigImg').attr('divid', sourceDivId);
-                        $('#imageViewModal').modal('show');
-                    });
-                    var nextDiv = $("#" + sourceDivId).next();
-                    var source = nextDiv.find('img').attr('src');
-                    $('#bigImg').attr('divid', nextDiv.attr('id'));
-                    $('#bigImg').attr('src', source);
 
 
                 }
@@ -1187,6 +832,18 @@
 //        $(window).resize(function(){
 //            resize_bai_tap_image();
 //        });
+
+
+        $('.links').each(function () {
+            $(this).click(function (event) {
+                event = event || window.event;
+                var target = event.target || event.srcElement,
+                    link = target.src ? target.parentNode : target,
+                    options = {index: link, event: event},
+                    links = this.getElementsByTagName('a');
+                blueimp.Gallery(links, options);
+            });
+        });
 
 
         Dropzone.options.nopBaiCkDropzone = {
@@ -1270,7 +927,7 @@
                 soSanh == '' || ketNoi == '' || seThamGia == '' || lyDoSeThamGia == '' || chiaSeNua == '' || thamGiaAlumni == '') {
                 alert("bạn điền thiếu rồi, vui lòng kiểm tra lại nhé!");
             } else {
-                // AJAX Code To Submit Form.
+// AJAX Code To Submit Form.
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url('hocvien/home/receive_survey_ck') ?>",
@@ -1290,7 +947,7 @@
 
         });
 
-        //nop bai cuoi ki
+//nop bai cuoi ki
         $('#btn-nop-bai-ck').click(function () {
             if (<?php echo !empty($complete_survey_ck) ? $complete_survey_ck : 0; ?> == 1
             )
@@ -1303,7 +960,7 @@
             }
         });
 
-        //nop bai giua ki
+//nop bai giua ki
         $('#btn-nop-bai-gk').click(function () {
             if (<?php echo !empty($complete_survey_one) ? $complete_survey_one : 0; ?> == 1
             )
@@ -1327,12 +984,30 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
-                    $("#bai-tap-container").on("click", '.baiTap', click_baitap);
+                    $("#bai-tap-container").on("click", '.links', function (event) {
+                        event = event || window.event;
+                        var target = event.target || event.srcElement,
+                            link = target.src ? target.parentNode : target,
+                            options = {index: link, event: event},
+                            links = this.getElementsByTagName('a');
+                        blueimp.Gallery(links, options);
+                    });
                 }
 
+//                    $('.links').each(function () {
+//                        $(this).click(function (event) {
+//                            event = event || window.event;
+//                            var target = event.target || event.srcElement,
+//                                link = target.src ? target.parentNode : target,
+//                                options = {index: link, event: event},
+//                                links = this.getElementsByTagName('a');
+//                            blueimp.Gallery(links, options);
+//                        });
+//                    });
             });
 
         });
+
 
         $("#submit").click(function () {
             var lydo = $("#lydokhac").val();
@@ -1369,7 +1044,7 @@
             if (clb == '' || hailong == '' || noikhac == '' || dogood == '' || improve == '' || workshop == '' || chiase == '' || lydo == '' || yeutochon == '') {
                 alert("Please Fill All Fields");
             } else {
-                // AJAX Code To Submit Form.
+// AJAX Code To Submit Form.
                 $.ajax({
                     type: "POST",
                     url: "<?php echo base_url('hocvien/home/receive_survey') ?>",

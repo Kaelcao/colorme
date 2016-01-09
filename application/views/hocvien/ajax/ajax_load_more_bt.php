@@ -10,13 +10,14 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
     $date = rebuild_date('l, jS F, Y', strtotime($hoc_vien_nop_bai['date']));
     ?>
     <li class="media" id="bt-hocvien-info">
-        <div class="media-left">
-            <a href="#">
-                <img src="public/template/hocvien/images/user.png" class="media-object" width="40px"/>
-            </a>
-        </div>
+
         <div class="media-body">
+
             <div class="col-xs-8">
+                <a href="#" style="float:left;margin-right:2%">
+                    <img src="public/template/hocvien/images/user.png" class="media-object"
+                         width="40px"/>
+                </a>
                 <h4 class="media-heading"><?php echo $hoc_vien_nop_bai['fullname'] ?></h4>
                 <?php echo $date ?></p>
             </div>
@@ -27,7 +28,7 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
                                 <span
                                     class="badge" style="padding: 5px 7px;margin-top:3px"><?php echo $buoi; ?></span>
             </div>
-            <div class="x_content">
+            <div class="x_content links">
 
                 <?php
 
@@ -37,19 +38,22 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
 
                         ?>
 
-                        <div src="<?php echo base_url($baitap['source']); ?>"
-                             class="grid-thumbnail-first baiTap"
-                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-                        </div>
+                        <a href="<?php echo base_url($baitap['source']); ?>"
+                           data-gallery
+                           class="grid-thumbnail-first baiTap"
+                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                        </a>
 
                         <?php
                     } else {
                         ?>
-                        <div src="<?php echo base_url($baitap['source']); ?>" class="grid-thumbnail baiTap"
-                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                        <a href="<?php echo base_url($baitap['source']); ?>"
+                           data-gallery
+                           class="grid-thumbnail baiTap"
+                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
 
 
-                        </div>
+                        </a>
                         <?php
                     }
                 }

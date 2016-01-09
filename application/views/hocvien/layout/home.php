@@ -18,6 +18,8 @@ error_reporting(E_ERROR);
     <!-- Bootstrap core CSS -->
 
     <link href="public/template/hocvien/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/template/hocvien/css/blueimp-gallery.css" rel="stylesheet">
+
 
     <link href="public/template/hocvien/fonts/css/font-awesome.min.css" rel="stylesheet">
     <link href="public/template/hocvien/css/animate.min.css" rel="stylesheet">
@@ -91,6 +93,8 @@ error_reporting(E_ERROR);
                                     thái</a></li>
                             <li><a href="<?php echo base_url('hocvien/home/danhsachbuoihoc'); ?>"><i
                                         class="fa fa-list"></i>Danh sách buổi học</a></li>
+                            <li><a href="<?php echo base_url('hocvien/home/links'); ?>"><i
+                                        class="fa fa-list"></i>Links</a></li>
 
                         </ul>
                     </div>
@@ -265,6 +269,7 @@ error_reporting(E_ERROR);
 
 <script src="public/template/hocvien/js/bootstrap.min.js"></script>
 
+
 <!-- gauge js -->
 <script type="text/javascript" src="public/template/hocvien/js/gauge/gauge.min.js"></script>
 <script type="text/javascript" src="public/template/hocvien/js/gauge/gauge_demo.js"></script>
@@ -359,6 +364,8 @@ error_reporting(E_ERROR);
 <script type="text/javascript" src="public/template/hocvien/js/maps/gdp-data.js"></script>
 <script type="text/javascript" src="public/template/hocvien/js/maps/jquery-jvectormap-world-mill-en.js"></script>
 <script type="text/javascript" src="public/template/hocvien/js/maps/jquery-jvectormap-us-aea-en.js"></script>
+<script type="text/javascript" src="public/template/hocvien/js/blueimp-gallery.js"></script>
+
 <script>
     $(function () {
         $('#world-map-gdp').vectorMap({
@@ -380,49 +387,8 @@ error_reporting(E_ERROR);
 </script>
 <!-- skycons -->
 <script src="public/template/hocvien/js/skycons/skycons.js"></script>
-<script>
-    var icons = new Skycons({
-            "color": "#73879C"
-        }),
-        list = [
-            "clear-day", "clear-night", "partly-cloudy-day",
-            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-            "fog"
-        ],
-        i;
 
-    for (i = list.length; i--;)
-        icons.set(list[i], list[i]);
 
-    icons.play();
-</script>
-
-<!-- dashbord linegraph -->
-<script>
-    var doughnutData = [
-        {
-            value: 30,
-            color: "#455C73"
-        },
-        {
-            value: 30,
-            color: "#9B59B6"
-        },
-        {
-            value: 60,
-            color: "#BDC3C7"
-        },
-        {
-            value: 100,
-            color: "#26B99A"
-        },
-        {
-            value: 120,
-            color: "#3498DB"
-        }
-    ];
-    var myDoughnut = new Chart(document.getElementById("canvas1").getContext("2d")).Doughnut(doughnutData);
-</script>
 <!-- /dashbord linegraph -->
 <!-- datepicker -->
 <script type="text/javascript">
