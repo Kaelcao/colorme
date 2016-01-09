@@ -143,7 +143,6 @@
 <div class="row">
     <div class="col-md-6 col-lg-5">
 
-
         <ul class="media-list" id="bai-tap-container">
             <?php
 
@@ -182,9 +181,9 @@
                             <div class="x_content links">
 
                                 <?php
-
+                                $baitap_id_array = array();
                                 foreach ($hoc_vien_nop_bai['baitap'] as $key => $baitap) {
-
+                                    $baitap_id_array[] = $baitap['id'];
                                     if ($key == 0) {
 
                                         ?>
@@ -217,7 +216,7 @@
                         <span>14 lượt thích</span>
                         <span style="margin-left:1%">2 bình luận</span>
                     </div>
-                    <div class="like-container">
+                    <div class="like-container" onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
                         <i class="fa fa-thumbs-up "></i>
                         <span>Thích</span>
                         <div class="clearfix"></div>
@@ -747,6 +746,26 @@
 <script type="text/javascript" src="public/template/hocvien/js/wizard/jquery.smartWizard.js"></script>
 <script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
+    function ajax_like(posts) {
+        var data = JSON.stringify(posts);
+
+        $.ajax({
+            url : "<?php echo base_url('hocvien/home/ajax_like') ?>",
+            type: "POST",
+            data : "like="+data,
+            success: function(data, textStatus, jqXHR)
+            {
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                console.log(textStatus);
+            }
+        });
+//        for (i = 0; i < posts.length; i++) {
+//            alert(posts[i]);
+//        }
+    }
     var offset = 0;
     function click_baitap() {
         var source = $(this).attr('src');

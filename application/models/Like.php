@@ -14,5 +14,10 @@ class Like extends CI_Model
         parent::__construct();
     }
 
+    function insert_entry($data)
+    {
+        $this->db->insert('like', $data);
+        return $this->db->insert_id();
+    }
 
 }

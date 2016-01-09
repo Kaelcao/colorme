@@ -15,7 +15,8 @@ class Home extends CM_HocvienController
 //        $data['user'] = $this->auth;
 //    }
 
-    public function links(){
+    public function links()
+    {
         $this->data['template'] = "hocvien/links";
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
     }
@@ -43,7 +44,7 @@ class Home extends CM_HocvienController
         }
 
 //        echo json_encode($hoc_vien_nop_bais);
-        $this->data['hoc_vien_nop_bais']=$hoc_vien_nop_bais;
+        $this->data['hoc_vien_nop_bais'] = $hoc_vien_nop_bais;
         $this->data['template'] = "hocvien/dashboard";
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
     }
@@ -108,13 +109,13 @@ class Home extends CM_HocvienController
     public function ajax_load_more_bt($offset)
     {
         $this->load->model('hocvien');
-        $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai($offset,8);
+        $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai($offset, 8);
         foreach ($hoc_vien_nop_bais as &$hoc_vien_nop_bai) {
             $hoc_vien_nop_bai['baitap'] = $this->hocvien->get_all_bai_tap($hoc_vien_nop_bai['studentid'], $hoc_vien_nop_bai['lectureOrder']);
         }
 
 //        echo json_encode($hoc_vien_nop_bais);
-        $this->data['hoc_vien_nop_bais']=$hoc_vien_nop_bais;
+        $this->data['hoc_vien_nop_bais'] = $hoc_vien_nop_bais;
         $this->load->view('hocvien/ajax/ajax_load_more_bt', isset($this->data) ? $this->data : NULL);
     }
 
@@ -173,6 +174,24 @@ class Home extends CM_HocvienController
         $source = $this->survey->get_post($id)['source'];
         deleteFiles($source);
         $this->survey->delete_post($id);
+    }
+
+    public function ajax_like()
+    {
+        $this->load->model('like');
+        $data = $this->input->post('like');
+        $posts = json_decode($data);
+        $id_array = array();
+        foreach ($posts as $post) {
+            $data = array(
+                'postid' => $post,
+                'studentid' => $this->auth['id'],
+                'created' => $this->cm_string->get_current_time()
+            );
+            $id_array[] = $this->like->insert_entry($data);
+        }
+        echo json_encode($id_array);
+
     }
 
     public function nop_baigiuaki()

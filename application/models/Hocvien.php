@@ -101,7 +101,7 @@ class Hocvien extends CI_Model
 
     function get_all_bai_tap($studentid, $lectureOrder)
     {
-        return $this->db->select('cm_post.source source,cm_post.description description')->from('post')
+        return $this->db->select('cm_post.id id,cm_post.source source,cm_post.description description')->from('post')
             ->where(array(
                 'cm_post.studentid' => $studentid,
                 'lectureOrder' => $lectureOrder
