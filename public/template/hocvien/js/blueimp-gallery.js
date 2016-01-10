@@ -196,13 +196,13 @@
 
         console: window.console && typeof window.console.log === 'function' ?
             window.console :
-            {log: function () {}},
+        {log: function () {}},
 
         // Detect touch, transition, transform and background-size support:
         support: (function (element) {
             var support = {
                     touch: window.ontouchstart !== undefined ||
-                        (window.DocumentTouch && document instanceof DocumentTouch)
+                    (window.DocumentTouch && document instanceof DocumentTouch)
                 },
                 transitions = {
                     webkitTransition: {
@@ -258,7 +258,7 @@
                 var prop;
                 for (prop in transitions) {
                     if (transitions.hasOwnProperty(prop) &&
-                            element.style[prop] !== undefined) {
+                        element.style[prop] !== undefined) {
                         support.transition = transitions[prop];
                         support.transition.name = prop;
                         break;
@@ -276,8 +276,8 @@
         }(document.createElement('div'))),
 
         requestAnimationFrame: window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame,
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame,
 
         initialize: function () {
             this.initStartIndex();
@@ -521,7 +521,7 @@
                     }
                     that.slidesContainer[0].style.left = (((to - from) *
                         (Math.floor((timeElap / speed) * 100) / 100)) +
-                            from) + 'px';
+                        from) + 'px';
                 }, 4);
         },
 
@@ -549,7 +549,7 @@
             // Trigger on clicks of the left mouse button only
             // and exclude video elements:
             if (event.which && event.which === 1 &&
-                    event.target.nodeName !== 'VIDEO') {
+                event.target.nodeName !== 'VIDEO') {
                 // Preventing the default mousedown action is required
                 // to make touch emulation work with Firefox:
                 event.preventDefault();
@@ -583,7 +583,7 @@
                 var target = event.target,
                     related = event.relatedTarget;
                 if (!related || (related !== target &&
-                        !$.contains(target, related))) {
+                    !$.contains(target, related))) {
                     this.onmouseup(event);
                 }
             }
@@ -655,8 +655,8 @@
                     this.touchDelta.x = touchDeltaX =
                         touchDeltaX /
                         (((!index && touchDeltaX > 0) ||
-                            (index === this.num - 1 && touchDeltaX < 0)) ?
-                                (Math.abs(touchDeltaX) / this.slideWidth + 1) : 1);
+                        (index === this.num - 1 && touchDeltaX < 0)) ?
+                            (Math.abs(touchDeltaX) / this.slideWidth + 1) : 1);
                     indices = [index];
                     if (index) {
                         indices.push(index - 1);
@@ -682,15 +682,15 @@
                 speed = this.options.transitionSpeed,
                 slideWidth = this.slideWidth,
                 isShortDuration = Number(Date.now() - this.touchStart.time) < 250,
-                // Determine if slide attempt triggers next/prev slide:
+            // Determine if slide attempt triggers next/prev slide:
                 isValidSlide = (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
                     Math.abs(this.touchDelta.x) > slideWidth / 2,
-                // Determine if slide attempt is past start or end:
+            // Determine if slide attempt is past start or end:
                 isPastBounds = (!index && this.touchDelta.x > 0) ||
-                        (index === this.num - 1 && this.touchDelta.x < 0),
+                    (index === this.num - 1 && this.touchDelta.x < 0),
                 isValidClose = !isValidSlide && this.options.closeOnSwipeUpOrDown &&
                     ((isShortDuration && Math.abs(this.touchDelta.y) > 20) ||
-                        Math.abs(this.touchDelta.y) > this.slideHeight / 2),
+                    Math.abs(this.touchDelta.y) > this.slideHeight / 2),
                 direction,
                 indexForward,
                 indexBackward,
@@ -711,7 +711,7 @@
                         this.move(this.circle(indexForward), distanceForward, 0);
                         this.move(this.circle(index - 2 * direction), distanceBackward, 0);
                     } else if (indexForward >= 0 &&
-                            indexForward < this.num) {
+                        indexForward < this.num) {
                         this.move(indexForward, distanceForward, 0);
                     }
                     this.move(index, this.positions[index] + distanceForward, speed);
@@ -806,37 +806,37 @@
 
         onkeydown: function (event) {
             switch (event.which || event.keyCode) {
-            case 13: // Return
-                if (this.options.toggleControlsOnReturn) {
-                    this.preventDefault(event);
-                    this.toggleControls();
-                }
-                break;
-            case 27: // Esc
-                if (this.options.closeOnEscape) {
-                    this.close();
-                    // prevent Esc from closing other things
-                    event.stopImmediatePropagation();
-                }
-                break;
-            case 32: // Space
-                if (this.options.toggleSlideshowOnSpace) {
-                    this.preventDefault(event);
-                    this.toggleSlideshow();
-                }
-                break;
-            case 37: // Left
-                if (this.options.enableKeyboardNavigation) {
-                    this.preventDefault(event);
-                    this.prev();
-                }
-                break;
-            case 39: // Right
-                if (this.options.enableKeyboardNavigation) {
-                    this.preventDefault(event);
-                    this.next();
-                }
-                break;
+                case 13: // Return
+                    if (this.options.toggleControlsOnReturn) {
+                        this.preventDefault(event);
+                        this.toggleControls();
+                    }
+                    break;
+                case 27: // Esc
+                    if (this.options.closeOnEscape) {
+                        this.close();
+                        // prevent Esc from closing other things
+                        event.stopImmediatePropagation();
+                    }
+                    break;
+                case 32: // Space
+                    if (this.options.toggleSlideshowOnSpace) {
+                        this.preventDefault(event);
+                        this.toggleSlideshow();
+                    }
+                    break;
+                case 37: // Left
+                    if (this.options.enableKeyboardNavigation) {
+                        this.preventDefault(event);
+                        this.prev();
+                    }
+                    break;
+                case 39: // Right
+                    if (this.options.enableKeyboardNavigation) {
+                        this.preventDefault(event);
+                        this.next();
+                    }
+                    break;
             }
         },
 
@@ -877,7 +877,7 @@
                     this.toggleControls();
                 }
             } else if (parent.parentNode &&
-                    parent.parentNode === this.slidesContainer[0]) {
+                parent.parentNode === this.slidesContainer[0]) {
                 // Click on displayed element
                 this.preventDefault(event);
                 this.toggleControls();
@@ -886,8 +886,8 @@
 
         onclick: function (event) {
             if (this.options.emulateTouchEvents &&
-                    this.touchDelta && (Math.abs(this.touchDelta.x) > 20 ||
-                        Math.abs(this.touchDelta.y) > 20)) {
+                this.touchDelta && (Math.abs(this.touchDelta.x) > 20 ||
+                Math.abs(this.touchDelta.y) > 20)) {
                 delete this.touchDelta;
                 return;
             }
@@ -938,8 +938,8 @@
         setTimeout: function (func, args, wait) {
             var that = this;
             return func && window.setTimeout(function () {
-                func.apply(that, args || []);
-            }, wait || 0);
+                    func.apply(that, args || []);
+                }, wait || 0);
         },
 
         imageFactory: function (obj, callback) {
@@ -1053,7 +1053,7 @@
                 if (this.elements.hasOwnProperty(i)) {
                     diff = Math.abs(index - i);
                     if (diff > this.options.preloadRange &&
-                            diff + this.options.preloadRange < this.num) {
+                        diff + this.options.preloadRange < this.num) {
                         this.unloadSlide(i);
                         delete this.elements[i];
                     }
@@ -1074,7 +1074,7 @@
             if (this.support.transform) {
                 slide.style.left = (index * -this.slideWidth) + 'px';
                 this.move(index, this.index > index ? -this.slideWidth :
-                        (this.index < index ? this.slideWidth : 0), 0);
+                    (this.index < index ? this.slideWidth : 0), 0);
             }
         },
 
@@ -1163,7 +1163,7 @@
                 /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
                 function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
                     var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
-                            (arrayIndex && parseInt(arrayIndex, 10));
+                        (arrayIndex && parseInt(arrayIndex, 10));
                     if (str && obj) {
                         obj = obj[prop];
                     }
@@ -1175,7 +1175,7 @@
         getDataProperty: function (obj, property) {
             if (obj.getAttribute) {
                 var prop = obj.getAttribute('data-' +
-                        property.replace(/([A-Z])/g, '-$1').toLowerCase());
+                    property.replace(/([A-Z])/g, '-$1').toLowerCase());
                 if (typeof prop === 'string') {
                     if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
                             .test(prop)) {
@@ -1207,8 +1207,8 @@
             if (index && typeof index !== 'number') {
                 for (i = 0; i < this.num; i += 1) {
                     if (this.list[i] === index ||
-                            this.getItemProperty(this.list[i], urlProperty) ===
-                                this.getItemProperty(index, urlProperty)) {
+                        this.getItemProperty(this.list[i], urlProperty) ===
+                        this.getItemProperty(index, urlProperty)) {
                         index  = i;
                         break;
                     }
@@ -1223,8 +1223,8 @@
                 slidesContainer = this.slidesContainer,
                 proxyListener = function (event) {
                     var type = that.support.transition &&
-                            that.support.transition.end === event.type ?
-                                    'transitionend' : event.type;
+                    that.support.transition.end === event.type ?
+                        'transitionend' : event.type;
                     that['on' + type](event);
                 };
             $(window).on('resize', proxyListener);
@@ -1234,7 +1234,7 @@
                 slidesContainer
                     .on('touchstart touchmove touchend touchcancel', proxyListener);
             } else if (this.options.emulateTouchEvents &&
-                    this.support.transition) {
+                this.support.transition) {
                 slidesContainer
                     .on('mousedown mousemove mouseup mouseout', proxyListener);
             }
@@ -1257,7 +1257,7 @@
                 slidesContainer
                     .off('touchstart touchmove touchend touchcancel', proxyListener);
             } else if (this.options.emulateTouchEvents &&
-                    this.support.transition) {
+                this.support.transition) {
                 slidesContainer
                     .off('mousedown mousemove mouseup mouseout', proxyListener);
             }
@@ -1336,7 +1336,7 @@
             this.options = $.extend({}, this.options);
             // Check if carousel mode is enabled:
             if ((options && options.carousel) ||
-                    (this.options.carousel && (!options || options.carousel !== false))) {
+                (this.options.carousel && (!options || options.carousel !== false))) {
                 $.extend(this.options, this.carouselOptions);
             }
             // Override any given options:

@@ -25,15 +25,24 @@ class Home extends CM_HocvienController
     {
         $this->load->model('survey');
         $this->load->model('hocvien');
+        $this->load->model('post');
+        $this->load->model('quanlylophoc/lecture');
 
         $this->data['complete_survey_one'] = $this->survey->complete_survey_one($this->auth['id']);
         $this->data['complete_survey_ck'] = $this->survey->complete_survey_ck($this->auth['id']);
 //        $this->data['complete_survey_ck'] = false;
+        $lectures = $this->lecture->get_lecture($this->auth['id'], 'desc');
+        foreach ($lectures as &$lecture) {
+            $lecture->baitaps = $this->post->get_all_post($this->auth['id'], $lecture->order);
+        }
 
         $baigiuaki = $this->survey->get_all_post($this->auth['id'], 4);
+
         if (count($baigiuaki) > 0) {
             $this->data['linkbaigiuaki'] = $baigiuaki[0]['source'];
         }
+
+        $this->data['lectures'] = $lectures;
         $this->data['bai_cks'] = $this->survey->get_all_post($this->auth['id'], 8);
 
 //        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap();
@@ -119,10 +128,12 @@ class Home extends CM_HocvienController
         $this->load->view('hocvien/ajax/ajax_load_more_bt', isset($this->data) ? $this->data : NULL);
     }
 
-    public function nop_bai_ck()
+    public function nop_bai()
     {
+        $lectureOrder = $this->input->post('lectureOrder');
+
         error_reporting(E_ERROR | E_PARSE);
-        $this->load->model('survey');
+        $this->load->model('post');
 //        dd($targetPath = getcwd() . '/public/resources/baitaphocvien/');
         if (!empty($_FILES)) {
             $tempFile = $_FILES['file']['tmp_name'];
@@ -136,10 +147,10 @@ class Home extends CM_HocvienController
                 'source' => '/public/resources/baitaphocvien/' . $fileName,
                 'studentid' => $this->auth['id'],
                 'date' => $this->cm_string->get_current_time(),
-                'lectureOrder' => 8,
+                'lectureOrder' => $lectureOrder,
                 'description' => ""
             );
-            $id = $this->survey->insert_post($post);
+            $id = $this->post->insert_post($post);
             //Image Resizing
             $config['source_image'] = $targetFile;
             $config['maintain_ratio'] = TRUE;
@@ -147,23 +158,32 @@ class Home extends CM_HocvienController
             $config['height'] = 1000;
             $this->load->library('image_lib', $config);
             $this->image_lib->resize();
-            echo
-                "
-            <div class='btn-group-xoa' id='$id'style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
-            <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse' data-target='#btn-xac-nhan-$id'>Xóa</button>
+            //            <div class='btn-group-xoa' id='$id'style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
+//            <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse' data-target='#btn-xac-nhan-$id'>Xóa</button>
+//                    <div id='btn-xac-nhan-$id' class='collapse'>
+//                        <button class='btn btn-danger' onclick='xoaBaiCk($id)'>Xác nhận</button>
+//                    </div>
+//            </div>
+            $responseData = "
 
-
-                    <div id='btn-xac-nhan-$id' class='collapse'>
-
-                        <button class='btn btn-danger' onclick='xoaBaiCk($id)'>Xác nhận</button>
-                    </div>
-            </div>
-            <img
-             id='img$id'
-            src='" . base_url('/public/resources/baitaphocvien/' . $fileName) . "'
-                     style='width:100%;margin-bottom:5px;'/>
+            <a  target='_blank'
+                       href='" . base_url('/public/resources/baitaphocvien/' . $fileName) . "'
+                       data-gallery
+                       id=\"bai-tap-".$id."\"
+                       class='grid-thumbnail baiTap'
+                       style=\"background: url('" . base_url('/public/resources/baitaphocvien/' . $fileName) . "') 50% 50% no-repeat;background-size:cover\">
+                       <button type=\"button\"
+                                    style=\"opacity: 1;padding: 1px;background: white;\"
+                                    class=\"close\"
+                                    onclick=\"xoaBaiTap(".$id.")\"
+                                    data-dismiss=\"modal\">&times;</button>
+                    </a>
             ";
-
+            $data = array(
+                'img' => $responseData,
+                'lectureOrder' => $lectureOrder
+            );
+            echo json_encode($data);
         }
     }
 

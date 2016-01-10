@@ -41,7 +41,7 @@ class Lecture extends CI_Model
             ->get()->result();
     }
 
-    function get_lecture($studentid)
+    function get_lecture($studentid,$order="asc")
     {
         $query_str = "select cm_lecture.giaotrinhhocvien,cm_attend.joined joined, c.studyday,cm_lecture.id lectureid, cm_class.gen, c.name classname, cm_lecture.linkanh, cm_lecture.description, cm_lecture.order ,cm_lecture.name name, cm_lecture.linkyoutube linkyoutube,cm_lecture.linkgiaotrinh linkgiaotrinh from cm_lecture
     join cm_course on cm_course.id = cm_lecture.courseid
@@ -49,7 +49,8 @@ class Lecture extends CI_Model
     join cm_regis on cm_regis.classid = cm_class.id
     join cm_attend on cm_attend.lectureid = cm_lecture.id
     join cm_class c on c.id = cm_attend.classid
-    where cm_regis.studentid=$studentid and cm_attend.studentid=$studentid";
+    where cm_regis.studentid=$studentid and cm_attend.studentid=$studentid
+    order by cm_lecture.order ".$order;
         return $this->db->query($query_str)->result();
     }
 

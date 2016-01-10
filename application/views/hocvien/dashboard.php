@@ -91,6 +91,7 @@
         border-top: 2px solid #E6E9ED;
         padding: 5px 5px 6px;
         margin-top: 5px;
+        width: 100%;
 
     }
 
@@ -102,42 +103,25 @@
     .like-info:hover {
         cursor: pointer;
     }
-</style>
-<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
-    <!-- The container for the modal slides -->
-    <div class="slides">
 
-    </div>
-    <!-- Controls for the borderless lightbox -->
+    .slide-description {
+        color: white;
+        position: absolute;
+        bottom: 0;
+        right: 0px;
+        text-align: center;
+        width: 500px;
+    }
+</style>
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
     <h3 class="title"></h3>
     <a class="prev">‹</a>
     <a class="next">›</a>
     <a class="close">×</a>
     <a class="play-pause"></a>
     <ol class="indicator"></ol>
-    <!-- The modal dialog, which will be used to wrap the lightbox content -->
-    <div class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body next"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left prev">
-                        <i class="glyphicon glyphicon-chevron-left"></i>
-                        Previous
-                    </button>
-                    <button type="button" class="btn btn-primary next">
-                        Next
-                        <i class="glyphicon glyphicon-chevron-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="row">
@@ -188,8 +172,8 @@
 
                                         ?>
 
-                                        <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
-                                           data-gallery
+                                        <a target="_blank"
+                                           href="<?php echo base_url($baitap['source']); ?>"
                                            class="grid-thumbnail-first baiTap"
                                            style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
                                         </a>
@@ -198,11 +182,8 @@
                                     } else {
                                         ?>
                                         <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
-                                           data-gallery
                                            class="grid-thumbnail baiTap"
                                            style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-
-
                                         </a>
                                         <?php
                                     }
@@ -482,8 +463,6 @@
             </div>
         </div>
         <!-- Trigger the modal with a button -->
-
-
         <!-- Modal -->
         <div id="modal-nopbai-ck" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -492,14 +471,16 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Nộp bài cuối kì</h4>
+                        <h4 class="modal-title">Nộp bài</h4>
                     </div>
                     <div class="modal-body">
-                        <h2>Bạn nhớ nộp đầy đủ các file nhé</h2>
+                        <h2>Bạn nhớ nộp đầy đủ bài tập nhé</h2>
 
-                        <form action="<?php echo base_url('hocvien/home/nop_bai_ck') ?>" class="dropzone"
+                        <form action="<?php echo base_url('hocvien/home/nop_bai') ?>" class="dropzone"
                               id="nop-bai-ck-dropzone"
-                              style="border: 1px solid #e5e5e5; height: 300px; "></form>
+                              style="border: 1px solid #e5e5e5">
+                            <input type="hidden" name="lectureOrder" id="lectureOrder"/>
+                        </form>
 
 
                         <!--                        <form id="uploadbaigiuaki" method="post"-->
@@ -525,7 +506,8 @@
                         <!--                        </div>-->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-hoan-tat">Hoan tat
+                        <button type="button" class="btn btn-default" onclick="finishUpload()" data-dismiss="modal"
+                                id="btn-hoan-tat">Hoan tat
                         </button>
                     </div>
                 </div>
@@ -737,6 +719,51 @@
 
         </div>
 
+        <?php
+        foreach ($lectures as $lecture) {
+            ?>
+            <div class="x_panel tile">
+                <div class="x_title">
+                    <h2>Nộp bài buổi <?php echo $lecture->order ?></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <button style="width: 100%" type="button" class="btn btn-info btn-lg"
+                        id="btn-nop-bai-buoi-<?php echo $lecture->order ?>">
+                    Nộp bài buổi <?php echo $lecture->order ?>
+                </button>
+
+
+                <div class="x_content links" id="baitap-container-<?php echo $lecture->order ?>"
+                     style="padding-left: 0;padding-right: 0" id="anh-buoi-<?php echo $lecture->order ?>">
+                    <?php
+                    foreach ($lecture->baitaps as $baitap) {
+                        ?>
+
+
+                        <a readonly="true" target="_blank" href="<?php echo base_url($baitap['source']); ?>"
+                           data-gallery
+                           id="bai-tap-<?php echo $baitap['id']; ?>"
+                           class="grid-thumbnail baiTap"
+                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                            <button type="button"
+                                    style="opacity: 1;padding: 1px;background: white;"
+                                    class="close"
+                                    onclick="xoaBaiTap(<?php echo $baitap['id']; ?>)"
+                                    data-dismiss="modal">&times;</button>
+
+                        </a>
+
+
+                        <?php
+                    }
+                    ?>
+
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+
     </div>
 
 </div>
@@ -750,15 +777,13 @@
         var data = JSON.stringify(posts);
 
         $.ajax({
-            url : "<?php echo base_url('hocvien/home/ajax_like') ?>",
+            url: "<?php echo base_url('hocvien/home/ajax_like') ?>",
             type: "POST",
-            data : "like="+data,
-            success: function(data, textStatus, jqXHR)
-            {
+            data: "like=" + data,
+            success: function (data, textStatus, jqXHR) {
                 console.log(data);
             },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus);
             }
         });
@@ -811,7 +836,6 @@
 
     });
     function xoaBaiCk(id) {
-
         var dataString = 'id=' + id;
 
         $.ajax({
@@ -825,24 +849,69 @@
 
         });
 
-        $("img#img" + id).remove();
-        $("div#" + id).remove();
-        $("div#feed" + id).remove();
+        $("a#bai-tap-" + id).remove();
 
         return false;
     }
-    function resize_bai_tap_image() {
-        $('div.grid-thumbnail').each(function () {
-
-            var imgWidth = $(this).find('img').width();
-            var imgHeight = $(this).find('img').height();
-            console.log(imgWidth + "," + imgHeight);
-            if (imgHeight < imgWidth) {
-                $(this).find('img').attr('style', 'height:' + $(this).width() + 'px');
-            } else {
-                $(this).find('img').attr('style', 'width:' + $(this).width() + 'px');
+    function finishUpload() {
+        offset = 0;
+        dataString = "";
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('hocvien/home/ajax_load_more_bt/') ?>/" + offset,
+            data: dataString,
+            cache: false,
+            success: function (result) {
+                $('#bai-tap-container').html(result);
+                $("#bai-tap-container").on("click", '.links', function (event) {
+                    event = event || window.event;
+                    var target = event.target || event.srcElement,
+                        link = target.src ? target.parentNode : target,
+                        options = {index: link, event: event},
+                        links = this.getElementsByTagName('a');
+                    blueimp.Gallery(links, options);
+                });
             }
+
+//                    $('.links').each(function () {
+//                        $(this).click(function (event) {
+//                            event = event || window.event;
+//                            var target = event.target || event.srcElement,
+//                                link = target.src ? target.parentNode : target,
+//                                options = {index: link, event: event},
+//                                links = this.getElementsByTagName('a');
+//                            blueimp.Gallery(links, options);
+//                        });
+//                    });
         });
+    }
+
+    function xoaBaiTap(id) {
+
+        var container = "#baitap-container-" + id;
+        if (confirm("Bạn có chắc chắn muốn xóa ảnh này?")) {
+            xoaBaiCk(id);
+            alert("Xóa thành công");
+            finishUpload();
+        }
+
+
+        window.event.stopImmediatePropagation();
+        window.event.preventDefault();
+
+    }
+    function chonAnh(id) {
+
+        var container = "#baitap-container-" + id;
+        var buttonChon = "#btn-chon-" + id;
+
+        if ($(container).hasClass('links')) {
+            $(buttonChon).html("Tắt");
+            $(container).unbind('click');
+        } else {
+            $(buttonChon).html("Chọn ảnh");
+
+        }
     }
     //    window.onload = resize_bai_tap_image();
 
@@ -866,12 +935,15 @@
 
 
         Dropzone.options.nopBaiCkDropzone = {
-            maxFiles: 6,
             acceptedFiles: "image/jpeg,image/png",
             success: function (file, response) {
-                $('#anh-ck').append(response);
+
+                var json = JSON.parse(response);
+                console.log(json['lectureOrder']);
+                $('#baitap-container-' + json['lectureOrder']).append(json['img']);
+
 //                $('#bai-tap-container').prepend(response);
-                $('#bai-tap-container div.btn-group-xoa').remove();
+//                $('#bai-tap-container div.btn-group-xoa').remove();
 
             },
             accept: function (file, done) {
@@ -965,6 +1037,20 @@
             return false;
 
         });
+
+        <?php
+        foreach ($lectures as $lecture){
+        ?>
+        //nop bai buoi 1
+        $('#btn-nop-bai-buoi-<?php echo $lecture->order ?>').click(function () {
+
+            $('#lectureOrder').attr('value', <?php echo $lecture->order ?>);
+            $('#modal-nopbai-ck').modal('show');
+
+        });
+        <?php
+        }
+        ?>
 
 //nop bai cuoi ki
         $('#btn-nop-bai-ck').click(function () {
