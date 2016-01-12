@@ -7,8 +7,8 @@
         color: #c50000;
     }
 
-    .baiTap {
-        display: block;
+    .bai-tap:hover {
+        cursor: pointer;
     }
 
     .baiTap:hover {
@@ -112,17 +112,126 @@
         text-align: center;
         width: 500px;
     }
+
+    .liked {
+        color: #c50000;
+    }
+
+    .modal-body {
+        margin: 0;
+        padding: 0 !important;
+    }
+
+    .header {
+        overflow: hidden;
+        margin-top: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eeefef;
+    }
+
+
+    .comment-container {
+
+    }
+
+    div.comment-body {
+        text-align: left;
+        padding-top: 5px;
+        max-height: 350px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
 </style>
-<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
-    <ol class="indicator"></ol>
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+
+<div class="modal fade" id="image-viewer">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+
+            <div class="modal-body next">
+                <div class="row">
+                    <div class="col-xs-8 image-container">
+                    </div>
+                    <div class="col-xs-4 comment-container">
+                        <div class="header">
+                            <img src="public/template/hocvien/images/user.png" class="media-object"
+                                 style="width: 40px;position: static;margin: 0;float: left"/>
+                            <h5 style="margin-top:0;margin-bottom: 0;float: left;width: 75%;height: 40px;line-height: 40px;text-align: left;margin-left: 2%;display:table-cell;vertical-align:middle;">
+                                Cao Anh Quan</h5>
+                            <button type="button" class="close" aria-hidden="true"
+                                    style="margin-right:10px">&times;</button>
+                        </div>
+                        <div style="clear: both">
+                        </div>
+                        <div style="text-align: left;border-bottom: 1px solid #eeefef;">
+                            <div class="like-container" style="border-top:none;"
+                                 onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
+                                <i class="fa fa-thumbs-up"></i>
+                                <span>Thích</span>
+                                <span>14 lượt thích</span>
+                            </div>
+                        </div>
+
+                        <div class="comment-body">
+                            <p><strong>Cao Anh Quan</strong> <span>Lorem ipsum dolor sit amet, vix no eius abhorreant. Graece atomorum repudiandae at cum, vide etiam me</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Dicam liberavisse sit at, qui consul laoreet accusata ei.</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong>
+                                <span>Eu omnes molestie his, ne pro oportere adipiscing. </span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Per ut mollis verear virtute, partiendo corrumpit delicatissimi id eum, ut qui aeterno propriae</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Lorem ipsum dolor sit amet, vix no eius abhorreant. Graece atomorum repudiandae at cum, vide etiam me</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Dicam liberavisse sit at, qui consul laoreet accusata ei.</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong>
+                                <span>Eu omnes molestie his, ne pro oportere adipiscing. </span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Per ut mollis verear virtute, partiendo corrumpit delicatissimi id eum, ut qui aeterno propriae</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Lorem ipsum dolor sit amet, vix no eius abhorreant. Graece atomorum repudiandae at cum, vide etiam me</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Dicam liberavisse sit at, qui consul laoreet accusata ei.</span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong>
+                                <span>Eu omnes molestie his, ne pro oportere adipiscing. </span>
+                            </p>
+                            <p><strong>Cao Anh Quan</strong> <span>Per ut mollis verear virtute, partiendo corrumpit delicatissimi id eum, ut qui aeterno propriae</span>
+                            </p>
+
+                        </div>
+
+                        <form class="form" role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control comment-input"/>
+                            </div>
+                            <button type="submit" class="btn btn-default">Gửi</button>
+
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left prev">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Previous
+                </button>
+                <button type="button" class="btn btn-primary next">
+                    Next
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
 </div>
+
 
 <div class="row">
     <div class="col-md-6 col-lg-5">
@@ -172,19 +281,24 @@
 
                                         ?>
 
-                                        <a target="_blank"
-                                           href="<?php echo base_url($baitap['source']); ?>"
-                                           class="grid-thumbnail-first baiTap"
-                                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-                                        </a>
+                                        <div src="<?php echo base_url($baitap['source']); ?>"
+                                            class="grid-thumbnail-first bai-tap"
+                                            style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+
+                                        </div>
 
                                         <?php
                                     } else {
                                         ?>
-                                        <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
-                                           class="grid-thumbnail baiTap"
-                                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-                                        </a>
+
+                                        <div
+                                            src="<?php echo base_url($baitap['source']); ?>"
+                                            href="<?php echo base_url($baitap['source']); ?>"
+                                             class="grid-thumbnail bai-tap"
+                                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                                        </div>
+
+
                                         <?php
                                     }
                                 }
@@ -192,16 +306,17 @@
                             </div>
 
                         </div>
+                        <div class="like-info">
+                            <span>14 lượt thích</span>
+                            <span style="margin-left:1%">2 bình luận</span>
+                        </div>
+                        <div class="like-container" onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
+                            <i class="fa fa-thumbs-up"></i>
+                            <span>Thích</span>
+                            <div class="clearfix"></div>
+                        </div>
                     </li>
-                    <div class="like-info">
-                        <span>14 lượt thích</span>
-                        <span style="margin-left:1%">2 bình luận</span>
-                    </div>
-                    <div class="like-container" onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
-                        <i class="fa fa-thumbs-up "></i>
-                        <span>Thích</span>
-                        <div class="clearfix"></div>
-                    </div>
+
                 </div>
                 <?php
             }
@@ -216,21 +331,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="x_panel tile">
-            <div class="x_title">
-                <h2>Nộp bài tập giữa kì (1 file jpg/png)</h2>
 
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <button style="width: 100%" type="button" class="btn btn-info btn-lg" id="btn-nop-bai-gk">Nộp bài giữa
-                    kì
-                </button>
-                <div id="anh-giua-ki">
-                    <?php echo !empty($linkbaigiuaki) ? '<img src="' . base_url($linkbaigiuaki) . '" style="width:100%"/>' : ""; ?>
-                </div>
-            </div>
-        </div>
         <!-- Trigger the modal with a button -->
 
 
@@ -417,51 +518,7 @@
 
         </div>
 
-        <div class="x_panel tile">
-            <div class="x_title">
-                <h2>Nộp bài cuối kì (6 files jpg/png)</h2>
 
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <button style="width: 100%" type="button" class="btn btn-info btn-lg" id="btn-nop-bai-ck">Nộp bài cuối
-                    kì
-                </button>
-                <div id="anh-ck">
-                    <?php
-                    if (!empty($bai_cks)) {
-                        foreach ($bai_cks as $bai_ck) {
-                            ?>
-
-                            <div id="<?php echo $bai_ck['id']; ?>"
-                                 style='position: relative;margin-left:10px;margin-top:10px;top:48px;'>
-                                <button type='button' class='btn btn-primary' style='float: left' data-toggle='collapse'
-                                        data-target='#btn-xac-nhan-<?php echo $bai_ck['id']; ?>'>Xóa
-                                </button>
-
-
-                                <div id='btn-xac-nhan-<?php echo $bai_ck['id']; ?>' class='collapse'>
-
-                                    <button class='btn btn-danger' onclick="xoaBaiCk(<?php echo $bai_ck['id']; ?>)">Xác
-                                        nhận
-                                    </button>
-                                </div>
-
-
-                            </div>
-                            <img src="<?php echo base_url($bai_ck['source']) ?>" id="img<?php echo $bai_ck['id']; ?>"
-                                 style="width:100%;margin-bottom:5px;"/>
-                            <?php
-                        }
-                    }
-
-                    ?>
-
-
-                </div>
-
-            </div>
-        </div>
         <!-- Trigger the modal with a button -->
         <!-- Modal -->
         <div id="modal-nopbai-ck" class="modal fade" role="dialog">
@@ -773,13 +830,15 @@
 <script type="text/javascript" src="public/template/hocvien/js/wizard/jquery.smartWizard.js"></script>
 <script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
-    function ajax_like(posts) {
-        var data = JSON.stringify(posts);
+    function ajax_like(postid) {
+        window.event.stopImmediatePropagation();
+        window.event.preventDefault();
+
 
         $.ajax({
             url: "<?php echo base_url('hocvien/home/ajax_like') ?>",
             type: "POST",
-            data: "like=" + data,
+            data: "postid=" + postid,
             success: function (data, textStatus, jqXHR) {
                 console.log(data);
             },
@@ -920,17 +979,8 @@
 //        $(window).resize(function(){
 //            resize_bai_tap_image();
 //        });
-
-
-        $('.links').each(function () {
-            $(this).click(function (event) {
-                event = event || window.event;
-                var target = event.target || event.srcElement,
-                    link = target.src ? target.parentNode : target,
-                    options = {index: link, event: event},
-                    links = this.getElementsByTagName('a');
-                blueimp.Gallery(links, options);
-            });
+        $('.bai-tap').click(function () {
+            $('#image-viewer').modal('show');
         });
 
 
@@ -1080,7 +1130,7 @@
 
 
         $('#btn-load-more').click(function () {
-            offset += 8;
+            offset += 4;
             dataString = "";
             $.ajax({
                 type: "POST",
@@ -1089,14 +1139,7 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
-                    $("#bai-tap-container").on("click", '.links', function (event) {
-                        event = event || window.event;
-                        var target = event.target || event.srcElement,
-                            link = target.src ? target.parentNode : target,
-                            options = {index: link, event: event},
-                            links = this.getElementsByTagName('a');
-                        blueimp.Gallery(links, options);
-                    });
+
                 }
 
 //                    $('.links').each(function () {

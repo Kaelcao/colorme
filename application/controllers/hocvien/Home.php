@@ -26,6 +26,7 @@ class Home extends CM_HocvienController
         $this->load->model('survey');
         $this->load->model('hocvien');
         $this->load->model('post');
+        $this->load->model('like');
         $this->load->model('quanlylophoc/lecture');
 
         $this->data['complete_survey_one'] = $this->survey->complete_survey_one($this->auth['id']);
@@ -50,6 +51,10 @@ class Home extends CM_HocvienController
         $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai();
         foreach ($hoc_vien_nop_bais as &$hoc_vien_nop_bai) {
             $hoc_vien_nop_bai['baitap'] = $this->hocvien->get_all_bai_tap($hoc_vien_nop_bai['studentid'], $hoc_vien_nop_bai['lectureOrder']);
+//            foreach($hoc_vien_nop_bai['baitap'] as &$baitap){
+//                $baitap['liked'] = $this->like->is_liked($this->auth['id'],$baitap['id']);
+//            }
+
         }
 
 //        echo json_encode($hoc_vien_nop_bais);
@@ -118,7 +123,7 @@ class Home extends CM_HocvienController
     public function ajax_load_more_bt($offset)
     {
         $this->load->model('hocvien');
-        $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai($offset, 8);
+        $hoc_vien_nop_bais = $this->hocvien->get_hoc_vien_nop_bai($offset, 4);
         foreach ($hoc_vien_nop_bais as &$hoc_vien_nop_bai) {
             $hoc_vien_nop_bai['baitap'] = $this->hocvien->get_all_bai_tap($hoc_vien_nop_bai['studentid'], $hoc_vien_nop_bai['lectureOrder']);
         }
@@ -169,13 +174,13 @@ class Home extends CM_HocvienController
             <a  target='_blank'
                        href='" . base_url('/public/resources/baitaphocvien/' . $fileName) . "'
                        data-gallery
-                       id=\"bai-tap-".$id."\"
+                       id=\"bai-tap-" . $id . "\"
                        class='grid-thumbnail baiTap'
                        style=\"background: url('" . base_url('/public/resources/baitaphocvien/' . $fileName) . "') 50% 50% no-repeat;background-size:cover\">
                        <button type=\"button\"
                                     style=\"opacity: 1;padding: 1px;background: white;\"
                                     class=\"close\"
-                                    onclick=\"xoaBaiTap(".$id.")\"
+                                    onclick=\"xoaBaiTap(" . $id . ")\"
                                     data-dismiss=\"modal\">&times;</button>
                     </a>
             ";
@@ -199,18 +204,18 @@ class Home extends CM_HocvienController
     public function ajax_like()
     {
         $this->load->model('like');
-        $data = $this->input->post('like');
-        $posts = json_decode($data);
-        $id_array = array();
-        foreach ($posts as $post) {
-            $data = array(
-                'postid' => $post,
-                'studentid' => $this->auth['id'],
-                'created' => $this->cm_string->get_current_time()
-            );
-            $id_array[] = $this->like->insert_entry($data);
-        }
-        echo json_encode($id_array);
+        $this->load->model('post');
+        $postid = $this->input->post('postid');
+
+
+        $data = array(
+            'postid' => $postid,
+            'studentid' => $this->auth['id'],
+            'created' => $this->cm_string->get_current_time()
+        );
+        $likeid = $this->like->insert_entry($data);
+
+        echo $this->post->add_post_like($postid);
 
     }
 

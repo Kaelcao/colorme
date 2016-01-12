@@ -51,5 +51,14 @@ class Post extends CI_Model
     {
         $this->db->where('id', $id);
         return $this->db->delete('post');
+
+    }
+    function add_post_like($postid)
+    {
+        $this->db->set('likes', 'likes+1', FALSE);
+        $this->db->where('id', $postid);
+        $this->db->update('post');
+        $like = $this->db->select('likes')->from('post')->where('id',$postid)->get()->row_array();
+        return $like['likes'];
     }
 }

@@ -20,4 +20,13 @@ class Like extends CI_Model
         return $this->db->insert_id();
     }
 
+    function is_liked($studentid, $postid)
+    {
+        $data = array(
+            'id' => $postid,
+            'studentid' => $studentid
+        );
+        return $this->db->where($data)->count_all_results('post');
+    }
+
 }
