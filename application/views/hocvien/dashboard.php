@@ -7,8 +7,8 @@
         color: #c50000;
     }
 
-    .bai-tap:hover {
-        cursor: pointer;
+    .baiTap {
+        display: block;
     }
 
     .baiTap:hover {
@@ -112,128 +112,31 @@
         text-align: center;
         width: 500px;
     }
-
-    .liked {
-        color: #c50000;
-    }
-
-    .modal-body {
-        margin: 0;
-        padding: 0 !important;
-    }
-
-    .header {
-        overflow: hidden;
-        margin-top: 5px;
-        padding-bottom: 5px;
-        border-bottom: 1px solid #eeefef;
-    }
-
-
-    .comment-container {
-
-    }
-
-    div.comment-body {
-        text-align: left;
-        padding-top: 5px;
-        max-height: 350px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-    }
 </style>
-<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-
-<div class="modal fade" id="image-viewer">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
-
-            <div class="modal-body next">
-                <div class="row">
-                    <div class="col-xs-8 image-container">
-                    </div>
-                    <div class="col-xs-4 comment-container">
-                        <div class="header">
-                            <img src="public/template/hocvien/images/user.png" class="media-object"
-                                 style="width: 40px;position: static;margin: 0;float: left"/>
-                            <h5 style="margin-top:0;margin-bottom: 0;float: left;width: 75%;height: 40px;line-height: 40px;text-align: left;margin-left: 2%;display:table-cell;vertical-align:middle;">
-                                Cao Anh Quan</h5>
-                            <button type="button" class="close" aria-hidden="true"
-                                    style="margin-right:10px">&times;</button>
-                        </div>
-                        <div style="clear: both">
-                        </div>
-                        <div style="text-align: left;border-bottom: 1px solid #eeefef;">
-                            <div class="like-container" style="border-top:none;"
-                                 onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
-                                <i class="fa fa-thumbs-up"></i>
-                                <span>Thích</span>
-                                <span>14 lượt thích</span>
-                            </div>
-                        </div>
-
-                        <div class="comment-body">
-                            <p><strong>Cao Anh Quan</strong> <span>Lorem ipsum dolor sit amet, vix no eius abhorreant. Graece atomorum repudiandae at cum, vide etiam me</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Dicam liberavisse sit at, qui consul laoreet accusata ei.</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong>
-                                <span>Eu omnes molestie his, ne pro oportere adipiscing. </span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Per ut mollis verear virtute, partiendo corrumpit delicatissimi id eum, ut qui aeterno propriae</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Lorem ipsum dolor sit amet, vix no eius abhorreant. Graece atomorum repudiandae at cum, vide etiam me</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Dicam liberavisse sit at, qui consul laoreet accusata ei.</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong>
-                                <span>Eu omnes molestie his, ne pro oportere adipiscing. </span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Per ut mollis verear virtute, partiendo corrumpit delicatissimi id eum, ut qui aeterno propriae</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Lorem ipsum dolor sit amet, vix no eius abhorreant. Graece atomorum repudiandae at cum, vide etiam me</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Dicam liberavisse sit at, qui consul laoreet accusata ei.</span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong>
-                                <span>Eu omnes molestie his, ne pro oportere adipiscing. </span>
-                            </p>
-                            <p><strong>Cao Anh Quan</strong> <span>Per ut mollis verear virtute, partiendo corrumpit delicatissimi id eum, ut qui aeterno propriae</span>
-                            </p>
-
-                        </div>
-
-                        <form class="form" role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control comment-input"/>
-                            </div>
-                            <button type="submit" class="btn btn-default">Gửi</button>
-
-
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left prev">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    Previous
-                </button>
-                <button type="button" class="btn btn-primary next">
-                    Next
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </button>
-
-            </div>
-        </div>
-    </div>
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
 </div>
-
-
 <div class="row">
+  <div class="col-xs-6">
+    <div class="alert alert-info">
+      Mọi người tham gia cộng đồng học viên của colorME <a target="_blank" href="https://www.facebook.com/groups/CANME/" style="color:white;text-decoration:underline">tại đây</a>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="alert alert-warning">
+      Mời các bạn xem thông tin của giảng viên <a target="_blank" href="hocvien/home/links" style="color:white;text-decoration:underline">tại đây</a>
+    </div>
+  </div>
+</div>
+<div class="row">
+
     <div class="col-md-6 col-lg-5">
 
         <ul class="media-list" id="bai-tap-container">
@@ -264,7 +167,7 @@
                                 <div class="col-xs-4">
                                 <span
                                     class="badge alert-success pull-right"
-                                    style="color:white;padding: 5px 7px;margin-top:3px">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></span>
+                                    style="color:white;padding: 5px 7px;margin-top:3px"><a style="color: white" target="_blank" href="<?php echo base_url('hocvien/home/lop/'.$hoc_vien_nop_bai['classid']) ?>">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></a></span>
                                 <span
                                     class="badge pull-right"
                                     style="color:white;padding: 5px 7px;margin-top:3px;margin-right: 5%"><?php echo $buoi; ?></span>
@@ -281,24 +184,19 @@
 
                                         ?>
 
-                                        <div src="<?php echo base_url($baitap['source']); ?>"
-                                            class="grid-thumbnail-first bai-tap"
-                                            style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-
-                                        </div>
+                                        <a target="_blank"
+                                           href="<?php echo base_url($baitap['source']); ?>"
+                                           class="grid-thumbnail-first baiTap"
+                                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                                        </a>
 
                                         <?php
                                     } else {
                                         ?>
-
-                                        <div
-                                            src="<?php echo base_url($baitap['source']); ?>"
-                                            href="<?php echo base_url($baitap['source']); ?>"
-                                             class="grid-thumbnail bai-tap"
-                                             style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-                                        </div>
-
-
+                                        <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
+                                           class="grid-thumbnail baiTap"
+                                           style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
+                                        </a>
                                         <?php
                                     }
                                 }
@@ -306,17 +204,16 @@
                             </div>
 
                         </div>
-                        <div class="like-info">
-                            <span>14 lượt thích</span>
-                            <span style="margin-left:1%">2 bình luận</span>
-                        </div>
-                        <div class="like-container" onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
-                            <i class="fa fa-thumbs-up"></i>
-                            <span>Thích</span>
-                            <div class="clearfix"></div>
-                        </div>
                     </li>
-
+                    <div class="like-info">
+                        <span>14 lượt thích</span>
+                        <span style="margin-left:1%">2 bình luận</span>
+                    </div>
+                    <div class="like-container" onclick='ajax_like(<?php echo json_encode($baitap_id_array) ?>)'>
+                        <i class="fa fa-thumbs-up "></i>
+                        <span>Thích</span>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
                 <?php
             }
@@ -830,15 +727,13 @@
 <script type="text/javascript" src="public/template/hocvien/js/wizard/jquery.smartWizard.js"></script>
 <script src="public/template/hocvien/js/dropzone/dropzone.js"></script>
 <script type="text/javascript">
-    function ajax_like(postid) {
-        window.event.stopImmediatePropagation();
-        window.event.preventDefault();
-
+    function ajax_like(posts) {
+        var data = JSON.stringify(posts);
 
         $.ajax({
             url: "<?php echo base_url('hocvien/home/ajax_like') ?>",
             type: "POST",
-            data: "postid=" + postid,
+            data: "like=" + data,
             success: function (data, textStatus, jqXHR) {
                 console.log(data);
             },
@@ -979,8 +874,17 @@
 //        $(window).resize(function(){
 //            resize_bai_tap_image();
 //        });
-        $('.bai-tap').click(function () {
-            $('#image-viewer').modal('show');
+
+
+        $('.links').each(function () {
+            $(this).click(function (event) {
+                event = event || window.event;
+                var target = event.target || event.srcElement,
+                    link = target.src ? target.parentNode : target,
+                    options = {index: link, event: event,hidePageScrollbars: false},
+                    links = this.getElementsByTagName('a');
+                blueimp.Gallery(links, options);
+            });
         });
 
 
@@ -1128,7 +1032,7 @@
             }
         });
 
-
+	var offset = 0;
         $('#btn-load-more').click(function () {
             offset += 4;
             dataString = "";
@@ -1139,7 +1043,14 @@
                 cache: false,
                 success: function (result) {
                     $('#bai-tap-container').append(result);
-
+                    $("#bai-tap-container").on("click", '.links', function (event) {
+                        event = event || window.event;
+                        var target = event.target || event.srcElement,
+                            link = target.src ? target.parentNode : target,
+                            options = {index: link, event: event,hidePageScrollbars: false},
+                            links = this.getElementsByTagName('a');
+                        blueimp.Gallery(links, options);
+                    });
                 }
 
 //                    $('.links').each(function () {
@@ -1260,6 +1171,3 @@
 
 
 </script>
-
-
-

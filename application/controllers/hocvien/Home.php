@@ -17,8 +17,23 @@ class Home extends CM_HocvienController
 
     public function links()
     {
+        $this->load->model('nhanvien');
         $this->data['template'] = "hocvien/links";
+        // $teachers = $this->nhanvien->get_user_by_role('teacher');
+        // $this->data['teacher'] = $teacher;
         $this->load->view('hocvien/layout/home', isset($this->data) ? $this->data : NULL);
+    }
+
+    public function lop($lop_id)
+    {
+        $this->load->model('post');
+        $this->load->model('quanlylophoc/lophoc');
+        $thisClass = $this->lophoc->get_entry($lop_id);
+        $this->data['thisClass']=$thisClass;
+        $posts = $this->post->get_post_by_class($lop_id);
+        $this->data['posts'] = $posts;
+        $this->data['template'] = "hocvien/material_lop";
+        $this->load->view('hocvien/layout/material_home', isset($this->data) ? $this->data : NULL);
     }
 
     public function index()
@@ -28,23 +43,28 @@ class Home extends CM_HocvienController
         $this->load->model('post');
         $this->load->model('like');
         $this->load->model('quanlylophoc/lecture');
+        $this->load->model('quanlylophoc/lophoc');
 
         $this->data['complete_survey_one'] = $this->survey->complete_survey_one($this->auth['id']);
         $this->data['complete_survey_ck'] = $this->survey->complete_survey_ck($this->auth['id']);
 //        $this->data['complete_survey_ck'] = false;
         $lectures = $this->lecture->get_lecture($this->auth['id'], 'desc');
+
+        $hocvien = $this->hocvien->get_entry($this->auth['id']);
+        $this->data['myClass']= $this->lophoc->get_entry($hocvien['classid']);
+
         foreach ($lectures as &$lecture) {
             $lecture->baitaps = $this->post->get_all_post($this->auth['id'], $lecture->order);
         }
 
-        $baigiuaki = $this->survey->get_all_post($this->auth['id'], 4);
+        // $baigiuaki = $this->survey->get_all_post($this->auth['id'], 4);
 
-        if (count($baigiuaki) > 0) {
-            $this->data['linkbaigiuaki'] = $baigiuaki[0]['source'];
-        }
+        // if (count($baigiuaki) > 0) {
+        //     $this->data['linkbaigiuaki'] = $baigiuaki[0]['source'];
+        // }
 
         $this->data['lectures'] = $lectures;
-        $this->data['bai_cks'] = $this->survey->get_all_post($this->auth['id'], 8);
+        // $this->data['bai_cks'] = $this->survey->get_all_post($this->auth['id'], 8);
 
 //        $this->data['bai_tap_hoc_viens'] = $this->hocvien->get_all_bai_tap();
         $bai_hoc_viens = array();

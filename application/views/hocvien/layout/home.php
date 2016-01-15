@@ -18,8 +18,7 @@ error_reporting(E_ERROR);
     <!-- Bootstrap core CSS -->
 
     <link href="public/template/hocvien/css/bootstrap.min.css" rel="stylesheet">
-<!--    <link href="public/template/hocvien/css/blueimp-gallery.css" rel="stylesheet">-->
-<!--    <link href="public/template/hocvien/css/bootstrap-image-gallery.css" rel="stylesheet">-->
+    <link href="public/template/hocvien/css/blueimp-gallery.css" rel="stylesheet">
 
 
     <link href="public/template/hocvien/fonts/css/font-awesome.min.css" rel="stylesheet">
@@ -42,6 +41,7 @@ error_reporting(E_ERROR);
     <script src="public/template/hocvien/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="public/template/hocvien/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
 
@@ -95,6 +95,8 @@ error_reporting(E_ERROR);
                                         class="fa fa-list"></i>Danh sách buổi học</a></li>
                             <li><a href="<?php echo base_url('hocvien/home/links'); ?>"><i
                                         class="fa fa-list"></i>Links</a></li>
+                            <li><a href="<?php echo base_url('hocvien/home/lop/'.$myClass['id']); ?>"><i
+                                        class="fa fa-list"></i>My Class</a></li>
 
                         </ul>
                     </div>
@@ -364,8 +366,7 @@ error_reporting(E_ERROR);
 <script type="text/javascript" src="public/template/hocvien/js/maps/gdp-data.js"></script>
 <script type="text/javascript" src="public/template/hocvien/js/maps/jquery-jvectormap-world-mill-en.js"></script>
 <script type="text/javascript" src="public/template/hocvien/js/maps/jquery-jvectormap-us-aea-en.js"></script>
-<!--<script type="text/javascript" src="public/template/hocvien/js/blueimp-gallery.js"></script>-->
-<!--<script type="text/javascript" src="public/template/hocvien/js/bootstrap-image-gallery.js"></script>-->
+<script type="text/javascript" src="public/template/hocvien/js/blueimp-gallery.js"></script>
 
 <script>
     $(function () {

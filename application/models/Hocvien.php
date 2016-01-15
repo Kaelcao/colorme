@@ -115,13 +115,13 @@ class Hocvien extends CI_Model
             'cm_course.duration duration, cm_post.studentid studentid,
         cm_post.lectureOrder lectureOrder,
         cm_post.source source,cm_post.description description,
-        fullname,cm_class.name name,gen,cm_post.date date,cm_post.id id')->from('post')
+        fullname,cm_class.name name,cm_regis.classid classid,gen,max(cm_post.date) date,cm_post.id id')->from('post')
             ->join('regis', 'cm_regis.studentid=cm_post.studentid')
             ->join('student', 'cm_student.id = cm_post.studentid')
             ->join('class', 'cm_class.id=cm_regis.classid')
             ->join('course', 'cm_course.id = cm_class.courseid')
             ->group_by('studentid, lectureOrder')
-            ->order_by('cm_post.date', 'desc')
+            ->order_by('date', 'desc')
             ->limit($total, $offset)->get()->result_array();
     }
 }

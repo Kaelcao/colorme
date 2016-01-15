@@ -25,7 +25,7 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
                     <div class="col-xs-4">
                                 <span
                                     class="badge alert-success pull-right"
-                                    style="color:white;padding: 5px 7px;margin-top:3px">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></span>
+                                    style="color:white;padding: 5px 7px;margin-top:3px"><a style="color: white" target="_blank" href="<?php echo base_url('hocvien/home/lop/'.$hoc_vien_nop_bai['classid']) ?>">Lớp <?php echo $hoc_vien_nop_bai['gen'] . "." . $hoc_vien_nop_bai['name'] ?></a></span>
                                 <span
                                     class="badge pull-right"
                                     style="color:white;padding: 5px 7px;margin-top:3px;margin-right: 5%"><?php echo $buoi; ?></span>
@@ -42,9 +42,8 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
 
                             ?>
 
-                            <a data-description="image 2" target="_blank"
+                            <a target="_blank"
                                href="<?php echo base_url($baitap['source']); ?>"
-                               data-gallery
                                class="grid-thumbnail-first baiTap"
                                style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
                             </a>
@@ -53,11 +52,8 @@ foreach ($hoc_vien_nop_bais as $hoc_vien_nop_bai) {
                         } else {
                             ?>
                             <a target="_blank" href="<?php echo base_url($baitap['source']); ?>"
-                               data-gallery
                                class="grid-thumbnail baiTap"
                                style="background: url('<?php echo base_url($baitap['source']); ?>') 50% 50% no-repeat;background-size:cover">
-
-
                             </a>
                             <?php
                         }

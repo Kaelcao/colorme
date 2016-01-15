@@ -69,4 +69,11 @@ UPDATE `cm_post` p
 set albumid = (select id
 from cm_album where p.studentid = cm_album.studentid and p.lectureOrder = cm_album.lectureOrder )
 
+INSERT INTO `cm_role_assign`(`user_id`, `role_id`)
+(select id,0
+ from cm_user)
 
+ SELECT fullname,facebook FROM `cm_user`
+join cm_role_assign on cm_role_assign.user_id = cm_user.id
+join cm_role on cm_role.id = cm_role_assign.role_id
+where cm_role.title='ta' or cm_role.title = 'teacher'

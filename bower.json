@@ -20,6 +20,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-resource": "~1.4.8"
+    "angular-resource": "~1.4.8",
+    "Materialize": "materialize#~0.97.5"
   }
 }

@@ -15,6 +15,8 @@ class Nhanvien extends CI_Model
     }
 
     /**
+     *
+     *
      * Lay thong tin cua nhan vien
      * @param $id
      * @return array thongtin nhan vien
@@ -35,5 +37,12 @@ class Nhanvien extends CI_Model
     {
         $query = $this->db->get('user');
         return $query->result();
+    }
+    function get_user_by_role($role) {
+      $query_str = " SELECT fullname,facebook,avatar FROM cm_user
+      join cm_role_assign on cm_role_assign.user_id = cm_user.id
+      join cm_role on cm_role.id = cm_role_assign.role_id
+      where cm_role.title='".$role."'";
+      return $this->db->query($query_str)->result_array();
     }
 }
